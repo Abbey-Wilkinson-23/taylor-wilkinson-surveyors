@@ -20,7 +20,8 @@ import logo from '../assets/logo.png'
 const { Content } = Layout
 const { Text } = Typography
 
-const SIDEBAR_BG = '#A8A8A8'
+const SIDEBAR_BG_LIGHT = '#A8A8A8'
+const SIDEBAR_BG_DARK  = '#1c2128'
 const SIDEBAR_WIDTH = 220
 const SIDEBAR_COLLAPSED = 64
 
@@ -43,6 +44,7 @@ export default function AppLayout({ children }) {
   const { user, logout } = useAuth()
   const { dark, toggleDark } = useTheme()
   const [hovered, setHovered] = useState(false)
+  const SIDEBAR_BG = dark ? SIDEBAR_BG_DARK : SIDEBAR_BG_LIGHT
 
   const isAdmin = user?.role === 'admin'
   const menuItems = isAdmin ? [...BASE_ITEMS, ...ADMIN_ITEMS] : BASE_ITEMS
