@@ -82,7 +82,7 @@
   {
     "postcode_area": "AB",
     "name": "GRAHAM & SIBBALD    \n  (615,616, 666)",
-    "surveyor_number": null,
+    "surveyor_number": "615,616, 666",
     "preferred": "",
     "coverage": "10-56",
     "work_types": "R",
@@ -202,7 +202,7 @@
   {
     "postcode_area": "AL",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-10 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -212,7 +212,7 @@
   {
     "postcode_area": "AL",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -232,7 +232,7 @@
   {
     "postcode_area": "AL",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "",
     "coverage": "All (check distance) \nNO LENDING",
     "work_types": "Homebuyers",
@@ -322,7 +322,7 @@
   {
     "postcode_area": "AL",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-4\nQuotable work",
     "work_types": "R / C / GDV",
@@ -362,7 +362,7 @@
   {
     "postcode_area": "AL",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-10 Quotable work only",
     "work_types": "R / C / GDV",
@@ -392,7 +392,7 @@
   {
     "postcode_area": "AL",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-10 (check distance)\nQuotable work for red book",
     "work_types": "R / C / GDV",
@@ -422,7 +422,7 @@
   {
     "postcode_area": "AL",
     "name": "Brown & Co ( 932)",
-    "surveyor_number": null,
+    "surveyor_number": "932",
     "preferred": "",
     "coverage": "5-8 Quotable work only",
     "work_types": "C",
@@ -502,7 +502,7 @@
   {
     "postcode_area": "B",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "77-79",
     "work_types": "R / C / GDV\u2019s",
@@ -542,7 +542,7 @@
   {
     "postcode_area": "B",
     "name": "Carters Surveyors \n(165-166)",
-    "surveyor_number": null,
+    "surveyor_number": "165-166",
     "preferred": "#",
     "coverage": "1-4, 13, 15-17, 48, 60-61, 72-79, 90-95 No low value mortgage vals",
     "work_types": "R",
@@ -592,7 +592,7 @@
   {
     "postcode_area": "B",
     "name": "Brown & Co (189-193)",
-    "surveyor_number": null,
+    "surveyor_number": "189-193",
     "preferred": "",
     "coverage": "37,40,46,75-79,91-95",
     "work_types": "Agricultural",
@@ -832,7 +832,7 @@
   {
     "postcode_area": "B",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-18 (check distance)",
     "work_types": "R / C / GDV",
@@ -1202,7 +1202,7 @@
   {
     "postcode_area": "BA",
     "name": "Vickery Holman (880,881)",
-    "surveyor_number": null,
+    "surveyor_number": "880,881",
     "preferred": "",
     "coverage": "ALL check distance (quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -1252,7 +1252,7 @@
   {
     "postcode_area": "BB",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "1-3, 12",
     "work_types": "R / C / GDV\u2019s",
@@ -1262,7 +1262,7 @@
   {
     "postcode_area": "BB",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "ALL- no PXS or Bridgebank",
     "work_types": "R / C",
@@ -1272,7 +1272,7 @@
   {
     "postcode_area": "BB",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -1292,7 +1292,7 @@
   {
     "postcode_area": "BB",
     "name": "Bradley Hall (321-324)",
-    "surveyor_number": null,
+    "surveyor_number": "321-324",
     "preferred": "",
     "coverage": "ALL \u2013 Check distance",
     "work_types": "R",
@@ -1382,7 +1382,7 @@
   {
     "postcode_area": "BB",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -1402,7 +1402,7 @@
   {
     "postcode_area": "BB",
     "name": "W T Gunson (504-508)",
-    "surveyor_number": null,
+    "surveyor_number": "504-508",
     "preferred": "",
     "coverage": "0-18",
     "work_types": "R / C / GDV\u2019s",
@@ -1492,7 +1492,7 @@
   {
     "postcode_area": "BD",
     "name": "Tom Snook (41, 43 & 44)",
-    "surveyor_number": null,
+    "surveyor_number": "41, 43 & 44",
     "preferred": "",
     "coverage": "1, 3-23, 97-99",
     "work_types": "R / C / GDV\u2019s",
@@ -1522,7 +1522,7 @@
   {
     "postcode_area": "BD",
     "name": "Bramleys (90-92&127)",
-    "surveyor_number": null,
+    "surveyor_number": "90-92&127",
     "preferred": "",
     "coverage": "4, 11-12, 19",
     "work_types": "C",
@@ -1542,7 +1542,7 @@
   {
     "postcode_area": "BD",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -1552,7 +1552,7 @@
   {
     "postcode_area": "BD",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -1602,7 +1602,7 @@
   {
     "postcode_area": "BD",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -1722,7 +1722,7 @@
   {
     "postcode_area": "BH",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "23-25 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -1862,7 +1862,7 @@
   {
     "postcode_area": "BL",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "0-4, 5-7, 8,9",
     "work_types": "R / C / GDV\u2019s",
@@ -1872,7 +1872,7 @@
   {
     "postcode_area": "BL",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "ALL \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -1882,7 +1882,7 @@
   {
     "postcode_area": "BL",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -2002,7 +2002,7 @@
   {
     "postcode_area": "BL",
     "name": "W T Gunson (504-508)",
-    "surveyor_number": null,
+    "surveyor_number": "504-508",
     "preferred": "",
     "coverage": "0-19",
     "work_types": "R / C / GDV\u2019s",
@@ -2092,7 +2092,7 @@
   {
     "postcode_area": "BN",
     "name": "3J\u2019s (67-69)",
-    "surveyor_number": null,
+    "surveyor_number": "67-69",
     "preferred": "",
     "coverage": "1-3, 5-16, 17-18, 25, 41-44, 45 (Only covering 1-3, 6,7,9,10,25,41-43,45 unless can quote for the job)",
     "work_types": "Homebuyers",
@@ -2112,7 +2112,7 @@
   {
     "postcode_area": "BN",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1, 5-18, 20-27, 42-45 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -2332,7 +2332,7 @@
   {
     "postcode_area": "BN",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-3,5-9,27",
     "work_types": "R / C / GDV",
@@ -2392,7 +2392,7 @@
   {
     "postcode_area": "BN",
     "name": "Green Oak Surveyors\n (942 & 946)",
-    "surveyor_number": null,
+    "surveyor_number": "942 & 946",
     "preferred": "",
     "coverage": "4-99",
     "work_types": "R / C / GDV\u2019s",
@@ -2452,7 +2452,7 @@
   {
     "postcode_area": "BR",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-8 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -2592,7 +2592,7 @@
   {
     "postcode_area": "BR",
     "name": "MC & Co Surveyors \n(480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -2632,7 +2632,7 @@
   {
     "postcode_area": "BR",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-6",
     "work_types": "R / C / GDV",
@@ -2672,7 +2672,7 @@
   {
     "postcode_area": "BR",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-8 Quotable work only",
     "work_types": "R / C / GDV",
@@ -2712,7 +2712,7 @@
   {
     "postcode_area": "BR",
     "name": "Quantum (728 & 733)",
-    "surveyor_number": null,
+    "surveyor_number": "728 & 733",
     "preferred": "##",
     "coverage": "1-8",
     "work_types": "R / C",
@@ -2742,7 +2742,7 @@
   {
     "postcode_area": "BR",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-8 (check distance)",
     "work_types": "R / C / GDV",
@@ -2762,7 +2762,7 @@
   {
     "postcode_area": "BR",
     "name": "Green Oak Surveyors \n(942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-8",
     "work_types": "R / C / GDV\u2019s",
@@ -3012,7 +3012,7 @@
   {
     "postcode_area": "BS",
     "name": "Tayler & Fletcher (556-559)",
-    "surveyor_number": null,
+    "surveyor_number": "556-559",
     "preferred": "",
     "coverage": "Some check distance and discuss fee",
     "work_types": "R / C / GDV\u2019s",
@@ -3142,7 +3142,7 @@
   {
     "postcode_area": "BS",
     "name": "Maggs and Allen (775-776)",
-    "surveyor_number": null,
+    "surveyor_number": "775-776",
     "preferred": "",
     "coverage": "1-49 Quotable work only",
     "work_types": "R / C",
@@ -3172,7 +3172,7 @@
   {
     "postcode_area": "BS",
     "name": "Vickery Holman (880,881)",
-    "surveyor_number": null,
+    "surveyor_number": "880,881",
     "preferred": "",
     "coverage": "ALL check distance (quotable work only)",
     "work_types": "R / C / GDV\u2019s",
@@ -3212,7 +3212,7 @@
   {
     "postcode_area": "BT",
     "name": "Brankins (402-403)",
-    "surveyor_number": null,
+    "surveyor_number": "402-403",
     "preferred": "",
     "coverage": "44, 49, 51-57",
     "work_types": "R / C",
@@ -3292,7 +3292,7 @@
   {
     "postcode_area": "CA",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -3312,7 +3312,7 @@
   {
     "postcode_area": "CA",
     "name": "Edwin Thompson (221-226)",
-    "surveyor_number": null,
+    "surveyor_number": "221-226",
     "preferred": "",
     "coverage": "1-8,9-10,11-14,15,18-25,26,27-28,95 \nQuotable work only",
     "work_types": "R / C",
@@ -3442,7 +3442,7 @@
   {
     "postcode_area": "CB",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1, 9-11 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -3462,7 +3462,7 @@
   {
     "postcode_area": "CB",
     "name": "KWD (158-161)",
-    "surveyor_number": null,
+    "surveyor_number": "158-161",
     "preferred": "",
     "coverage": "9-11",
     "work_types": "R / GDV\u2019s",
@@ -3482,7 +3482,7 @@
   {
     "postcode_area": "CB",
     "name": "Matthews & Goodman (227\u2013231)",
-    "surveyor_number": null,
+    "surveyor_number": "227\u2013231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -3612,7 +3612,7 @@
   {
     "postcode_area": "CB",
     "name": "Watsons (858 & 871)",
-    "surveyor_number": null,
+    "surveyor_number": "858 & 871",
     "preferred": "#",
     "coverage": "1-11, 21-25 Quotable work",
     "work_types": "R",
@@ -3662,7 +3662,7 @@
   {
     "postcode_area": "CB",
     "name": "Brown & Co (930-932)",
-    "surveyor_number": null,
+    "surveyor_number": "930-932",
     "preferred": "",
     "coverage": "1-11, 22-25 Quotable work",
     "work_types": "R / C / GDV\u2019s",
@@ -3782,7 +3782,7 @@
   {
     "postcode_area": "CF",
     "name": "Linnells (168-170)",
-    "surveyor_number": null,
+    "surveyor_number": "168-170",
     "preferred": "",
     "coverage": "All check distance and fee",
     "work_types": "R / C / GDV\u2019s",
@@ -3902,7 +3902,7 @@
   {
     "postcode_area": "CF",
     "name": "Bruton Knowles CARDIFF (693-694)",
-    "surveyor_number": null,
+    "surveyor_number": "693-694",
     "preferred": "",
     "coverage": "All - check distance Quotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -3922,7 +3922,7 @@
   {
     "postcode_area": "CF",
     "name": "Astley Samuel Leeder\n                  (896-900)",
-    "surveyor_number": null,
+    "surveyor_number": "896-900",
     "preferred": "",
     "coverage": "31-36, 44",
     "work_types": "R / C / GDV\u2019s",
@@ -3942,7 +3942,7 @@
   {
     "postcode_area": "CH",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "25-28, 30,32,41-46, 48,49, 62 & 63",
     "work_types": "R / C / GDV\u2019s",
@@ -4012,7 +4012,7 @@
   {
     "postcode_area": "CH",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -4092,7 +4092,7 @@
   {
     "postcode_area": "CH",
     "name": "Smith & Sons (386 \u2013 387)",
-    "surveyor_number": null,
+    "surveyor_number": "386 \u2013 387",
     "preferred": "#",
     "coverage": "41-49, 61-66",
     "work_types": "R / C",
@@ -4132,7 +4132,7 @@
   {
     "postcode_area": "CH",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -4142,7 +4142,7 @@
   {
     "postcode_area": "CH",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-99",
     "work_types": "R / C / GDV\u2019s",
@@ -4232,7 +4232,7 @@
   {
     "postcode_area": "CM",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "0-9, 11-24 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -4262,7 +4262,7 @@
   {
     "postcode_area": "CM",
     "name": "KWD (158-161)",
-    "surveyor_number": null,
+    "surveyor_number": "158-161",
     "preferred": "",
     "coverage": "1-9, 11-13, 15, 21-24",
     "work_types": "R / GDV\u2019s",
@@ -4292,7 +4292,7 @@
   {
     "postcode_area": "CM",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -4472,7 +4472,7 @@
   {
     "postcode_area": "CM",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "13-15",
     "work_types": "R / C / GDV",
@@ -4512,7 +4512,7 @@
   {
     "postcode_area": "CM",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "13-16 Quotable work only",
     "work_types": "R / C / GDV",
@@ -4642,7 +4642,7 @@
   {
     "postcode_area": "CM",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "0-92",
     "work_types": "R / C / GDV\u2019s",
@@ -4722,7 +4722,7 @@
   {
     "postcode_area": "CO",
     "name": "Watsons (871- ON HOLD )",
-    "surveyor_number": null,
+    "surveyor_number": "871- ON HOLD",
     "preferred": "",
     "coverage": "4, 6-10 Quotable work",
     "work_types": "R / C",
@@ -4752,7 +4752,7 @@
   {
     "postcode_area": "CO",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-16 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -4782,7 +4782,7 @@
   {
     "postcode_area": "CO",
     "name": "KWD (158-161)",
-    "surveyor_number": null,
+    "surveyor_number": "158-161",
     "preferred": "",
     "coverage": "1-16",
     "work_types": "R / GDV\u2019s",
@@ -4812,7 +4812,7 @@
   {
     "postcode_area": "CO",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -5072,7 +5072,7 @@
   {
     "postcode_area": "CR",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "2-9, 20, 44, 90 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -5192,7 +5192,7 @@
   {
     "postcode_area": "CR",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "0,2-8",
     "work_types": "R / C / GDV",
@@ -5262,7 +5262,7 @@
   {
     "postcode_area": "CR",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -5302,7 +5302,7 @@
   {
     "postcode_area": "CR",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "0-8 Quotable work only",
     "work_types": "R / C / GDV",
@@ -5392,7 +5392,7 @@
   {
     "postcode_area": "CR",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "0-8 (check distance)",
     "work_types": "R / C / GDV",
@@ -5412,7 +5412,7 @@
   {
     "postcode_area": "CR",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "0-90",
     "work_types": "R / C / GDV\u2019s",
@@ -5452,7 +5452,7 @@
   {
     "postcode_area": "CT",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-21 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -5482,7 +5482,7 @@
   {
     "postcode_area": "CT",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -5532,7 +5532,7 @@
   {
     "postcode_area": "CT",
     "name": "David Humphery ( 545) CKM",
-    "surveyor_number": null,
+    "surveyor_number": "545",
     "preferred": "",
     "coverage": "1-21",
     "work_types": "R",
@@ -5572,7 +5572,7 @@
   {
     "postcode_area": "CT",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1,4",
     "work_types": "R / C / GDV",
@@ -5672,7 +5672,7 @@
   {
     "postcode_area": "CV",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "8-11, 35",
     "work_types": "R / C / GDV\u2019s",
@@ -5702,7 +5702,7 @@
   {
     "postcode_area": "CV",
     "name": "Carters Surveyors (163-166)",
-    "surveyor_number": null,
+    "surveyor_number": "163-166",
     "preferred": "",
     "coverage": "8,31-37 will cover 2-47",
     "work_types": "R",
@@ -5732,7 +5732,7 @@
   {
     "postcode_area": "CV",
     "name": "Brown & Co (189-193)",
-    "surveyor_number": null,
+    "surveyor_number": "189-193",
     "preferred": "",
     "coverage": "9-11,13",
     "work_types": "Agricultural",
@@ -5752,7 +5752,7 @@
   {
     "postcode_area": "CV",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -5942,7 +5942,7 @@
   {
     "postcode_area": "CV",
     "name": "Tayler & Fletcher (556-559, 574)",
-    "surveyor_number": null,
+    "surveyor_number": "556-559, 574",
     "preferred": "",
     "coverage": "36, 37 & some others check distance and discuss fee",
     "work_types": "R / C / GDV\u2019s",
@@ -5992,7 +5992,7 @@
   {
     "postcode_area": "CV",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-47 (check distance)",
     "work_types": "R / C / GDV",
@@ -6012,7 +6012,7 @@
   {
     "postcode_area": "CV",
     "name": "Howkins & Harrison (842-843&850)",
-    "surveyor_number": null,
+    "surveyor_number": "842-843&850",
     "preferred": "",
     "coverage": "ALL Quotable work only",
     "work_types": "R",
@@ -6102,7 +6102,7 @@
   {
     "postcode_area": "CW",
     "name": "Gibson Abbott (62-64)",
-    "surveyor_number": null,
+    "surveyor_number": "62-64",
     "preferred": "",
     "coverage": "All- NO LENDING",
     "work_types": "R",
@@ -6132,7 +6132,7 @@
   {
     "postcode_area": "CW",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -6142,7 +6142,7 @@
   {
     "postcode_area": "CW",
     "name": "Lowe & Elliott (239-240)",
-    "surveyor_number": null,
+    "surveyor_number": "239-240",
     "preferred": "#",
     "coverage": "1-9 (min fee \u00a3200 + VAT)",
     "work_types": "R / C / GDV\u2019s",
@@ -6262,7 +6262,7 @@
   {
     "postcode_area": "CW",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -6272,7 +6272,7 @@
   {
     "postcode_area": "CW",
     "name": "W T Gunson (504-508)",
-    "surveyor_number": null,
+    "surveyor_number": "504-508",
     "preferred": "",
     "coverage": "1-12",
     "work_types": "R / C / GDV\u2019s",
@@ -6412,7 +6412,7 @@
   {
     "postcode_area": "DA",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-18 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -6472,7 +6472,7 @@
   {
     "postcode_area": "DA",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -6572,7 +6572,7 @@
   {
     "postcode_area": "DA",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -6602,7 +6602,7 @@
   {
     "postcode_area": "DA",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-14",
     "work_types": "R / C / GDV",
@@ -6632,7 +6632,7 @@
   {
     "postcode_area": "DA",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-18 Quotable work only",
     "work_types": "R / C / GDV",
@@ -6712,7 +6712,7 @@
   {
     "postcode_area": "DA",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-18 (check distance)",
     "work_types": "R / C / GDV",
@@ -6752,7 +6752,7 @@
   {
     "postcode_area": "DA",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-18",
     "work_types": "R / C / GDV\u2019s",
@@ -6852,7 +6852,7 @@
   {
     "postcode_area": "DD",
     "name": "GRAHAM & SIBBALD (605-610)",
-    "surveyor_number": null,
+    "surveyor_number": "605-610",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R",
@@ -6942,7 +6942,7 @@
   {
     "postcode_area": "DE",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "1, 3-7, 11-15, 21-24, 45, 55-56, 65, 72-75",
     "work_types": "R / C / GDV\u2019s",
@@ -6982,7 +6982,7 @@
   {
     "postcode_area": "DE",
     "name": "Gibson Abbott (62-64)",
-    "surveyor_number": null,
+    "surveyor_number": "62-64",
     "preferred": "",
     "coverage": "All \u2013 NO LENDING",
     "work_types": "R",
@@ -7322,7 +7322,7 @@
   {
     "postcode_area": "DE",
     "name": "Brown & Co (929&933-934)",
-    "surveyor_number": null,
+    "surveyor_number": "929&933-934",
     "preferred": "",
     "coverage": "1-7, 11-16, 21-24, 45, 55-56, 65, 72-75 Quotable work only",
     "work_types": "Agricultural",
@@ -7382,7 +7382,7 @@
   {
     "postcode_area": "DG",
     "name": "Edwin Thompson (220-228)",
-    "surveyor_number": null,
+    "surveyor_number": "220-228",
     "preferred": "",
     "coverage": "11-13,14,16",
     "work_types": "R / C",
@@ -7602,7 +7602,7 @@
   {
     "postcode_area": "DH",
     "name": "Bradley Hall (321-324 & 326)",
-    "surveyor_number": null,
+    "surveyor_number": "321-324 & 326",
     "preferred": "",
     "coverage": "1-9\nQuotable work",
     "work_types": "R",
@@ -7802,7 +7802,7 @@
   {
     "postcode_area": "DL",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -7852,7 +7852,7 @@
   {
     "postcode_area": "DL",
     "name": "Bradley Hall (321-324 & 326)",
-    "surveyor_number": null,
+    "surveyor_number": "321-324 & 326",
     "preferred": "",
     "coverage": "1-17",
     "work_types": "R",
@@ -7992,7 +7992,7 @@
   {
     "postcode_area": "DN",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -8002,7 +8002,7 @@
   {
     "postcode_area": "DN",
     "name": "Paul Fox Surveyors (115-119)",
-    "surveyor_number": null,
+    "surveyor_number": "115-119",
     "preferred": "",
     "coverage": "1-41 Own fee scale for short forms, quotable work for anything else",
     "work_types": "R / C / GDV\u2019s",
@@ -8012,7 +8012,7 @@
   {
     "postcode_area": "DN",
     "name": "Jackson Green Preston (134,196)",
-    "surveyor_number": null,
+    "surveyor_number": "134,196",
     "preferred": "#",
     "coverage": "15-20,31-41",
     "work_types": "R / C",
@@ -8022,7 +8022,7 @@
   {
     "postcode_area": "DN",
     "name": "Pygott & Crone (149-151)",
-    "surveyor_number": null,
+    "surveyor_number": "149-151",
     "preferred": "",
     "coverage": "22 \nQuotable work only\nno second lending",
     "work_types": "R",
@@ -8032,7 +8032,7 @@
   {
     "postcode_area": "DN",
     "name": "Pygott & Crone (149-150)",
-    "surveyor_number": null,
+    "surveyor_number": "149-150",
     "preferred": "",
     "coverage": "15-16,18,20-21.31-41 Quotable work only\nno second lending",
     "work_types": "R / C",
@@ -8042,7 +8042,7 @@
   {
     "postcode_area": "DN",
     "name": "Pygott & Crone (152-154)",
-    "surveyor_number": null,
+    "surveyor_number": "152-154",
     "preferred": "",
     "coverage": "9-10,15-22, 31-41 Quotable work only\nno second lending",
     "work_types": "C",
@@ -8062,7 +8062,7 @@
   {
     "postcode_area": "DN",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -8072,7 +8072,7 @@
   {
     "postcode_area": "DN",
     "name": "Brown & Co (186 & 194)",
-    "surveyor_number": null,
+    "surveyor_number": "186 & 194",
     "preferred": "",
     "coverage": "21,22",
     "work_types": "R",
@@ -8122,7 +8122,7 @@
   {
     "postcode_area": "DN",
     "name": "Bradley Hall (342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R",
@@ -8332,7 +8332,7 @@
   {
     "postcode_area": "DN",
     "name": "Brown & Co (929&935-936)",
-    "surveyor_number": null,
+    "surveyor_number": "929&935-936",
     "preferred": "",
     "coverage": "1-22, 31-41 \nQuotable work only",
     "work_types": "Agricultural",
@@ -8792,7 +8792,7 @@
   {
     "postcode_area": "E",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-18, 20, 98, 1W (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -8962,7 +8962,7 @@
   {
     "postcode_area": "E",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-3,5-18",
     "work_types": "R / C / GDV",
@@ -9102,7 +9102,7 @@
   {
     "postcode_area": "E",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-18,13820 Quotable work only",
     "work_types": "R / C / GDV",
@@ -9172,7 +9172,7 @@
   {
     "postcode_area": "E",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-20 (check distance)",
     "work_types": "R / C / GDV",
@@ -9182,7 +9182,7 @@
   {
     "postcode_area": "E",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-98",
     "work_types": "R / C / GDV\u2019s",
@@ -9342,7 +9342,7 @@
   {
     "postcode_area": "EC",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1A, M, N, P, R, V, Y, \n2A, M, N, P, R, V, Y, \n3A, M, N, P, R, V, \n4A, M , N, P, R, V, Y  (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -9362,7 +9362,7 @@
   {
     "postcode_area": "EC",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "#",
     "coverage": "1-4 Private work & some commercial only",
     "work_types": "Homebuyers",
@@ -9502,7 +9502,7 @@
   {
     "postcode_area": "EC",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-4",
     "work_types": "R / C / GDV",
@@ -9632,7 +9632,7 @@
   {
     "postcode_area": "EC",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-4 (check distance)",
     "work_types": "R / C / GDV",
@@ -9692,7 +9692,7 @@
   {
     "postcode_area": "EC",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-4 Quotable work only",
     "work_types": "R / C / GDV",
@@ -9722,7 +9722,7 @@
   {
     "postcode_area": "EC",
     "name": "Capital Value Surveyors (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "ALL",
     "work_types": "R / C / GDV\u2019s",
@@ -9732,7 +9732,7 @@
   {
     "postcode_area": "EC",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-88",
     "work_types": "R / C / GDV\u2019s",
@@ -9922,7 +9922,7 @@
   {
     "postcode_area": "EH",
     "name": "GRAHAM & SIBBALD (619-622)",
-    "surveyor_number": null,
+    "surveyor_number": "619-622",
     "preferred": "",
     "coverage": "1-46, 47-49 & 51-55 SPLIT W/FALKIRK",
     "work_types": "R",
@@ -10122,7 +10122,7 @@
   {
     "postcode_area": "EN",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-11 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -10282,7 +10282,7 @@
   {
     "postcode_area": "EN",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -10352,7 +10352,7 @@
   {
     "postcode_area": "EN",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-8",
     "work_types": "R / C / GDV",
@@ -10372,7 +10372,7 @@
   {
     "postcode_area": "EN",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-11 Quotable work only",
     "work_types": "R / C / GDV",
@@ -10432,7 +10432,7 @@
   {
     "postcode_area": "EN",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-11 (check distance)",
     "work_types": "R / C / GDV",
@@ -10442,7 +10442,7 @@
   {
     "postcode_area": "EN",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-9",
     "work_types": "R / C / GDV\u2019s",
@@ -10542,7 +10542,7 @@
   {
     "postcode_area": "EX",
     "name": "Abercorn (94, 95, 472)",
-    "surveyor_number": null,
+    "surveyor_number": "94, 95, 472",
     "preferred": "",
     "coverage": "1-5, 10-13, 14-16,17, 18-19, 20-24,31-39 slightly higher fees",
     "work_types": "C",
@@ -10552,7 +10552,7 @@
   {
     "postcode_area": "EX",
     "name": "Miller Commercial (206-212)",
-    "surveyor_number": null,
+    "surveyor_number": "206-212",
     "preferred": "",
     "coverage": "23",
     "work_types": "C",
@@ -10832,7 +10832,7 @@
   {
     "postcode_area": "EX",
     "name": "Vickery Holman (873,876,879,881,921)",
-    "surveyor_number": null,
+    "surveyor_number": "873,876,879,881,921",
     "preferred": "",
     "coverage": "ALL check distance  (Quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -10992,7 +10992,7 @@
   {
     "postcode_area": "FK",
     "name": "GRAHAM & SIBBALD (652-654)",
-    "surveyor_number": null,
+    "surveyor_number": "652-654",
     "preferred": "",
     "coverage": "1-21",
     "work_types": "R",
@@ -11022,7 +11022,7 @@
   {
     "postcode_area": "FY",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "1-6, 8",
     "work_types": "R / C / GDV\u2019s",
@@ -11062,7 +11062,7 @@
   {
     "postcode_area": "FY",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -11072,7 +11072,7 @@
   {
     "postcode_area": "FY",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -11162,7 +11162,7 @@
   {
     "postcode_area": "FY",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-8",
     "work_types": "R / C / GDV\u2019s",
@@ -11322,7 +11322,7 @@
   {
     "postcode_area": "G",
     "name": "GRAHAM & SIBBALD (627-634)",
-    "surveyor_number": null,
+    "surveyor_number": "627-634",
     "preferred": "",
     "coverage": "1-66, 68 SPLIT W/FALKIRK, 69, 76-77, 79-84",
     "work_types": "R",
@@ -11372,7 +11372,7 @@
   {
     "postcode_area": "G",
     "name": "GRAHAM & SIBBALD (646-647)",
-    "surveyor_number": null,
+    "surveyor_number": "646-647",
     "preferred": "",
     "coverage": "78",
     "work_types": "R",
@@ -11492,7 +11492,7 @@
   {
     "postcode_area": "GL",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "7, 56 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -11752,7 +11752,7 @@
   {
     "postcode_area": "GL",
     "name": "Tayler & Fletcher (556-559, 574)",
-    "surveyor_number": null,
+    "surveyor_number": "556-559, 574",
     "preferred": "",
     "coverage": "5-6,7,8-9,12,20,50-56 others covered check distance and discuss fee",
     "work_types": "R / C / GDV\u2019s",
@@ -11812,7 +11812,7 @@
   {
     "postcode_area": "GL",
     "name": "Bruton Knowles GLOUCESTER\n (687-688) (700)",
-    "surveyor_number": "700",
+    "surveyor_number": "687-688",
     "preferred": "",
     "coverage": "All - check distance Quotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -11872,7 +11872,7 @@
   {
     "postcode_area": "GL",
     "name": "Vickery Holman (880,881)",
-    "surveyor_number": null,
+    "surveyor_number": "880,881",
     "preferred": "",
     "coverage": "ALL check distance (quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -11922,7 +11922,7 @@
   {
     "postcode_area": "GU",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-35, 46-47 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -11952,7 +11952,7 @@
   {
     "postcode_area": "GU",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -11972,7 +11972,7 @@
   {
     "postcode_area": "GU",
     "name": "Clarke Gammon Wellers (241-242)",
-    "surveyor_number": null,
+    "surveyor_number": "241-242",
     "preferred": "#",
     "coverage": "1-27,28-34,35,46-47,51-52,95",
     "work_types": "R",
@@ -12012,7 +12012,7 @@
   {
     "postcode_area": "GU",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "##",
     "coverage": "1-4,5-6,7-8,13-20,21-25,46-47,51-52",
     "work_types": "R / C / GDV\u2019s",
@@ -12242,7 +12242,7 @@
   {
     "postcode_area": "GU",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "21,22,24,25",
     "work_types": "R / C / GDV",
@@ -12282,7 +12282,7 @@
   {
     "postcode_area": "GU",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-25 Quotable work only",
     "work_types": "R / C / GDV",
@@ -12332,7 +12332,7 @@
   {
     "postcode_area": "GU",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-52 (check distance)",
     "work_types": "R / C / GDV",
@@ -12382,7 +12382,7 @@
   {
     "postcode_area": "GU",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-95",
     "work_types": "R / C / GDV\u2019s",
@@ -12502,7 +12502,7 @@
   {
     "postcode_area": "HA",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "0-9 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -12702,7 +12702,7 @@
   {
     "postcode_area": "HA",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "0-9",
     "work_types": "R / C / GDV",
@@ -12732,7 +12732,7 @@
   {
     "postcode_area": "HA",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "0-9 Quotable work only",
     "work_types": "R / C / GDV",
@@ -12812,7 +12812,7 @@
   {
     "postcode_area": "HA",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "0-9 (check distance)",
     "work_types": "R / C / GDV",
@@ -12832,7 +12832,7 @@
   {
     "postcode_area": "HA",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "0-9",
     "work_types": "R / C / GDV\u2019s",
@@ -12892,7 +12892,7 @@
   {
     "postcode_area": "HD",
     "name": "Bramleys (90-92&127)",
-    "surveyor_number": null,
+    "surveyor_number": "90-92&127",
     "preferred": "",
     "coverage": "1-9",
     "work_types": "C",
@@ -12912,7 +12912,7 @@
   {
     "postcode_area": "HD",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -13102,7 +13102,7 @@
   {
     "postcode_area": "HG",
     "name": "Tom Snook (40,41, 43, 45)",
-    "surveyor_number": null,
+    "surveyor_number": "40,41, 43, 45",
     "preferred": "",
     "coverage": "1-3, 5",
     "work_types": "R / C / GDV\u2019s",
@@ -13182,7 +13182,7 @@
   {
     "postcode_area": "HG",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -13192,7 +13192,7 @@
   {
     "postcode_area": "HG",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -13232,7 +13232,7 @@
   {
     "postcode_area": "HG",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R",
@@ -13392,7 +13392,7 @@
   {
     "postcode_area": "HP",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-18, 20-23, 27 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -13562,7 +13562,7 @@
   {
     "postcode_area": "HP",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-4",
     "work_types": "R / C / GDV",
@@ -13592,7 +13592,7 @@
   {
     "postcode_area": "HP",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-23 Quotable work only",
     "work_types": "R / C / GDV",
@@ -13662,7 +13662,7 @@
   {
     "postcode_area": "HP",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-27 (check distance)",
     "work_types": "R / C / GDV",
@@ -14042,7 +14042,7 @@
   {
     "postcode_area": "HU",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -14062,7 +14062,7 @@
   {
     "postcode_area": "HU",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -14162,7 +14162,7 @@
   {
     "postcode_area": "HX",
     "name": "Bramleys (90-92& 127)",
-    "surveyor_number": null,
+    "surveyor_number": "90-92& 127",
     "preferred": "",
     "coverage": "1-7",
     "work_types": "C",
@@ -14182,7 +14182,7 @@
   {
     "postcode_area": "HX",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2014 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -14192,7 +14192,7 @@
   {
     "postcode_area": "HX",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -14242,7 +14242,7 @@
   {
     "postcode_area": "HX",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R",
@@ -14342,7 +14342,7 @@
   {
     "postcode_area": "IG",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -14402,7 +14402,7 @@
   {
     "postcode_area": "IG",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-11 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -14542,7 +14542,7 @@
   {
     "postcode_area": "IG",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -14592,7 +14592,7 @@
   {
     "postcode_area": "IG",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R / C / GDV",
@@ -14602,7 +14602,7 @@
   {
     "postcode_area": "IG",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-10 Quotable work only",
     "work_types": "R / C / GDV",
@@ -14662,7 +14662,7 @@
   {
     "postcode_area": "IG",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-11 (check distance)",
     "work_types": "R / C / GDV",
@@ -14672,7 +14672,7 @@
   {
     "postcode_area": "IG",
     "name": "Green Oak Surveyors (916 &942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "916 &942-944",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R / C / GDV\u2019s",
@@ -14812,7 +14812,7 @@
   {
     "postcode_area": "IP",
     "name": "KWD (158-161)",
-    "surveyor_number": null,
+    "surveyor_number": "158-161",
     "preferred": "",
     "coverage": "1-17, 19-23, 28-33\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -14852,7 +14852,7 @@
   {
     "postcode_area": "IP",
     "name": "Brown & Co (179 & 180)",
-    "surveyor_number": null,
+    "surveyor_number": "179 & 180",
     "preferred": "",
     "coverage": "25",
     "work_types": "R / C",
@@ -15032,7 +15032,7 @@
   {
     "postcode_area": "IP",
     "name": "Watsons \n(20, 22,25, 28, 858,867 &)",
-    "surveyor_number": null,
+    "surveyor_number": "20, 22,25, 28, 858,867 &",
     "preferred": "",
     "coverage": "1-11, 14, 22 \u2013 33, 37 Quotable work only",
     "work_types": "R",
@@ -15042,7 +15042,7 @@
   {
     "postcode_area": "IP",
     "name": "Brown & Co (930&931& 938)",
-    "surveyor_number": null,
+    "surveyor_number": "930&931& 938",
     "preferred": "",
     "coverage": "1-33 Quotable work",
     "work_types": "R / C / GDV\u2019s",
@@ -15102,7 +15102,7 @@
   {
     "postcode_area": "IV",
     "name": "GRAHAM & SIBBALD (636-641)",
-    "surveyor_number": null,
+    "surveyor_number": "636-641",
     "preferred": "",
     "coverage": "1-28, 30-31, 36, 63",
     "work_types": "R",
@@ -15282,7 +15282,7 @@
   {
     "postcode_area": "KT",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1--24 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -15302,7 +15302,7 @@
   {
     "postcode_area": "KT",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -15322,7 +15322,7 @@
   {
     "postcode_area": "KT",
     "name": "Clarke Gammon Wellers (241-242)",
-    "surveyor_number": null,
+    "surveyor_number": "241-242",
     "preferred": "#",
     "coverage": "1,3-7,8-18,19,20-24",
     "work_types": "R",
@@ -15562,7 +15562,7 @@
   {
     "postcode_area": "KT",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -15612,7 +15612,7 @@
   {
     "postcode_area": "KT",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-16,22-24",
     "work_types": "R / C / GDV",
@@ -15642,7 +15642,7 @@
   {
     "postcode_area": "KT",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-24 Quotable work only",
     "work_types": "R / C / GDV",
@@ -15742,7 +15742,7 @@
   {
     "postcode_area": "KT",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-24",
     "work_types": "R / C / GDV\u2019s",
@@ -15932,7 +15932,7 @@
   {
     "postcode_area": "KY",
     "name": "GRAHAM & SIBBALD (649,650)",
-    "surveyor_number": null,
+    "surveyor_number": "649,650",
     "preferred": "",
     "coverage": "13 SPLIT W/KIRKALDY",
     "work_types": "R",
@@ -15972,7 +15972,7 @@
   {
     "postcode_area": "L",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "1-9,10-30, 31-33, 34-36, 37-40, 67-69",
     "work_types": "R / C / GDV\u2019s",
@@ -16032,7 +16032,7 @@
   {
     "postcode_area": "L",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -16142,7 +16142,7 @@
   {
     "postcode_area": "L",
     "name": "Smith & Sons (386-387)",
-    "surveyor_number": null,
+    "surveyor_number": "386-387",
     "preferred": "#",
     "coverage": "ALL",
     "work_types": "R / C",
@@ -16172,7 +16172,7 @@
   {
     "postcode_area": "L",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -16202,7 +16202,7 @@
   {
     "postcode_area": "L",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-80",
     "work_types": "R / C / GDV\u2019s",
@@ -16272,7 +16272,7 @@
   {
     "postcode_area": "LA",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "1-3",
     "work_types": "R / C / GDV\u2019s",
@@ -16302,7 +16302,7 @@
   {
     "postcode_area": "LA",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -16332,7 +16332,7 @@
   {
     "postcode_area": "LA",
     "name": "Edwin Thompson (220-226)",
-    "surveyor_number": null,
+    "surveyor_number": "220-226",
     "preferred": "",
     "coverage": "8-9,17,19-21,22,23 Quotable work",
     "work_types": "C",
@@ -16612,7 +16612,7 @@
   {
     "postcode_area": "LE",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "1-21, 41, 55, 65, 67, 87, 94, 95",
     "work_types": "R / C / GDV\u2019s",
@@ -16652,7 +16652,7 @@
   {
     "postcode_area": "LE",
     "name": "Brown & Co (189-193)",
-    "surveyor_number": null,
+    "surveyor_number": "189-193",
     "preferred": "",
     "coverage": "1-6,8-11,16,18,19,65,67",
     "work_types": "Agricultural",
@@ -16662,7 +16662,7 @@
   {
     "postcode_area": "LE",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -16842,7 +16842,7 @@
   {
     "postcode_area": "LE",
     "name": "Howkins & Harrison (842-843 & 850)",
-    "surveyor_number": null,
+    "surveyor_number": "842-843 & 850",
     "preferred": "",
     "coverage": "3, 6, 9-12, 16-17, 19, 55, 65, 67, 94 Quotable work only",
     "work_types": "R / C",
@@ -16882,7 +16882,7 @@
   {
     "postcode_area": "LE",
     "name": "Brown & Co (933-935)",
-    "surveyor_number": null,
+    "surveyor_number": "933-935",
     "preferred": "",
     "coverage": "7, 12-17 Quotable work only",
     "work_types": "C / GDV\u2019s",
@@ -17052,7 +17052,7 @@
   {
     "postcode_area": "LL",
     "name": "Geoffrey Butterworth (737&754&762)",
-    "surveyor_number": null,
+    "surveyor_number": "737&754&762",
     "preferred": "",
     "coverage": "22 \u2013 34 16-19, 53, 54, 58-77 Quotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -17122,7 +17122,7 @@
   {
     "postcode_area": "LN",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "1-13",
     "work_types": "R / C / GDV\u2019s",
@@ -17152,7 +17152,7 @@
   {
     "postcode_area": "LN",
     "name": "Paul Fox Surveyors (115-119)",
-    "surveyor_number": null,
+    "surveyor_number": "115-119",
     "preferred": "",
     "coverage": "1-13 Own fee scale for short forms, quotable work for anything else",
     "work_types": "R / C / GDV\u2019s",
@@ -17162,7 +17162,7 @@
   {
     "postcode_area": "LN",
     "name": "Jackson Green & Preston (134,196)",
-    "surveyor_number": null,
+    "surveyor_number": "134,196",
     "preferred": "#",
     "coverage": "7-11",
     "work_types": "R / C",
@@ -17172,7 +17172,7 @@
   {
     "postcode_area": "LN",
     "name": "Pygottt & Crone (149-151)",
-    "surveyor_number": null,
+    "surveyor_number": "149-151",
     "preferred": "#",
     "coverage": "1,4-6,10\nQuotable work only\nno second lending",
     "work_types": "R",
@@ -17182,7 +17182,7 @@
   {
     "postcode_area": "LN",
     "name": "Pygott & Crone (149-150)",
-    "surveyor_number": null,
+    "surveyor_number": "149-150",
     "preferred": "",
     "coverage": "2-3,7-9,11-13 \nQuotable work only\nno second lending",
     "work_types": "R / C",
@@ -17192,7 +17192,7 @@
   {
     "postcode_area": "LN",
     "name": "Pygott & Crone (152-154)",
-    "surveyor_number": null,
+    "surveyor_number": "152-154",
     "preferred": "",
     "coverage": "1-13  \nQuotable work only\nno second lending",
     "work_types": "C",
@@ -17342,7 +17342,7 @@
   {
     "postcode_area": "LN",
     "name": "Brown & Co (929, 933&935)",
-    "surveyor_number": null,
+    "surveyor_number": "929, 933&935",
     "preferred": "",
     "coverage": "1\u201413 Quotable work only",
     "work_types": "Agricultural",
@@ -17372,7 +17372,7 @@
   {
     "postcode_area": "LS",
     "name": "Tom Snook (41, 43 & 45)",
-    "surveyor_number": null,
+    "surveyor_number": "41, 43 & 45",
     "preferred": "",
     "coverage": "1, 9-16, 17, 18-20, 21-23  24-29, 88, 98-99",
     "work_types": "R / C / GDV\u2019s",
@@ -17432,7 +17432,7 @@
   {
     "postcode_area": "LS",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -17442,7 +17442,7 @@
   {
     "postcode_area": "LS",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -17492,7 +17492,7 @@
   {
     "postcode_area": "LS",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R",
@@ -17702,7 +17702,7 @@
   {
     "postcode_area": "LU",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-7 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -17852,7 +17852,7 @@
   {
     "postcode_area": "LU",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-7 (check distance)",
     "work_types": "R / C / GDV",
@@ -17942,7 +17942,7 @@
   {
     "postcode_area": "M",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "6,17, 25-30,38,41,44,45,46",
     "work_types": "R / C / GDV\u2019s",
@@ -17982,7 +17982,7 @@
   {
     "postcode_area": "M",
     "name": "Roberts & Roberts (45,47 & 48)",
-    "surveyor_number": null,
+    "surveyor_number": "45,47 & 48",
     "preferred": "",
     "coverage": "ALL no second lending",
     "work_types": "C",
@@ -18012,7 +18012,7 @@
   {
     "postcode_area": "M",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -18022,7 +18022,7 @@
   {
     "postcode_area": "M",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -18092,7 +18092,7 @@
   {
     "postcode_area": "M",
     "name": "Bradley Hall (298,342)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342",
     "preferred": "",
     "coverage": "1-50",
     "work_types": "R / C / GDV\u2019s",
@@ -18202,7 +18202,7 @@
   {
     "postcode_area": "M",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -18222,7 +18222,7 @@
   {
     "postcode_area": "M",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-90",
     "work_types": "R / C / GDV\u2019s",
@@ -18342,7 +18342,7 @@
   {
     "postcode_area": "ME",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-20 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -18412,7 +18412,7 @@
   {
     "postcode_area": "ME",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -18562,7 +18562,7 @@
   {
     "postcode_area": "ME",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-8,10-20",
     "work_types": "R / C / GDV",
@@ -18592,7 +18592,7 @@
   {
     "postcode_area": "ME",
     "name": "London Surveyors \n(670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-19 Quotable work only",
     "work_types": "R / C / GDV",
@@ -18642,7 +18642,7 @@
   {
     "postcode_area": "ME",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-20 (check distance)",
     "work_types": "R / C / GDV",
@@ -18672,7 +18672,7 @@
   {
     "postcode_area": "ME",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-99",
     "work_types": "R / C / GDV\u2019s",
@@ -18762,7 +18762,7 @@
   {
     "postcode_area": "MK",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "13, 17-19, 40-45 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -18812,7 +18812,7 @@
   {
     "postcode_area": "MK",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "Home postcode 21 miles away \n1-17,18, 19,77",
     "work_types": "R / C / GDV\u2019s",
@@ -18922,7 +18922,7 @@
   {
     "postcode_area": "MK",
     "name": "Underwood Surveyors (707-709)",
-    "surveyor_number": null,
+    "surveyor_number": "707-709",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -18952,7 +18952,7 @@
   {
     "postcode_area": "MK",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-46 (check distance)",
     "work_types": "R / C / GDV",
@@ -19002,7 +19002,7 @@
   {
     "postcode_area": "MK",
     "name": "Brown & Co (928-932)",
-    "surveyor_number": null,
+    "surveyor_number": "928-932",
     "preferred": "",
     "coverage": "1-19, 40-46, 77 Quotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -19202,7 +19202,7 @@
   {
     "postcode_area": "N",
     "name": "Trend & Thomas (98-99)",
-    "surveyor_number": null,
+    "surveyor_number": "98-99",
     "preferred": "",
     "coverage": "3, 5-6, 12, 20 check distance",
     "work_types": "R",
@@ -19242,7 +19242,7 @@
   {
     "postcode_area": "N",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-22, N1C, P (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -19262,7 +19262,7 @@
   {
     "postcode_area": "N",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance), 1C",
     "work_types": "R / C / GDV\u2019s",
@@ -19272,7 +19272,7 @@
   {
     "postcode_area": "N",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "#",
     "coverage": "All",
     "work_types": "Homebuyers",
@@ -19462,7 +19462,7 @@
   {
     "postcode_area": "N",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-22",
     "work_types": "R / C / GDV",
@@ -19542,7 +19542,7 @@
   {
     "postcode_area": "N",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -19652,7 +19652,7 @@
   {
     "postcode_area": "N",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-22 Quotable work only",
     "work_types": "R / C / GDV",
@@ -19722,7 +19722,7 @@
   {
     "postcode_area": "N",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-22 (check distance)",
     "work_types": "R / C / GDV",
@@ -19732,7 +19732,7 @@
   {
     "postcode_area": "N",
     "name": "Capital Value Surveyors (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "1-22",
     "work_types": "R / C / GDV\u2019s",
@@ -19762,7 +19762,7 @@
   {
     "postcode_area": "N",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1, 3-8, 22, 81",
     "work_types": "R / C / GDV\u2019s",
@@ -19932,7 +19932,7 @@
   {
     "postcode_area": "NE",
     "name": "Edwin Thompson (221-226)",
-    "surveyor_number": null,
+    "surveyor_number": "221-226",
     "preferred": "",
     "coverage": "49,67-69,70-71,",
     "work_types": "R / C",
@@ -19962,7 +19962,7 @@
   {
     "postcode_area": "NE",
     "name": "Bradley Hall (321-324 & 326)",
-    "surveyor_number": null,
+    "surveyor_number": "321-324 & 326",
     "preferred": "",
     "coverage": "1-43, 61-64",
     "work_types": "R",
@@ -20142,7 +20142,7 @@
   {
     "postcode_area": "NG",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "1-25, 31-34, 70, 80, 90",
     "work_types": "R / C / GDV\u2019s",
@@ -20172,7 +20172,7 @@
   {
     "postcode_area": "NG",
     "name": "Pygott & Crone (149 & 151)",
-    "surveyor_number": null,
+    "surveyor_number": "149 & 151",
     "preferred": "",
     "coverage": "12-14,22-25,31-34 \nQuotable work only\nno second lending",
     "work_types": "R",
@@ -20182,7 +20182,7 @@
   {
     "postcode_area": "NG",
     "name": "Pygott & Crone (152-154)",
-    "surveyor_number": null,
+    "surveyor_number": "152-154",
     "preferred": "",
     "coverage": "12-14,22-25,31-34 \nQuotable work only\nno second lending",
     "work_types": "C",
@@ -20192,7 +20192,7 @@
   {
     "postcode_area": "NG",
     "name": "Brown & Co (186 & 194)",
-    "surveyor_number": null,
+    "surveyor_number": "186 & 194",
     "preferred": "",
     "coverage": "1,2",
     "work_types": "R",
@@ -20242,7 +20242,7 @@
   {
     "postcode_area": "NG",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -20492,7 +20492,7 @@
   {
     "postcode_area": "NG",
     "name": "Brown & Co (929&933-936&938)",
-    "surveyor_number": null,
+    "surveyor_number": "929&933-936&938",
     "preferred": "",
     "coverage": "1-3, 5-25, 31-34 Quotable work only",
     "work_types": "Agricultural",
@@ -20612,7 +20612,7 @@
   {
     "postcode_area": "NN",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "10, 13, 29 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -20642,7 +20642,7 @@
   {
     "postcode_area": "NN",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -20652,7 +20652,7 @@
   {
     "postcode_area": "NN",
     "name": "Brown & Co (189-193)",
-    "surveyor_number": null,
+    "surveyor_number": "189-193",
     "preferred": "",
     "coverage": "3,16",
     "work_types": "Agricultural",
@@ -20722,7 +20722,7 @@
   {
     "postcode_area": "NN",
     "name": "Underwood Surveyors (707-709)",
-    "surveyor_number": null,
+    "surveyor_number": "707-709",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -20822,7 +20822,7 @@
   {
     "postcode_area": "NN",
     "name": "Howkins & Harrison (842-843)",
-    "surveyor_number": null,
+    "surveyor_number": "842-843",
     "preferred": "",
     "coverage": "ALL Quotable work only",
     "work_types": "R",
@@ -20862,7 +20862,7 @@
   {
     "postcode_area": "NN",
     "name": "Brown & Co (928-932&934-935)",
-    "surveyor_number": null,
+    "surveyor_number": "928-932&934-935",
     "preferred": "",
     "coverage": "1-18, 29 Quotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -20962,7 +20962,7 @@
   {
     "postcode_area": "NP",
     "name": "Linnells (168-170)",
-    "surveyor_number": null,
+    "surveyor_number": "168-170",
     "preferred": "",
     "coverage": "All check distance and fee",
     "work_types": "R / C / GDV\u2019s",
@@ -21152,7 +21152,7 @@
   {
     "postcode_area": "NR",
     "name": "Brown & Co (179 & 180)",
-    "surveyor_number": null,
+    "surveyor_number": "179 & 180",
     "preferred": "",
     "coverage": "1-29 \ncheck distance",
     "work_types": "R / C",
@@ -21372,7 +21372,7 @@
   {
     "postcode_area": "NR",
     "name": "Watsons \n(20, 106 & 870)",
-    "surveyor_number": null,
+    "surveyor_number": "20, 106 & 870",
     "preferred": "",
     "coverage": "1 \u2013 35 Quotable work only",
     "work_types": "R",
@@ -21382,7 +21382,7 @@
   {
     "postcode_area": "NR",
     "name": "Brown & Co (930&938)",
-    "surveyor_number": null,
+    "surveyor_number": "930&938",
     "preferred": "",
     "coverage": "1-35 Quotable work",
     "work_types": "R / GDV\u2019s",
@@ -21432,7 +21432,7 @@
   {
     "postcode_area": "NW",
     "name": "Trend & Thomas (98-99)",
-    "surveyor_number": null,
+    "surveyor_number": "98-99",
     "preferred": "",
     "coverage": "7, 9-12 check distance",
     "work_types": "R",
@@ -21472,7 +21472,7 @@
   {
     "postcode_area": "NW",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-11, 26, 1W (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -21482,7 +21482,7 @@
   {
     "postcode_area": "NW",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -21492,7 +21492,7 @@
   {
     "postcode_area": "NW",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "#",
     "coverage": "All",
     "work_types": "Homebuyers",
@@ -21542,7 +21542,7 @@
   {
     "postcode_area": "NW",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "#",
     "coverage": "1-11,1W",
     "work_types": "R / C / GDV\u2019s",
@@ -21682,7 +21682,7 @@
   {
     "postcode_area": "NW",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R / C / GDV",
@@ -21752,7 +21752,7 @@
   {
     "postcode_area": "NW",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -21822,7 +21822,7 @@
   {
     "postcode_area": "NW",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-11\n Quotable work only",
     "work_types": "R / C / GDV",
@@ -21862,7 +21862,7 @@
   {
     "postcode_area": "NW",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-11 (check distance)",
     "work_types": "R / C / GDV",
@@ -21872,7 +21872,7 @@
   {
     "postcode_area": "NW",
     "name": "Capital Value Surveyors\n (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R / C / GDV\u2019s",
@@ -21912,7 +21912,7 @@
   {
     "postcode_area": "NW",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-26",
     "work_types": "R / C / GDV\u2019s",
@@ -21992,7 +21992,7 @@
   {
     "postcode_area": "OL",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "11-13",
     "work_types": "R / C / GDV\u2019s",
@@ -22042,7 +22042,7 @@
   {
     "postcode_area": "OL",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -22052,7 +22052,7 @@
   {
     "postcode_area": "OL",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -22092,7 +22092,7 @@
   {
     "postcode_area": "OL",
     "name": "Bradley Hall (298,342)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342",
     "preferred": "",
     "coverage": "1-16",
     "work_types": "R / C / GDV\u2019s",
@@ -22172,7 +22172,7 @@
   {
     "postcode_area": "OL",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -22192,7 +22192,7 @@
   {
     "postcode_area": "OL",
     "name": "W T Gunson (504-508)",
-    "surveyor_number": null,
+    "surveyor_number": "504-508",
     "preferred": "",
     "coverage": "1-80",
     "work_types": "R / C / GDV\u2019s",
@@ -22332,7 +22332,7 @@
   {
     "postcode_area": "OX",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-18, 20,33, 44 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -22372,7 +22372,7 @@
   {
     "postcode_area": "OX",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -22432,7 +22432,7 @@
   {
     "postcode_area": "OX",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "1-6,9-10,11-13,14,20,25-27,28-29,33,39,44,49",
     "work_types": "R / C / GDV\u2019s",
@@ -22552,7 +22552,7 @@
   {
     "postcode_area": "OX",
     "name": "Tayler & Fletcher (556-559, 574)",
-    "surveyor_number": null,
+    "surveyor_number": "556-559, 574",
     "preferred": "",
     "coverage": "7-8,15-18,20,25,28-29 others covered discuss fee first",
     "work_types": "R / C / GDV\u2019s",
@@ -22692,7 +22692,7 @@
   {
     "postcode_area": "OX",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "9-49",
     "work_types": "R / C / GDV\u2019s",
@@ -22842,7 +22842,7 @@
   {
     "postcode_area": "PA",
     "name": "GRAHAM & SIBBALD (646-647)",
-    "surveyor_number": null,
+    "surveyor_number": "646-647",
     "preferred": "",
     "coverage": "1-24",
     "work_types": "R",
@@ -22922,7 +22922,7 @@
   {
     "postcode_area": "PE",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "18-19 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -22952,7 +22952,7 @@
   {
     "postcode_area": "PE",
     "name": "Pygott & Crone (149 &151)",
-    "surveyor_number": null,
+    "surveyor_number": "149 &151",
     "preferred": "",
     "coverage": "10-12,20-25 \nQuotable work only\nno second lending",
     "work_types": "R",
@@ -22962,7 +22962,7 @@
   {
     "postcode_area": "PE",
     "name": "Pygott & Crone (152-154)",
-    "surveyor_number": null,
+    "surveyor_number": "152-154",
     "preferred": "",
     "coverage": "10-12,20-25 \nQuotable work only\nno second lending",
     "work_types": "C",
@@ -22982,7 +22982,7 @@
   {
     "postcode_area": "PE",
     "name": "Brown & Co (179 & 180)",
-    "surveyor_number": null,
+    "surveyor_number": "179 & 180",
     "preferred": "",
     "coverage": "35-37 \u2013 check distance",
     "work_types": "R / C",
@@ -23002,7 +23002,7 @@
   {
     "postcode_area": "PE",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -23252,7 +23252,7 @@
   {
     "postcode_area": "PE",
     "name": "Brown & Co (930-933&935&938)",
-    "surveyor_number": null,
+    "surveyor_number": "930-933&935&938",
     "preferred": "",
     "coverage": "1-16, 19-38 \nQuotable work",
     "work_types": "R / C / GDV\u2019s",
@@ -23362,7 +23362,7 @@
   {
     "postcode_area": "PH",
     "name": "GRAHAM & SIBBALD (649,650)",
-    "surveyor_number": null,
+    "surveyor_number": "649,650",
     "preferred": "",
     "coverage": "1-3, 5-10, 15-18",
     "work_types": "R",
@@ -23382,7 +23382,7 @@
   {
     "postcode_area": "PH",
     "name": "GRAHAM & SIBBALD (605-610)",
-    "surveyor_number": null,
+    "surveyor_number": "605-610",
     "preferred": "",
     "coverage": "11-14",
     "work_types": "R",
@@ -23412,7 +23412,7 @@
   {
     "postcode_area": "PH",
     "name": "GRAHAM & SIBBALD (636-641)",
-    "surveyor_number": null,
+    "surveyor_number": "636-641",
     "preferred": "",
     "coverage": "20-26, 31-32, 34-35",
     "work_types": "R",
@@ -23492,7 +23492,7 @@
   {
     "postcode_area": "PL",
     "name": "Abercorn (94, 95)",
-    "surveyor_number": null,
+    "surveyor_number": "94, 95",
     "preferred": "",
     "coverage": "14-17,27,29-35 slightly higher fees",
     "work_types": "C",
@@ -23522,7 +23522,7 @@
   {
     "postcode_area": "PL",
     "name": "Miller Commercial (206-212)",
-    "surveyor_number": null,
+    "surveyor_number": "206-212",
     "preferred": "",
     "coverage": "ALL",
     "work_types": "C",
@@ -23712,7 +23712,7 @@
   {
     "postcode_area": "PL",
     "name": "Vickery Holman (875,877,882,883,921)",
-    "surveyor_number": null,
+    "surveyor_number": "875,877,882,883,921",
     "preferred": "",
     "coverage": "ALL check distance (quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -23782,7 +23782,7 @@
   {
     "postcode_area": "PO",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "7-22 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -23922,7 +23922,7 @@
   {
     "postcode_area": "PO",
     "name": "Green Oak Surveyors (942&946)",
-    "surveyor_number": null,
+    "surveyor_number": "942&946",
     "preferred": "",
     "coverage": "1-22",
     "work_types": "R / C / GDV\u2019s",
@@ -23952,7 +23952,7 @@
   {
     "postcode_area": "PR",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "3, 0-9, 25,26",
     "work_types": "R / C / GDV\u2019s",
@@ -23992,7 +23992,7 @@
   {
     "postcode_area": "PR",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -24002,7 +24002,7 @@
   {
     "postcode_area": "PR",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -24142,7 +24142,7 @@
   {
     "postcode_area": "PR",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -24162,7 +24162,7 @@
   {
     "postcode_area": "PR",
     "name": "W T Gunson (504- 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504- 508",
     "preferred": "",
     "coverage": "1-26",
     "work_types": "R / C / GDV\u2019s",
@@ -24232,7 +24232,7 @@
   {
     "postcode_area": "PR",
     "name": "Charles Parker Bennett (764&765)",
-    "surveyor_number": null,
+    "surveyor_number": "764&765",
     "preferred": "",
     "coverage": "1-7, 8-9, 25-26",
     "work_types": "R / C / GDV\u2019s",
@@ -24312,7 +24312,7 @@
   {
     "postcode_area": "RG",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-5, 7-10, 12, 14, 17-29, 31, 40-42, 45 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -24352,7 +24352,7 @@
   {
     "postcode_area": "RG",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -24722,7 +24722,7 @@
   {
     "postcode_area": "RG",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-45",
     "work_types": "R / C / GDV\u2019s",
@@ -24782,7 +24782,7 @@
   {
     "postcode_area": "RG",
     "name": "3J\u2019s (67-69)",
-    "surveyor_number": null,
+    "surveyor_number": "67-69",
     "preferred": "",
     "coverage": "10-11, 13, 14, 15-17, 18-19, 20 (only covering RH15 unless can quote for the work)",
     "work_types": "Building Surveys",
@@ -24812,7 +24812,7 @@
   {
     "postcode_area": "RG",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-20 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -24832,7 +24832,7 @@
   {
     "postcode_area": "RG",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -24872,7 +24872,7 @@
   {
     "postcode_area": "RG",
     "name": "Clarke Gammon Wellers (241-242)",
-    "surveyor_number": null,
+    "surveyor_number": "241-242",
     "preferred": "#",
     "coverage": "2,3-5,6-7,9-11,12,14,17",
     "work_types": "R",
@@ -24882,7 +24882,7 @@
   {
     "postcode_area": "RG",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "1-12,13-16,17-19, 20",
     "work_types": "R / C / GDV\u2019s",
@@ -25022,7 +25022,7 @@
   {
     "postcode_area": "RG",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-8,10-12,17-19",
     "work_types": "R / C / GDV",
@@ -25052,7 +25052,7 @@
   {
     "postcode_area": "RG",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-10 Quotable work only",
     "work_types": "R / C / GDV",
@@ -25112,7 +25112,7 @@
   {
     "postcode_area": "RG",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-20 (check distance)",
     "work_types": "R / C / GDV",
@@ -25142,7 +25142,7 @@
   {
     "postcode_area": "RG",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-77",
     "work_types": "R / C / GDV\u2019s",
@@ -25262,7 +25262,7 @@
   {
     "postcode_area": "RM",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -25272,7 +25272,7 @@
   {
     "postcode_area": "RM",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-20 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -25442,7 +25442,7 @@
   {
     "postcode_area": "RM",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "#",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -25492,7 +25492,7 @@
   {
     "postcode_area": "RM",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-18",
     "work_types": "R / C / GDV",
@@ -25522,7 +25522,7 @@
   {
     "postcode_area": "RM",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-20 Quotable work only",
     "work_types": "R / C / GDV",
@@ -25582,7 +25582,7 @@
   {
     "postcode_area": "RM",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-20 (check distance)",
     "work_types": "R / C / GDV",
@@ -25642,7 +25642,7 @@
   {
     "postcode_area": "RM",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-50",
     "work_types": "R / C / GDV\u2019s",
@@ -25742,7 +25742,7 @@
   {
     "postcode_area": "S",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "1-14, 17, 20-21, 25,-26, 32-33, 35-36, 40-45, 49, 80, 81",
     "work_types": "R / C / GDV\u2019s",
@@ -25802,7 +25802,7 @@
   {
     "postcode_area": "S",
     "name": "Bramleys (90,91&127)",
-    "surveyor_number": null,
+    "surveyor_number": "90,91&127",
     "preferred": "",
     "coverage": "36",
     "work_types": "C",
@@ -25812,7 +25812,7 @@
   {
     "postcode_area": "S",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -25822,7 +25822,7 @@
   {
     "postcode_area": "S",
     "name": "Brown & Co (186 & 194)",
-    "surveyor_number": null,
+    "surveyor_number": "186 & 194",
     "preferred": "",
     "coverage": "17,18,40-45,80,81",
     "work_types": "R",
@@ -25892,7 +25892,7 @@
   {
     "postcode_area": "S",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -26122,7 +26122,7 @@
   {
     "postcode_area": "S",
     "name": "Brown & Co (929&936)",
-    "surveyor_number": null,
+    "surveyor_number": "929&936",
     "preferred": "",
     "coverage": "25, 65-66, 80-81 Quotable work",
     "work_types": "R / C / GDV\u2019s",
@@ -26352,7 +26352,7 @@
   {
     "postcode_area": "SA",
     "name": "Astley Samuel Leeder (896-900)",
-    "surveyor_number": null,
+    "surveyor_number": "896-900",
     "preferred": "",
     "coverage": "1-20",
     "work_types": "R / C / GDV\u2019s",
@@ -26362,7 +26362,7 @@
   {
     "postcode_area": "SA",
     "name": "Dawsons (911,912)",
-    "surveyor_number": null,
+    "surveyor_number": "911,912",
     "preferred": "",
     "coverage": "1-8 all others check distance  Quotable work",
     "work_types": "R / C",
@@ -26462,7 +26462,7 @@
   {
     "postcode_area": "SE",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-28, 1P (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -26472,7 +26472,7 @@
   {
     "postcode_area": "SE",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -26482,7 +26482,7 @@
   {
     "postcode_area": "SE",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "#",
     "coverage": "1,11,16",
     "work_types": "Homebuyers",
@@ -26672,7 +26672,7 @@
   {
     "postcode_area": "SE",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-28",
     "work_types": "R / C / GDV",
@@ -26772,7 +26772,7 @@
   {
     "postcode_area": "SE",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -26812,7 +26812,7 @@
   {
     "postcode_area": "SE",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-26 Quotable work only",
     "work_types": "R / C / GDV",
@@ -26882,7 +26882,7 @@
   {
     "postcode_area": "SE",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-28 (check distance)",
     "work_types": "R / C / GDV",
@@ -26922,7 +26922,7 @@
   {
     "postcode_area": "SE",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-27",
     "work_types": "R / C / GDV\u2019s",
@@ -26932,7 +26932,7 @@
   {
     "postcode_area": "SE",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-99",
     "work_types": "R / C / GDV\u2019s",
@@ -27112,7 +27112,7 @@
   {
     "postcode_area": "SG",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-19 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -27242,7 +27242,7 @@
   {
     "postcode_area": "SG",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-19 (check distance)",
     "work_types": "R / C / GDV",
@@ -27282,7 +27282,7 @@
   {
     "postcode_area": "SG",
     "name": "Brown & Co (931&932)",
-    "surveyor_number": null,
+    "surveyor_number": "931&932",
     "preferred": "",
     "coverage": "1-12, 14-19 Quotable work",
     "work_types": "Agricultural",
@@ -27392,7 +27392,7 @@
   {
     "postcode_area": "SK",
     "name": "Roberts & Roberts (45,47 & 48)",
-    "surveyor_number": null,
+    "surveyor_number": "45,47 & 48",
     "preferred": "",
     "coverage": "ALL no second lending",
     "work_types": "C",
@@ -27432,7 +27432,7 @@
   {
     "postcode_area": "SK",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -27442,7 +27442,7 @@
   {
     "postcode_area": "SK",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -27472,7 +27472,7 @@
   {
     "postcode_area": "SK",
     "name": "Bradley Hall (298,342)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342",
     "preferred": "",
     "coverage": "1-23",
     "work_types": "R / C / GDV\u2019s",
@@ -27602,7 +27602,7 @@
   {
     "postcode_area": "SK",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -27612,7 +27612,7 @@
   {
     "postcode_area": "SK",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-23",
     "work_types": "R / C / GDV\u2019s",
@@ -27672,7 +27672,7 @@
   {
     "postcode_area": "SK",
     "name": "Hammond Surveyors     \n (771-772)",
-    "surveyor_number": null,
+    "surveyor_number": "771-772",
     "preferred": "",
     "coverage": "1-10, 12\nQuotable work only",
     "work_types": "R / C/ GDV\u2019s",
@@ -27802,7 +27802,7 @@
   {
     "postcode_area": "SL",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "0-9 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -27832,7 +27832,7 @@
   {
     "postcode_area": "SL",
     "name": "++ (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "4-8",
     "work_types": "R / C / GDV\u2019s",
@@ -27982,7 +27982,7 @@
   {
     "postcode_area": "SL",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "0-3",
     "work_types": "R / C / GDV",
@@ -28022,7 +28022,7 @@
   {
     "postcode_area": "SL",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-9 Quotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -28082,7 +28082,7 @@
   {
     "postcode_area": "SL",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "0-95",
     "work_types": "R / C / GDV\u2019s",
@@ -28202,7 +28202,7 @@
   {
     "postcode_area": "SM",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-7 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -28232,7 +28232,7 @@
   {
     "postcode_area": "SM",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -28242,7 +28242,7 @@
   {
     "postcode_area": "SM",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "1-7",
     "work_types": "R / C / GDV\u2019s",
@@ -28352,7 +28352,7 @@
   {
     "postcode_area": "SM",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -28382,7 +28382,7 @@
   {
     "postcode_area": "SM",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-7",
     "work_types": "R / C / GDV",
@@ -28422,7 +28422,7 @@
   {
     "postcode_area": "SM",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-4 Quotable work only",
     "work_types": "R / C / GDV",
@@ -28472,7 +28472,7 @@
   {
     "postcode_area": "SM",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-7",
     "work_types": "R / C / GDV\u2019s",
@@ -28562,7 +28562,7 @@
   {
     "postcode_area": "SN",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "6-7 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -28862,7 +28862,7 @@
   {
     "postcode_area": "SO",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "16, 20-24, 30-32, 40-43, 45, 50-53 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -29102,7 +29102,7 @@
   {
     "postcode_area": "SO",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "23-32",
     "work_types": "R / C / GDV\u2019s",
@@ -29152,7 +29152,7 @@
   {
     "postcode_area": "SP",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "5-6, 9-11 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -29412,7 +29412,7 @@
   {
     "postcode_area": "SR",
     "name": "Bradley Hall (321-324 & 326)",
-    "surveyor_number": null,
+    "surveyor_number": "321-324 & 326",
     "preferred": "",
     "coverage": "1-8",
     "work_types": "R",
@@ -29602,7 +29602,7 @@
   {
     "postcode_area": "SS",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "0-1, 3-9, 11-17 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -29622,7 +29622,7 @@
   {
     "postcode_area": "SS",
     "name": "KWD (158-161)",
-    "surveyor_number": null,
+    "surveyor_number": "158-161",
     "preferred": "",
     "coverage": "1-7, 9, 11-16",
     "work_types": "R / GDV\u2019s",
@@ -29632,7 +29632,7 @@
   {
     "postcode_area": "SS",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -29742,7 +29742,7 @@
   {
     "postcode_area": "SS",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "12-16",
     "work_types": "R / C / GDV",
@@ -29842,7 +29842,7 @@
   {
     "postcode_area": "SS",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "0-99",
     "work_types": "R / C / GDV\u2019s",
@@ -29902,7 +29902,7 @@
   {
     "postcode_area": "ST",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "1-21",
     "work_types": "R / C / GDV\u2019s",
@@ -29922,7 +29922,7 @@
   {
     "postcode_area": "ST",
     "name": "Pat McLaughlin (62 & 63)",
-    "surveyor_number": null,
+    "surveyor_number": "62 & 63",
     "preferred": "##",
     "coverage": "All (check distance)",
     "work_types": "R",
@@ -29952,7 +29952,7 @@
   {
     "postcode_area": "ST",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -29982,7 +29982,7 @@
   {
     "postcode_area": "ST",
     "name": "Lowe & Elliott (239-240)",
-    "surveyor_number": null,
+    "surveyor_number": "239-240",
     "preferred": "##",
     "coverage": "1-20 (min fee \u00a3200 + VAT)",
     "work_types": "R / C / GDV\u2019s",
@@ -30112,7 +30112,7 @@
   {
     "postcode_area": "ST",
     "name": "Hammond Surveyors \n(771-772)",
-    "surveyor_number": null,
+    "surveyor_number": "771-772",
     "preferred": "",
     "coverage": "1-21\nQuotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -30232,7 +30232,7 @@
   {
     "postcode_area": "SW",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "2-20, 95, 1A, E, H, P, V, W, X, Y (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -30242,7 +30242,7 @@
   {
     "postcode_area": "SW",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -30252,7 +30252,7 @@
   {
     "postcode_area": "SW",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "#",
     "coverage": "1,3-4,7-9",
     "work_types": "Homebuyers",
@@ -30532,7 +30532,7 @@
   {
     "postcode_area": "SW",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-20",
     "work_types": "R / C / GDV",
@@ -30642,7 +30642,7 @@
   {
     "postcode_area": "SW",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -30692,7 +30692,7 @@
   {
     "postcode_area": "SW",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-20 Quotable work only",
     "work_types": "R / C / GDV",
@@ -30742,7 +30742,7 @@
   {
     "postcode_area": "SW",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-20 (check distance)",
     "work_types": "R / C / GDV",
@@ -30752,7 +30752,7 @@
   {
     "postcode_area": "SW",
     "name": "Capital Value Surveyors (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "1-20",
     "work_types": "R / C / GDV\u2019s",
@@ -30792,7 +30792,7 @@
   {
     "postcode_area": "SW",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-99",
     "work_types": "R / C / GDV\u2019s",
@@ -30892,7 +30892,7 @@
   {
     "postcode_area": "SY",
     "name": "Pat McLaughlin (62 & 63)",
-    "surveyor_number": null,
+    "surveyor_number": "62 & 63",
     "preferred": "##",
     "coverage": "All (check distance)",
     "work_types": "R",
@@ -31092,7 +31092,7 @@
   {
     "postcode_area": "TA",
     "name": "Abercorn (94, 95 & 472 )",
-    "surveyor_number": null,
+    "surveyor_number": "94, 95 & 472",
     "preferred": "#",
     "coverage": "1-4, 5-18, 19-21, 22, 24 \nslightly higher fees",
     "work_types": "C",
@@ -31222,7 +31222,7 @@
   {
     "postcode_area": "TA",
     "name": "Vickery Holman (876,881)",
-    "surveyor_number": null,
+    "surveyor_number": "876,881",
     "preferred": "",
     "coverage": "ALL check distance (quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -31242,7 +31242,7 @@
   {
     "postcode_area": "TD",
     "name": "Edwin Thompson LLP (220-223,225-228)",
-    "surveyor_number": null,
+    "surveyor_number": "220-223,225-228",
     "preferred": "",
     "coverage": "1-4,5,6-8,9-10,11-12,13,14-15\n Quotable work",
     "work_types": "R / C",
@@ -31322,7 +31322,7 @@
   {
     "postcode_area": "TD",
     "name": "GRAHAM & SIBBALD (619-622)",
-    "surveyor_number": null,
+    "surveyor_number": "619-622",
     "preferred": "",
     "coverage": "1-8, 10-14",
     "work_types": "R",
@@ -31392,7 +31392,7 @@
   {
     "postcode_area": "TF",
     "name": "Pat McLaughlin (62 & 63)",
-    "surveyor_number": null,
+    "surveyor_number": "62 & 63",
     "preferred": "##",
     "coverage": "All (check distance)",
     "work_types": "R",
@@ -31442,7 +31442,7 @@
   {
     "postcode_area": "TF",
     "name": "Lowe & Elliott (239-240)",
-    "surveyor_number": null,
+    "surveyor_number": "239-240",
     "preferred": "##",
     "coverage": "1-13 (min fee \u00a3150 + VAT)",
     "work_types": "R / C / GDV\u2019s",
@@ -31572,7 +31572,7 @@
   {
     "postcode_area": "TF",
     "name": "Hammond Surveyors \n(771-772)",
-    "surveyor_number": null,
+    "surveyor_number": "771-772",
     "preferred": "",
     "coverage": "1-13\nQuotable work only",
     "work_types": "R / C / GDV\u2019s",
@@ -31642,7 +31642,7 @@
   {
     "postcode_area": "TN",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-40  (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -31672,7 +31672,7 @@
   {
     "postcode_area": "TN",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -31852,7 +31852,7 @@
   {
     "postcode_area": "TN",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-3,5-22,33",
     "work_types": "R / C / GDV",
@@ -31952,7 +31952,7 @@
   {
     "postcode_area": "TN",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-16 Quotable work only",
     "work_types": "R / C / GDV",
@@ -32012,7 +32012,7 @@
   {
     "postcode_area": "TN",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-40 (check distance)",
     "work_types": "R / C / GDV",
@@ -32062,7 +32062,7 @@
   {
     "postcode_area": "TN",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "8-31",
     "work_types": "R / C / GDV\u2019s",
@@ -32262,7 +32262,7 @@
   {
     "postcode_area": "TQ",
     "name": "Vickery Holman \n(875, 876, 881)",
-    "surveyor_number": null,
+    "surveyor_number": "875, 876, 881",
     "preferred": "",
     "coverage": "ALL check distance (quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -32322,7 +32322,7 @@
   {
     "postcode_area": "TQ",
     "name": "Miller Commercial (206-212)",
-    "surveyor_number": null,
+    "surveyor_number": "206-212",
     "preferred": "",
     "coverage": "ALL",
     "work_types": "C",
@@ -32392,7 +32392,7 @@
   {
     "postcode_area": "TQ",
     "name": "Vickery Holman \n(877,882, 883,921)",
-    "surveyor_number": null,
+    "surveyor_number": "877,882, 883,921",
     "preferred": "",
     "coverage": "ALL check distance (quotable only)",
     "work_types": "R / C / GDV\u2019s",
@@ -32502,7 +32502,7 @@
   {
     "postcode_area": "TS",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -32542,7 +32542,7 @@
   {
     "postcode_area": "TS",
     "name": "Bradley Hall (321-324)",
-    "surveyor_number": null,
+    "surveyor_number": "321-324",
     "preferred": "",
     "coverage": "1-29",
     "work_types": "R",
@@ -32592,7 +32592,7 @@
   {
     "postcode_area": "TS",
     "name": "David Linsley ( 547) CKM",
-    "surveyor_number": null,
+    "surveyor_number": "547",
     "preferred": "",
     "coverage": "1-29",
     "work_types": "R",
@@ -32712,7 +32712,7 @@
   {
     "postcode_area": "TW",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-20 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -32742,7 +32742,7 @@
   {
     "postcode_area": "TW",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -33022,7 +33022,7 @@
   {
     "postcode_area": "TW",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -33102,7 +33102,7 @@
   {
     "postcode_area": "TW",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-5,7-20",
     "work_types": "R / C / GDV",
@@ -33132,7 +33132,7 @@
   {
     "postcode_area": "TW",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-19 Quotable work only",
     "work_types": "R / C / GDV",
@@ -33192,7 +33192,7 @@
   {
     "postcode_area": "TW",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-20",
     "work_types": "R / C / GDV\u2019s",
@@ -33342,7 +33342,7 @@
   {
     "postcode_area": "UB",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-11, 18 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -33362,7 +33362,7 @@
   {
     "postcode_area": "UB",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -33612,7 +33612,7 @@
   {
     "postcode_area": "UB",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -33632,7 +33632,7 @@
   {
     "postcode_area": "UB",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R / C / GDV",
@@ -33642,7 +33642,7 @@
   {
     "postcode_area": "UB",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-10 Quotable work only",
     "work_types": "R / C / GDV",
@@ -33702,7 +33702,7 @@
   {
     "postcode_area": "UB",
     "name": "Capital Value Surveyors (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "1-11",
     "work_types": "R / C / GDV\u2019s",
@@ -33732,7 +33732,7 @@
   {
     "postcode_area": "UB",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-18",
     "work_types": "R / C / GDV\u2019s",
@@ -33852,7 +33852,7 @@
   {
     "postcode_area": "W",
     "name": "Trend & Thomas (98-99)",
-    "surveyor_number": null,
+    "surveyor_number": "98-99",
     "preferred": "",
     "coverage": "3, 5, 7, 13 check distance",
     "work_types": "R",
@@ -33892,7 +33892,7 @@
   {
     "postcode_area": "W",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1A-D, F-H, J-K, S-U, W\nW2-14 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -33902,7 +33902,7 @@
   {
     "postcode_area": "W",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -33942,7 +33942,7 @@
   {
     "postcode_area": "W",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "1-14, 1A-D, F-H, J-K, M, S-U, W",
     "work_types": "R / C / GDV\u2019s",
@@ -34152,7 +34152,7 @@
   {
     "postcode_area": "W",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-14",
     "work_types": "R / C / GDV",
@@ -34202,7 +34202,7 @@
   {
     "postcode_area": "W",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -34232,7 +34232,7 @@
   {
     "postcode_area": "W",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-14 Quotable work only",
     "work_types": "R / C / GDV",
@@ -34282,7 +34282,7 @@
   {
     "postcode_area": "W",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-14 (check distance)",
     "work_types": "R / C / GDV",
@@ -34292,7 +34292,7 @@
   {
     "postcode_area": "W",
     "name": "Capital Value Surveyors (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "1-14",
     "work_types": "R / C / GDV\u2019s",
@@ -34322,7 +34322,7 @@
   {
     "postcode_area": "W",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-14",
     "work_types": "R / C / GDV\u2019s",
@@ -34392,7 +34392,7 @@
   {
     "postcode_area": "WA",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "1-5, 7-10, 11, 12 & 55",
     "work_types": "R / C / GDV\u2019s",
@@ -34462,7 +34462,7 @@
   {
     "postcode_area": "WA",
     "name": "AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -34472,7 +34472,7 @@
   {
     "postcode_area": "WA",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -34642,7 +34642,7 @@
   {
     "postcode_area": "WA",
     "name": "Smith & Sons (386-387)",
-    "surveyor_number": null,
+    "surveyor_number": "386-387",
     "preferred": "",
     "coverage": "9-12",
     "work_types": "R / C",
@@ -34672,7 +34672,7 @@
   {
     "postcode_area": "WA",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -34692,7 +34692,7 @@
   {
     "postcode_area": "WA",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-16",
     "work_types": "R / C / GDV\u2019s",
@@ -34822,7 +34822,7 @@
   {
     "postcode_area": "WC",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1A, B, E, H, R, V, X\n2A, B, E, H, N, R\n (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -34832,7 +34832,7 @@
   {
     "postcode_area": "WC",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -34842,7 +34842,7 @@
   {
     "postcode_area": "WC",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "#",
     "coverage": "All",
     "work_types": "Homebuyers",
@@ -34852,7 +34852,7 @@
   {
     "postcode_area": "WC",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "",
     "coverage": "All",
     "work_types": "R / C / GDV\u2019s",
@@ -35012,7 +35012,7 @@
   {
     "postcode_area": "WC",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -35042,7 +35042,7 @@
   {
     "postcode_area": "WC",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1,2",
     "work_types": "R / C / GDV",
@@ -35062,7 +35062,7 @@
   {
     "postcode_area": "WC",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-2 Quotable work only",
     "work_types": "R / C / GDV",
@@ -35112,7 +35112,7 @@
   {
     "postcode_area": "WC",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1,2 (check distance)",
     "work_types": "R / C / GDV",
@@ -35122,7 +35122,7 @@
   {
     "postcode_area": "WC",
     "name": "Capital Value Surveyors (786-789)",
-    "surveyor_number": null,
+    "surveyor_number": "786-789",
     "preferred": "",
     "coverage": "1-2",
     "work_types": "R / C / GDV\u2019s",
@@ -35142,7 +35142,7 @@
   {
     "postcode_area": "WC",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-99",
     "work_types": "R / C / GDV\u2019s",
@@ -35272,7 +35272,7 @@
   {
     "postcode_area": "WD",
     "name": "Symington Elvery (139-141)",
-    "surveyor_number": null,
+    "surveyor_number": "139-141",
     "preferred": "",
     "coverage": "1-7, 23 (check distance)\nQuotable work only",
     "work_types": "R / GDV\u2019s",
@@ -35292,7 +35292,7 @@
   {
     "postcode_area": "WD",
     "name": "Matthews & Goodman (227 \u2013 231)",
-    "surveyor_number": null,
+    "surveyor_number": "227 \u2013 231",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -35302,7 +35302,7 @@
   {
     "postcode_area": "WD",
     "name": "Hamblin Sullivan (270-271)",
-    "surveyor_number": null,
+    "surveyor_number": "270-271",
     "preferred": "",
     "coverage": "All",
     "work_types": "Homebuyers",
@@ -35332,7 +35332,7 @@
   {
     "postcode_area": "WD",
     "name": "Quantum (277-279)",
-    "surveyor_number": null,
+    "surveyor_number": "277-279",
     "preferred": "#",
     "coverage": "1-2,6-7,19,23",
     "work_types": "R / C / GDV\u2019s",
@@ -35422,7 +35422,7 @@
   {
     "postcode_area": "WD",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -35462,7 +35462,7 @@
   {
     "postcode_area": "WD",
     "name": "Terracotta Property (577,578,581 & 582)",
-    "surveyor_number": null,
+    "surveyor_number": "577,578,581 & 582",
     "preferred": "",
     "coverage": "1-7,17-19,23-25",
     "work_types": "R / C / GDV",
@@ -35502,7 +35502,7 @@
   {
     "postcode_area": "WD",
     "name": "London Surveyors (670-679)",
-    "surveyor_number": null,
+    "surveyor_number": "670-679",
     "preferred": "",
     "coverage": "1-25 Quotable work only",
     "work_types": "R / C / GDV",
@@ -35532,7 +35532,7 @@
   {
     "postcode_area": "WD",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "3-25 (check distance)",
     "work_types": "R / C / GDV",
@@ -35572,7 +35572,7 @@
   {
     "postcode_area": "WD",
     "name": "Green Oak Surveyors (942-944)",
-    "surveyor_number": null,
+    "surveyor_number": "942-944",
     "preferred": "",
     "coverage": "1-99",
     "work_types": "R / C / GDV\u2019s",
@@ -35692,7 +35692,7 @@
   {
     "postcode_area": "WF",
     "name": "Bramleys (90-92&127)",
-    "surveyor_number": null,
+    "surveyor_number": "90-92&127",
     "preferred": "",
     "coverage": "12, 14-15",
     "work_types": "C",
@@ -35712,7 +35712,7 @@
   {
     "postcode_area": "WF",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -35722,7 +35722,7 @@
   {
     "postcode_area": "WF",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -35802,7 +35802,7 @@
   {
     "postcode_area": "WF",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -35842,7 +35842,7 @@
   {
     "postcode_area": "WF",
     "name": "Bruton Knowles (689 & 691) GUILDFORD & CASTLEFORD",
-    "surveyor_number": null,
+    "surveyor_number": "689 & 691",
     "preferred": "",
     "coverage": "All (Check Distance) Quotable work only",
     "work_types": "R",
@@ -35932,7 +35932,7 @@
   {
     "postcode_area": "WN",
     "name": "Wignalls (132, 133 & 135)",
-    "surveyor_number": null,
+    "surveyor_number": "132, 133 & 135",
     "preferred": "##",
     "coverage": "1-6, 7, 8",
     "work_types": "R / C / GDV\u2019s",
@@ -35982,7 +35982,7 @@
   {
     "postcode_area": "WN",
     "name": "Thomas Watson  AJP Surveyors (155-157)",
-    "surveyor_number": null,
+    "surveyor_number": "155-157",
     "preferred": "",
     "coverage": "All \u2013 no PXS or Bridgebank",
     "work_types": "R / C",
@@ -35992,7 +35992,7 @@
   {
     "postcode_area": "WN",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -36082,7 +36082,7 @@
   {
     "postcode_area": "WN",
     "name": "Smith & Sons (386-387)",
-    "surveyor_number": null,
+    "surveyor_number": "386-387",
     "preferred": "",
     "coverage": "1-8",
     "work_types": "R / C",
@@ -36132,7 +36132,7 @@
   {
     "postcode_area": "WN",
     "name": "MC & Co Surveyors (480-481)",
-    "surveyor_number": null,
+    "surveyor_number": "480-481",
     "preferred": "##",
     "coverage": "ALL \u2013 check distance",
     "work_types": "R / C / GDV\u2019s",
@@ -36152,7 +36152,7 @@
   {
     "postcode_area": "WN",
     "name": "W T Gunson (504 \u2013 508)",
-    "surveyor_number": null,
+    "surveyor_number": "504 \u2013 508",
     "preferred": "",
     "coverage": "1-8",
     "work_types": "R / C / GDV\u2019s",
@@ -36262,7 +36262,7 @@
   {
     "postcode_area": "WR",
     "name": "Carters Surveyors (163-166)",
-    "surveyor_number": null,
+    "surveyor_number": "163-166",
     "preferred": "",
     "coverage": "1-3",
     "work_types": "R",
@@ -36422,7 +36422,7 @@
   {
     "postcode_area": "WR",
     "name": "Tayler & Fletcher (556-559, 574)",
-    "surveyor_number": null,
+    "surveyor_number": "556-559, 574",
     "preferred": "",
     "coverage": "11-12 covers others but ring and discuss fee first",
     "work_types": "R / C / GDV\u2019s",
@@ -36542,7 +36542,7 @@
   {
     "postcode_area": "WS",
     "name": "BB&J Commercial (54-56)",
-    "surveyor_number": null,
+    "surveyor_number": "54-56",
     "preferred": "",
     "coverage": "13-15",
     "work_types": "R / C / GDV\u2019s",
@@ -36572,7 +36572,7 @@
   {
     "postcode_area": "WS",
     "name": "Carters Surveyors (163-166)",
-    "surveyor_number": null,
+    "surveyor_number": "163-166",
     "preferred": "",
     "coverage": "13-14",
     "work_types": "R",
@@ -36602,7 +36602,7 @@
   {
     "postcode_area": "WS",
     "name": "Lowe & Elliott (239-240)",
-    "surveyor_number": null,
+    "surveyor_number": "239-240",
     "preferred": "",
     "coverage": "1-8 (min fee \u00a3150 + VAT)",
     "work_types": "R / C / GDV\u2019s",
@@ -36842,7 +36842,7 @@
   {
     "postcode_area": "WV",
     "name": "Lowe & Elliott (239-240)",
-    "surveyor_number": null,
+    "surveyor_number": "239-240",
     "preferred": "##",
     "coverage": "1-14 (min fee \u00a3200 + VAT)",
     "work_types": "R / C / GDV\u2019s",
@@ -37012,7 +37012,7 @@
   {
     "postcode_area": "WV",
     "name": "Precision Surveyors (758 ,761,764,765,768 & 774)",
-    "surveyor_number": null,
+    "surveyor_number": "758 ,761,764,765,768 & 774",
     "preferred": "",
     "coverage": "1-16 (check distance)",
     "work_types": "R / C / GDV",
@@ -37182,7 +37182,7 @@
   {
     "postcode_area": "YO",
     "name": "DWA Surveyors (172,173,178, 183,195,197,199,201,205 & 213)",
-    "surveyor_number": null,
+    "surveyor_number": "172,173,178, 183,195,197,199,201,205 & 213",
     "preferred": "",
     "coverage": "All (check distance)",
     "work_types": "R / C / GDV\u2019s",
@@ -37212,7 +37212,7 @@
   {
     "postcode_area": "YO",
     "name": "Cundalls (109,111-114)",
-    "surveyor_number": null,
+    "surveyor_number": "109,111-114",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",
@@ -37242,7 +37242,7 @@
   {
     "postcode_area": "YO",
     "name": "Bradley Hall (298,342-343)",
-    "surveyor_number": null,
+    "surveyor_number": "298,342-343",
     "preferred": "",
     "coverage": "All (check mileage)",
     "work_types": "R / C / GDV\u2019s",

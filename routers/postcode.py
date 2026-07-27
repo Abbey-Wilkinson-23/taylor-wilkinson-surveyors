@@ -1,7 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select
+from sqlalchemy import select, func, cast, Integer
+from sqlalchemy import text
 
 from core.database import get_db
 from models.orm import PostcodeSurveyor
@@ -12,8 +13,12 @@ router = APIRouter(prefix="/postcode", tags=["postcode"])
 
 @router.get("/", response_model=list[PostcodeSurveyorOut])
 async def list_postcode_surveyors(db: AsyncSession = Depends(get_db)):
+    # Sort by area A-Z, then by first number in surveyor_number numerically, NULLs last
     result = await db.execute(
-        select(PostcodeSurveyor).order_by(PostcodeSurveyor.postcode_area, PostcodeSurveyor.name)
+        select(PostcodeSurveyor).order_by(
+            PostcodeSurveyor.postcode_area,
+            text("(regexp_match(surveyor_number, '(\\d+)'))[1]::integer ASC NULLS LAST"),
+        )
     )
     return result.scalars().all()
 
