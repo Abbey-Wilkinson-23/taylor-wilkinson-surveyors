@@ -1,30 +1,34 @@
 """
-Seed the postcode_surveyors table from the Word document.
-Run once after applying the migration:
-  python seed_postcode.py
+Seed the postcode_surveyors table from the pre-generated JSON data file.
+The JSON is generated locally from the Word document via generate_postcode_tool.py
+and committed to the repo so Railway can run this without access to Dropbox.
 """
 import asyncio
-import sys
+import json
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent))
-
-from generate_postcode_tool import parse_doc
 from core.database import AsyncSessionLocal
 from models.orm import PostcodeSurveyor
 from sqlalchemy import select, delete
 
+SEED_FILE = Path(__file__).parent / "postcode_seed_data.json"
+
 
 async def seed():
-    print("Parsing Word document…")
-    entries = parse_doc()
-    print(f"Parsed {len(entries)} entries")
+    # Skip if already seeded (non-custom rows exist)
+    async with AsyncSessionLocal() as db:
+        existing = await db.execute(
+            select(PostcodeSurveyor).where(PostcodeSurveyor.is_custom == False).limit(1)
+        )
+        if existing.scalar_one_or_none() is not None:
+            print("postcode_surveyors already seeded — skipping")
+            return
+
+    print("Loading seed data…")
+    entries = json.loads(SEED_FILE.read_text())
+    print(f"Loaded {len(entries)} entries")
 
     async with AsyncSessionLocal() as db:
-        # Clear existing non-custom rows so re-running is safe
-        await db.execute(delete(PostcodeSurveyor).where(PostcodeSurveyor.is_custom == False))
-        await db.flush()
-
         rows = [
             PostcodeSurveyor(
                 postcode_area=e["postcode_area"],
