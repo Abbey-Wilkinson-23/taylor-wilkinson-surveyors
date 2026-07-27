@@ -16,10 +16,12 @@ depends_on = None
 def upgrade():
     op.add_column('postcode_surveyors', sa.Column('surveyor_number', sa.Text(), nullable=True))
     # Populate from existing name field — extract number from e.g. "John Smith (329)"
+    # Only extract plain single integers e.g. "(329)" — complex formats like
+    # "(160-169)" or "(758, 761 & 774)" are left NULL for manual review
     op.execute(r"""
         UPDATE postcode_surveyors
-        SET surveyor_number = (regexp_match(name, '\(([^)]*\d[^)]*)\)'))[1]
-        WHERE name ~ '\([^)]*\d[^)]*\)'
+        SET surveyor_number = (regexp_match(name, '\((\d+)\)'))[1]
+        WHERE name ~ '\(\d+\)'
     """)
 
 

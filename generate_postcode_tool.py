@@ -115,9 +115,10 @@ def parse_doc():
             name_colours = get_run_colours(name_cell)
             fee_cat = classify(table_higher, name_text, coverage_text, name_colours)
 
-            # Extract surveyor number(s) from parentheses in name e.g. "(329)", "(160-169)", "(758, 761 & 774)"
-            num_match = re.search(r'\(([^)]*\d[^)]*)\)', clean_name)
-            surveyor_number = num_match.group(1).strip() if num_match else None
+            # Extract surveyor number only if it's a single plain integer e.g. "(329)"
+            # Complex formats like "(160-169)" or "(758, 761 & 774)" are left as None
+            simple_match = re.search(r'\((\d+)\)', clean_name)
+            surveyor_number = simple_match.group(1) if simple_match else None
 
             entries.append({
                 "postcode_area":   postcode_area,
