@@ -25,6 +25,18 @@ function Root() {
             colorLink: '#8753A8',
             colorLinkHover: '#9f6dbf',
             borderRadius: 6,
+            // Soft dark palette (GitHub "dark dimmed" inspired) — overrides the near-black defaults
+            ...(dark ? {
+              colorBgBase:       '#22272e',
+              colorBgContainer:  '#2d333b',
+              colorBgElevated:   '#2d333b',
+              colorBgLayout:     '#1c2128',
+              colorBorder:       '#444c56',
+              colorBorderSecondary: '#373e47',
+              colorText:         '#adbac7',
+              colorTextSecondary:'#768390',
+              colorTextTertiary: '#636e7b',
+            } : {}),
           },
           components: {
             Button: { colorPrimary: '#8753A8', algorithm: true },
