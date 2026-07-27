@@ -94,6 +94,7 @@ export default function PostcodeCoverage() {
   const [workFilter, setWork]     = useState(null)
   const [modalOpen, setModalOpen] = useState(false)
   const [editing, setEditing]     = useState(null)  // null = add mode, object = edit mode
+  const [pageSize, setPageSize]   = useState(50)
 
   const load = async () => {
     setLoading(true)
@@ -295,7 +296,7 @@ export default function PostcodeCoverage() {
         rowKey="id"
         loading={loading}
         size="small"
-        pagination={{ pageSize: 50, showSizeChanger: true, pageSizeOptions: [25, 50, 100, 200] }}
+        pagination={{ pageSize, showSizeChanger: true, pageSizeOptions: [25, 50, 100, 200], onShowSizeChange: (_, size) => setPageSize(size) }}
         scroll={{ x: true }}
         rowClassName={r => r.is_custom ? 'custom-postcode-row' : ''}
       />
