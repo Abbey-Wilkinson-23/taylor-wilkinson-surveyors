@@ -3,15 +3,16 @@ from datetime import datetime
 
 
 class PostcodeSurveyorOut(BaseModel):
-    id:            int
-    postcode_area: str
-    name:          str
-    preferred:     str
-    coverage:      str
-    work_types:    str
-    fee_cat:       str
-    is_custom:     bool
-    created_at:    datetime
+    id:               int
+    postcode_area:    str
+    name:             str
+    surveyor_number:  str | None
+    preferred:        str
+    coverage:         str
+    work_types:       str
+    fee_cat:          str
+    is_custom:        bool
+    created_at:       datetime
 
     model_config = {"from_attributes": True}
 

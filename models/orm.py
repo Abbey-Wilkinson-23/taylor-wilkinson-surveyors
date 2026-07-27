@@ -302,12 +302,13 @@ class InstructionStatusHistory(Base):
 class PostcodeSurveyor(Base):
     __tablename__ = "postcode_surveyors"
 
-    id            = Column(Integer, primary_key=True)
-    postcode_area = Column(Text, nullable=False)
-    name          = Column(Text, nullable=False)
-    preferred     = Column(Text, nullable=False, default="")   # "" | "#" | "##"
-    coverage      = Column(Text, nullable=False, default="")
-    work_types    = Column(Text, nullable=False, default="")
-    fee_cat       = Column(Text, nullable=False)                # STANDARD | QUOTABLE | HIGHER
-    is_custom     = Column(Boolean, nullable=False, default=False)
-    created_at    = Column(TIMESTAMP(timezone=True), server_default=func.now())
+    id               = Column(Integer, primary_key=True)
+    postcode_area    = Column(Text, nullable=False)
+    name             = Column(Text, nullable=False)
+    surveyor_number  = Column(Text, nullable=True)
+    preferred        = Column(Text, nullable=False, default="")   # "" | "#" | "##"
+    coverage         = Column(Text, nullable=False, default="")
+    work_types       = Column(Text, nullable=False, default="")
+    fee_cat          = Column(Text, nullable=False)                # STANDARD | QUOTABLE | HIGHER
+    is_custom        = Column(Boolean, nullable=False, default=False)
+    created_at       = Column(TIMESTAMP(timezone=True), server_default=func.now())

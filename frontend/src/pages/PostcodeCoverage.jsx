@@ -156,6 +156,17 @@ export default function PostcodeCoverage() {
 
   const columns = [
     {
+      title: 'No.',
+      dataIndex: 'surveyor_number',
+      key: 'surveyor_number',
+      width: 80,
+      sorter: (a, b) => {
+        const n = s => parseInt((s?.surveyor_number || '').match(/\d+/)?.[0] ?? '0', 10)
+        return n(a) - n(b)
+      },
+      render: v => <span style={{ color: '#888', fontSize: 12 }}>{v || '—'}</span>,
+    },
+    {
       title: 'Area',
       dataIndex: 'postcode_area',
       key: 'postcode_area',

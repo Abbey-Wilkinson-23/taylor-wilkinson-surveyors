@@ -33,6 +33,7 @@ async def seed():
             PostcodeSurveyor(
                 postcode_area=e["postcode_area"],
                 name=e["name"],
+                surveyor_number=e.get("surveyor_number"),
                 preferred=e["preferred"],
                 coverage=e["coverage"],
                 work_types=e["work_types"],
