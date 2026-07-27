@@ -13,6 +13,26 @@ const FEE_COLOURS = { STANDARD: 'green', QUOTABLE: 'red', HIGHER: 'gold' }
 const FEE_LABELS  = { STANDARD: 'Standard', QUOTABLE: 'Quotable only', HIGHER: 'Higher fee' }
 const PREF_LABELS = { '##': '★★ Top pick', '#': '★ Preferred', '': '' }
 
+// Parse coverage string into individual district codes and leftover notes
+function parseCoverage(str) {
+  if (!str) return { codes: [], notes: '' }
+  const codes = []
+  // Replace em-dashes with hyphens, split on commas/newlines
+  const cleaned = str.replace(/–/g, '-').replace(/\n/g, ' ')
+  // Pull out all numeric tokens (plain numbers or ranges like 10-16)
+  const remaining = cleaned.replace(/\b(\d+)\s*-\s*(\d+)\b/g, (_, a, b) => {
+    const start = parseInt(a), end = parseInt(b)
+    if (end - start < 50) { // sanity cap — don't expand huge ranges
+      for (let i = start; i <= end; i++) codes.push(String(i))
+    } else {
+      codes.push(`${a}-${b}`)
+    }
+    return ''
+  }).replace(/\b(\d+)\b/g, (_, n) => { codes.push(n); return '' })
+  const notes = remaining.replace(/[,\s]+/g, ' ').trim()
+  return { codes: [...new Set(codes)].sort((a, b) => parseInt(a) - parseInt(b)), notes }
+}
+
 function SurveyorModal({ open, onClose, onSave, initial }) {
   const [form] = Form.useForm()
   const [saving, setSaving] = useState(false)
@@ -198,7 +218,29 @@ export default function PostcodeCoverage() {
       title: 'Coverage',
       dataIndex: 'coverage',
       key: 'coverage',
-      render: v => <span style={{ whiteSpace: 'pre-line', color: '#444' }}>{v}</span>,
+      render: v => {
+        if (!v) return <span style={{ color: '#bbb' }}>—</span>
+        const lower = v.toLowerCase()
+        if (lower.includes('all')) return (
+          <div>
+            <Tag color="blue">All</Tag>
+            {v.replace(/all/i, '').replace(/[()]/g, '').trim() &&
+              <span style={{ color: '#888', fontSize: 12, marginLeft: 4 }}>
+                {v.replace(/all/i, '').replace(/[()]/g, '').trim()}
+              </span>
+            }
+          </div>
+        )
+        const { codes, notes } = parseCoverage(v)
+        return (
+          <div>
+            <Space wrap size={[2, 2]}>
+              {codes.map(c => <Tag key={c} style={{ margin: 0 }}>{c}</Tag>)}
+            </Space>
+            {notes && <div style={{ color: '#888', fontSize: 11, marginTop: 2 }}>{notes}</div>}
+          </div>
+        )
+      },
     },
     {
       title: 'Work Types',
