@@ -101,3 +101,39 @@ async def add_contact(
     await db.commit()
     await db.refresh(contact)
     return contact
+
+
+@router.patch("/{id}/contacts/{contact_id}", response_model=ClientContactOut)
+async def update_contact(
+    id: int,
+    contact_id: int,
+    payload: ClientContactCreate,
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(ClientContact).where(ClientContact.id == contact_id, ClientContact.client_id == id)
+    )
+    contact = result.scalar_one_or_none()
+    if not contact:
+        raise HTTPException(status_code=404, detail="Contact not found")
+    for field, value in payload.model_dump(exclude_unset=True).items():
+        setattr(contact, field, value)
+    await db.commit()
+    await db.refresh(contact)
+    return contact
+
+
+@router.delete("/{id}/contacts/{contact_id}", status_code=204)
+async def delete_contact(
+    id: int,
+    contact_id: int,
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(
+        select(ClientContact).where(ClientContact.id == contact_id, ClientContact.client_id == id)
+    )
+    contact = result.scalar_one_or_none()
+    if not contact:
+        raise HTTPException(status_code=404, detail="Contact not found")
+    await db.delete(contact)
+    await db.commit()

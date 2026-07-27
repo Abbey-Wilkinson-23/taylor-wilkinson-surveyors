@@ -1,9 +1,114 @@
 import { useEffect, useState } from 'react'
 import {
-  Table, Button, Modal, Form, Input, Select, Card, Space, Tag, Switch, Popconfirm, message
+  Table, Button, Modal, Form, Input, Select, Card, Space, Tag, Switch, Popconfirm, message, Checkbox
 } from 'antd'
 import { PlusOutlined, EditOutlined, DeleteOutlined, UndoOutlined, SearchOutlined } from '@ant-design/icons'
-import { getClients, createClient, updateClient, deleteClient, restoreClient } from '../api/client'
+import { getClients, createClient, updateClient, deleteClient, restoreClient, addContact, updateContact, deleteContact } from '../api/client'
+
+function ContactsTable({ client, onChange }) {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editing, setEditing]     = useState(null)
+  const [saving, setSaving]       = useState(false)
+  const [form] = Form.useForm()
+
+  const openAdd = () => { setEditing(null); form.resetFields(); setModalOpen(true) }
+  const openEdit = (c) => {
+    setEditing(c)
+    form.setFieldsValue({ name: c.name, email: c.email, phone: c.phone, role: c.role, is_primary: c.is_primary })
+    setModalOpen(true)
+  }
+
+  const handleSave = async () => {
+    const values = await form.validateFields()
+    setSaving(true)
+    try {
+      if (editing) {
+        await updateContact(client.id, editing.id, values)
+      } else {
+        await addContact(client.id, values)
+      }
+      message.success(editing ? 'Contact updated' : 'Contact added')
+      setModalOpen(false)
+      onChange()
+    } catch {
+      message.error('Failed to save contact')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleDelete = async (contactId) => {
+    try {
+      await deleteContact(client.id, contactId)
+      message.success('Contact removed')
+      onChange()
+    } catch {
+      message.error('Failed to remove contact')
+    }
+  }
+
+  const columns = [
+    { title: 'Name',  dataIndex: 'name',  key: 'name',
+      render: (name, r) => <span>{name}{r.is_primary && <Tag color="blue" style={{ marginLeft: 6, fontSize: 11 }}>Primary</Tag>}</span> },
+    { title: 'Email', dataIndex: 'email', key: 'email', render: v => v || '—' },
+    { title: 'Phone', dataIndex: 'phone', key: 'phone', render: v => v || '—' },
+    { title: 'Role',  dataIndex: 'role',  key: 'role',  render: v => v || '—' },
+    {
+      title: '', key: 'actions', width: 80,
+      render: (_, c) => (
+        <Space>
+          <Button type="text" size="small" icon={<EditOutlined />} onClick={() => openEdit(c)} />
+          <Popconfirm title="Remove this contact?" onConfirm={() => handleDelete(c.id)} okText="Remove" okButtonProps={{ danger: true }}>
+            <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+          </Popconfirm>
+        </Space>
+      ),
+    },
+  ]
+
+  return (
+    <div style={{ padding: '8px 24px 16px' }}>
+      <Table
+        dataSource={client.contacts}
+        columns={columns}
+        rowKey="id"
+        size="small"
+        pagination={false}
+        locale={{ emptyText: 'No contacts yet' }}
+      />
+      <Button type="dashed" icon={<PlusOutlined />} size="small" style={{ marginTop: 8 }} onClick={openAdd}>
+        Add Contact
+      </Button>
+
+      <Modal
+        title={editing ? 'Edit Contact' : 'Add Contact'}
+        open={modalOpen}
+        onCancel={() => setModalOpen(false)}
+        onOk={handleSave}
+        okText={editing ? 'Save' : 'Add'}
+        confirmLoading={saving}
+      >
+        <Form form={form} layout="vertical" style={{ marginTop: 12 }}>
+          <Form.Item name="name" label="Name" rules={[{ required: true }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item name="email" label="Email">
+            <Input />
+          </Form.Item>
+          <Form.Item name="phone" label="Phone">
+            <Input />
+          </Form.Item>
+          <Form.Item name="role" label="Role">
+            <Input placeholder="e.g. Accounts, Relationship Manager" />
+          </Form.Item>
+          <Form.Item name="is_primary" valuePropName="checked">
+            <Checkbox>Primary contact</Checkbox>
+          </Form.Item>
+        </Form>
+      </Modal>
+    </div>
+  )
+}
 
 export default function Clients() {
   const [clients, setClients] = useState([])
@@ -116,7 +221,14 @@ export default function Clients() {
     },
     { title: 'Email', dataIndex: 'email', key: 'email', render: v => v || '—' },
     { title: 'Phone', dataIndex: 'phone', key: 'phone', render: v => v || '—' },
-    { title: 'Contacts', key: 'contacts', render: (_, r) => r.contacts?.length || 0 },
+    {
+      title: 'Contacts',
+      key: 'contacts',
+      render: (_, r) => {
+        const n = r.contacts?.length || 0
+        return n > 0 ? <Tag>{n} contact{n !== 1 ? 's' : ''}</Tag> : <span style={{ color: '#bbb' }}>—</span>
+      },
+    },
     {
       title: 'Status',
       dataIndex: 'is_active',
@@ -210,6 +322,15 @@ export default function Clients() {
         loading={loading}
         pagination={{ pageSize: 20 }}
         size="small"
+        expandable={{
+          expandedRowRender: (record) => (
+            <ContactsTable
+              client={record}
+              onChange={fetch}
+            />
+          ),
+          rowExpandable: () => true,
+        }}
       />
 
       <Modal

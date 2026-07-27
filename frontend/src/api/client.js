@@ -31,7 +31,9 @@ export const createClient = (data) => api.post('/clients/', data).then(r => r.da
 export const updateClient = (id, data) => api.patch(`/clients/${id}`, data).then(r => r.data)
 export const deleteClient = (id) => api.delete(`/clients/${id}`)
 export const restoreClient = (id) => api.post(`/clients/${id}/restore`).then(r => r.data)
-export const addContact = (clientId, data) => api.post(`/clients/${clientId}/contacts`, data).then(r => r.data)
+export const addContact    = (clientId, data)            => api.post(`/clients/${clientId}/contacts`, data).then(r => r.data)
+export const updateContact = (clientId, contactId, data) => api.patch(`/clients/${clientId}/contacts/${contactId}`, data).then(r => r.data)
+export const deleteContact = (clientId, contactId)       => api.delete(`/clients/${clientId}/contacts/${contactId}`)
 
 // --- Surveyors ---
 export const getSurveyors = (activeOnly = true) => api.get('/surveyors/', { params: { active_only: activeOnly } }).then(r => r.data)
