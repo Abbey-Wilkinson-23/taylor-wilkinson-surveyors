@@ -97,7 +97,7 @@ export default function AppLayout({ children }) {
           items={menuItems}
           onClick={({ key }) => navigate(key)}
           inlineCollapsed={!expanded}
-          style={{ background: SIDEBAR_BG, border: 'none', marginTop: 8, width: SIDEBAR_WIDTH, flex: 1 }}
+          style={{ background: SIDEBAR_BG, border: 'none', marginTop: 8, width: expanded ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED, flex: 1 }}
           theme="dark"
         />
 
