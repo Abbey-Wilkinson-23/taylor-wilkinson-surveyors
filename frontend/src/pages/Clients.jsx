@@ -163,8 +163,6 @@ export default function Clients() {
     editForm.setFieldsValue({
       company_name: client.company_name,
       type: client.type,
-      email: client.email,
-      phone: client.phone,
       address_line_1: client.address_line_1,
       town: client.town,
       postcode: client.postcode,
@@ -211,7 +209,7 @@ export default function Clients() {
   const filtered = clients.filter(c => {
     if (!search) return true
     const q = search.toLowerCase()
-    return [c.company_name, c.type, c.email, c.phone, c.town, c.postcode, c.notes]
+    return [c.company_name, c.type, c.town, c.postcode, c.notes]
       .some(v => v?.toLowerCase().includes(q))
   })
 
@@ -223,8 +221,6 @@ export default function Clients() {
       key: 'type',
       render: (t) => <Tag>{t.charAt(0).toUpperCase() + t.slice(1)}</Tag>,
     },
-    { title: 'Email', dataIndex: 'email', key: 'email', render: v => v || '—' },
-    { title: 'Phone', dataIndex: 'phone', key: 'phone', render: v => v || '—' },
     {
       title: 'Contacts',
       key: 'contacts',
@@ -278,12 +274,6 @@ export default function Clients() {
           { value: 'broker', label: 'Broker' },
           { value: 'both', label: 'Both' },
         ]} />
-      </Form.Item>
-      <Form.Item name="email" label="Email">
-        <Input />
-      </Form.Item>
-      <Form.Item name="phone" label="Phone">
-        <Input />
       </Form.Item>
       <Form.Item name="address_line_1" label="Address Line 1">
         <Input />
@@ -353,7 +343,7 @@ export default function Clients() {
       <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 16, flexWrap: 'nowrap' }}>
         <Input
           prefix={<SearchOutlined />}
-          placeholder="Search by name, type, email, phone, town, postcode…"
+          placeholder="Search by name, type, town, postcode…"
           allowClear
           value={search}
           onChange={e => setSearch(e.target.value)}
