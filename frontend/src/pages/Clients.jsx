@@ -142,7 +142,11 @@ export default function Clients() {
   const handleCreate = async (values) => {
     setSubmitting(true)
     try {
-      await createClient(values)
+      const { contacts: contactList, ...clientData } = values
+      const client = await createClient(clientData)
+      if (contactList?.length) {
+        await Promise.all(contactList.map(c => addContact(client.id, c)))
+      }
       message.success('Client created')
       setCreateModalOpen(false)
       createForm.resetFields()
@@ -263,8 +267,8 @@ export default function Clients() {
     },
   ]
 
-  const clientForm = (form, onFinish) => (
-    <Form form={form} layout="vertical" onFinish={onFinish} style={{ marginTop: 16 }}>
+  const clientFields = (
+    <>
       <Form.Item name="company_name" label="Company Name" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
@@ -293,6 +297,54 @@ export default function Clients() {
       <Form.Item name="notes" label="Notes">
         <Input.TextArea rows={2} />
       </Form.Item>
+    </>
+  )
+
+  const createClientForm = (
+    <Form form={createForm} layout="vertical" onFinish={handleCreate} style={{ marginTop: 16 }}>
+      {clientFields}
+      <div style={{ fontWeight: 600, marginBottom: 8, marginTop: 4 }}>Contacts</div>
+      <Form.List name="contacts">
+        {(fields, { add, remove }) => (
+          <>
+            {fields.map(({ key, name, ...rest }) => (
+              <div key={key} style={{ border: '1px solid #f0f0f0', borderRadius: 6, padding: '12px 12px 0', marginBottom: 8, position: 'relative' }}>
+                <Button
+                  type="text" danger size="small" icon={<DeleteOutlined />}
+                  style={{ position: 'absolute', top: 6, right: 6 }}
+                  onClick={() => remove(name)}
+                />
+                <Form.Item {...rest} name={[name, 'name']} label="Name" rules={[{ required: true }]}>
+                  <Input />
+                </Form.Item>
+                <Space style={{ width: '100%' }} styles={{ item: { flex: 1 } }}>
+                  <Form.Item {...rest} name={[name, 'email']} label="Email" style={{ flex: 1 }}>
+                    <Input />
+                  </Form.Item>
+                  <Form.Item {...rest} name={[name, 'phone']} label="Phone" style={{ flex: 1 }}>
+                    <Input />
+                  </Form.Item>
+                </Space>
+                <Form.Item {...rest} name={[name, 'role']} label="Role">
+                  <Input placeholder="e.g. Accounts, Relationship Manager" />
+                </Form.Item>
+                <Form.Item {...rest} name={[name, 'is_primary']} valuePropName="checked">
+                  <Checkbox>Primary contact</Checkbox>
+                </Form.Item>
+              </div>
+            ))}
+            <Button type="dashed" icon={<PlusOutlined />} onClick={() => add({ is_primary: false })} block>
+              Add Contact
+            </Button>
+          </>
+        )}
+      </Form.List>
+    </Form>
+  )
+
+  const editClientForm = (
+    <Form form={editForm} layout="vertical" onFinish={handleEdit} style={{ marginTop: 16 }}>
+      {clientFields}
     </Form>
   )
 
@@ -340,8 +392,9 @@ export default function Clients() {
         onOk={() => createForm.submit()}
         confirmLoading={submitting}
         okText="Create"
+        width={600}
       >
-        {clientForm(createForm, handleCreate)}
+        {createClientForm}
       </Modal>
 
       <Modal
@@ -352,7 +405,7 @@ export default function Clients() {
         confirmLoading={submitting}
         okText="Save"
       >
-        {clientForm(editForm, handleEdit)}
+        {editClientForm}
       </Modal>
     </Card>
   )
