@@ -73,7 +73,7 @@ class InstructionCreate(BaseModel):
     survey_type_id:         int
     property:               PropertyCreate
     client_ref:             str | None = None
-    borrower_name:          str
+    borrower_name:          str | None = None
     borrower_phone:         str | None = None
     borrower_email:         str | None = None
     assigned_surveyor_id:   int | None = None
@@ -127,7 +127,7 @@ class InstructionOut(BaseModel):
     contact_id:             int | None
     property_id:            int
     survey_type_id:         int
-    borrower_name:          str
+    borrower_name:          str | None
     borrower_phone:         str | None
     borrower_email:         str | None
     assigned_surveyor_id:   int | None
@@ -163,7 +163,7 @@ class InstructionSummary(BaseModel):
     id:                      int
     our_ref:                 str
     client_ref:              str | None
-    borrower_name:           str
+    borrower_name:           str | None
     status:                  InstructionStatus
     priority:                str
     received_at:             datetime

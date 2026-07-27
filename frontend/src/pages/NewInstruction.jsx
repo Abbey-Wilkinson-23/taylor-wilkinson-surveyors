@@ -126,7 +126,7 @@ export default function NewInstruction() {
         <Divider orientation="left">Borrower</Divider>
         <Row gutter={16}>
           <Col span={8}>
-            <Form.Item name="borrower_name" label="Borrower Name" rules={[{ required: true }]}>
+            <Form.Item name="borrower_name" label="Borrower Name">
               <Input />
             </Form.Item>
           </Col>

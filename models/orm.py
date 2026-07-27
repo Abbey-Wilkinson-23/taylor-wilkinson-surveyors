@@ -243,7 +243,7 @@ class Instruction(Base):
     contact_id              = Column(Integer, ForeignKey("client_contacts.id"))
     property_id             = Column(Integer, ForeignKey("properties.id"), nullable=False)
     survey_type_id          = Column(Integer, ForeignKey("survey_types.id"), nullable=False)
-    borrower_name           = Column(Text, nullable=False)
+    borrower_name           = Column(Text, nullable=True)
     borrower_phone          = Column(Text)
     borrower_email          = Column(Text)
     assigned_surveyor_id    = Column(Integer, ForeignKey("surveyors.id"))
