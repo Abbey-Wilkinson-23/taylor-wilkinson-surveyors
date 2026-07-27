@@ -46,8 +46,8 @@ function SurveyorModal({ open, onClose, onSave, initial }) {
         preferred:     initial.preferred || undefined,
         coverage:      initial.coverage,
         work_types:    initial.work_types,
-        fee_cat:       initial.fee_cat,
-      } : { fee_cat: 'STANDARD' })
+        fee_cat:       initial.fee_cat ? initial.fee_cat.split(',') : [],
+      } : { fee_cat: ['STANDARD'] })
     }
   }, [open, initial])
 
@@ -90,8 +90,8 @@ function SurveyorModal({ open, onClose, onSave, initial }) {
         <Form.Item name="work_types" label="Work Types">
           <Input placeholder="e.g. R / C / GDV" />
         </Form.Item>
-        <Form.Item name="fee_cat" label="Fee Category" rules={[{ required: true }]}>
-          <Select>
+        <Form.Item name="fee_cat" label="Fee Category" rules={[{ required: true, type: 'array', min: 1 }]}>
+          <Select mode="multiple">
             <Option value="STANDARD">Standard fee scale</Option>
             <Option value="QUOTABLE">Quotable work only</Option>
             <Option value="HIGHER">Higher / fix / min fee</Option>
@@ -128,7 +128,7 @@ export default function PostcodeCoverage() {
 
   const filtered = useMemo(() => data.filter(r => {
     if (areaFilter && r.postcode_area !== areaFilter) return false
-    if (feeFilter  && r.fee_cat !== feeFilter) return false
+    if (feeFilter  && !r.fee_cat.split(',').includes(feeFilter)) return false
     if (workFilter && !r.work_types.toUpperCase().includes(workFilter)) return false
     if (!search) return true
     const q = search.toLowerCase()
@@ -146,7 +146,7 @@ export default function PostcodeCoverage() {
       preferred:     values.preferred || '',
       coverage:      values.coverage  || '',
       work_types:    values.work_types || '',
-      fee_cat:       values.fee_cat,
+      fee_cat:       values.fee_cat.join(','),
     }
     try {
       if (editing) {
@@ -252,9 +252,15 @@ export default function PostcodeCoverage() {
       title: 'Fee Category',
       dataIndex: 'fee_cat',
       key: 'fee_cat',
-      width: 140,
+      width: 180,
       sorter: (a, b) => a.fee_cat.localeCompare(b.fee_cat),
-      render: v => <Tag color={FEE_COLOURS[v]}>{FEE_LABELS[v]}</Tag>,
+      render: v => (
+        <Space wrap size={2}>
+          {(v || '').split(',').filter(Boolean).map(cat => (
+            <Tag key={cat} color={FEE_COLOURS[cat]}>{FEE_LABELS[cat]}</Tag>
+          ))}
+        </Space>
+      ),
     },
     {
       title: '',
