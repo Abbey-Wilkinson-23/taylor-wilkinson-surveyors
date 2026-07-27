@@ -1,4 +1,4 @@
-import { Layout, Menu, Avatar, Typography, Popconfirm } from 'antd'
+import { Layout, Menu, Avatar, Typography, Popconfirm, Switch } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import {
@@ -10,8 +10,11 @@ import {
   SafetyOutlined,
   LogoutOutlined,
   EnvironmentOutlined,
+  SunOutlined,
+  MoonOutlined,
 } from '@ant-design/icons'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import logo from '../assets/logo.png'
 
 const { Content } = Layout
@@ -38,6 +41,7 @@ export default function AppLayout({ children }) {
   const navigate = useNavigate()
   const location = useLocation()
   const { user, logout } = useAuth()
+  const { dark, toggleDark } = useTheme()
   const [hovered, setHovered] = useState(false)
 
   const isAdmin = user?.role === 'admin'
@@ -96,6 +100,29 @@ export default function AppLayout({ children }) {
           style={{ background: SIDEBAR_BG, border: 'none', marginTop: 8, width: SIDEBAR_WIDTH, flex: 1 }}
           theme="dark"
         />
+
+        {/* Dark mode toggle */}
+        <div style={{
+          padding: expanded ? '8px 16px' : '8px 0',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: expanded ? 'space-between' : 'center',
+          gap: 8,
+          overflow: 'hidden',
+        }}>
+          {expanded && (
+            <span style={{ color: 'rgba(255,255,255,0.7)', fontSize: 12, whiteSpace: 'nowrap' }}>
+              {dark ? 'Dark mode' : 'Light mode'}
+            </span>
+          )}
+          <Switch
+            size="small"
+            checked={dark}
+            onChange={toggleDark}
+            checkedChildren={<MoonOutlined />}
+            unCheckedChildren={<SunOutlined />}
+          />
+        </div>
 
         {/* User + logout */}
         <div style={{
