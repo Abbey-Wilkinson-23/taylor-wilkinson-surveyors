@@ -21,7 +21,7 @@ function ProtectedRoute({ children, adminOnly = false }) {
 
   if (loading) return <Spin style={{ display: 'block', marginTop: 80 }} />
   if (!user) return <Navigate to="/login" state={{ from: location }} replace />
-  if (adminOnly && user.role !== 'admin') return <Navigate to="/instructions" replace />
+  if (adminOnly && user.role !== 'admin' && user.role !== 'developer') return <Navigate to="/instructions" replace />
   return children
 }
 
