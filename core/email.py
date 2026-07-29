@@ -1,29 +1,22 @@
 import asyncio
-import smtplib
 import logging
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import requests as http
 
 from core.config import settings
 
 logger = logging.getLogger(__name__)
 
-SMTP_TIMEOUT = 10  # seconds
-
 
 def _send_sync(to: str, subject: str, html: str) -> None:
-    sender = settings.smtp_from or settings.smtp_user
-    msg = MIMEMultipart("alternative")
-    msg["Subject"] = subject
-    msg["From"]    = sender
-    msg["To"]      = to
-    msg.attach(MIMEText(html, "html"))
-
-    with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=SMTP_TIMEOUT) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.login(settings.smtp_user, settings.smtp_pass)
-        smtp.sendmail(sender, to, msg.as_string())
+    sender = settings.smtp_from or "Taylor Wilkinson Surveyors <onboarding@resend.dev>"
+    response = http.post(
+        "https://api.resend.com/emails",
+        headers={"Authorization": f"Bearer {settings.resend_api_key}"},
+        json={"from": sender, "to": [to], "subject": subject, "html": html},
+        timeout=10,
+    )
+    if response.status_code >= 400:
+        raise RuntimeError(f"Resend API error {response.status_code}: {response.text}")
 
 
 async def _send_in_background(to: str, subject: str, html: str) -> None:
@@ -35,9 +28,9 @@ async def _send_in_background(to: str, subject: str, html: str) -> None:
 
 
 def send_email(to: str, subject: str, html: str) -> None:
-    """Schedule an email to send in the background. Returns immediately."""
-    if not settings.smtp_host or not settings.smtp_user:
-        logger.info("SMTP not configured — skipping email to %s", to)
+    """Schedule an email via Resend in the background. Returns immediately."""
+    if not settings.resend_api_key:
+        logger.info("RESEND_API_KEY not configured — skipping email to %s", to)
         return
     asyncio.create_task(_send_in_background(to, subject, html))
 
