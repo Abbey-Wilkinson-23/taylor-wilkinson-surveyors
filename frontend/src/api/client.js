@@ -95,6 +95,12 @@ export const addPostcodeWorkType     = (data)     => api.post('/postcode-work-ty
 export const updatePostcodeWorkType  = (id, data) => api.patch(`/postcode-work-types/${id}`, data).then(r => r.data)
 export const deletePostcodeWorkType  = (id)       => api.delete(`/postcode-work-types/${id}`)
 
+// --- Postcode fee types ---
+export const getPostcodeFeeTypes     = ()         => api.get('/postcode-fee-types/').then(r => r.data)
+export const addPostcodeFeeType      = (data)     => api.post('/postcode-fee-types/', data).then(r => r.data)
+export const updatePostcodeFeeType   = (id, data) => api.patch(`/postcode-fee-types/${id}`, data).then(r => r.data)
+export const deletePostcodeFeeType   = (id)       => api.delete(`/postcode-fee-types/${id}`)
+
 // --- Stats ---
 const arrayParamSerializer = (p) => {
   const parts = []

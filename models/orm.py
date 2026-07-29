@@ -318,6 +318,13 @@ class PostcodeWorkType(Base):
     name = Column(Text, nullable=False, unique=True)
 
 
+class PostcodeFeeType(Base):
+    __tablename__ = "postcode_fee_types"
+
+    id   = Column(Integer, primary_key=True)
+    name = Column(Text, nullable=False, unique=True)
+
+
 class PostcodeSurveyor(Base):
     __tablename__ = "postcode_surveyors"
 

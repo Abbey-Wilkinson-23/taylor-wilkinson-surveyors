@@ -2,7 +2,7 @@ from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from core.auth import get_current_user, require_admin
 from core.config import settings
-from routers import auth, instructions, clients, surveyors, survey_types, stats, postcode, postcode_work_types
+from routers import auth, instructions, clients, surveyors, survey_types, stats, postcode, postcode_work_types, postcode_fee_types
 
 # Hide API docs in production so the endpoint structure isn't publicly browsable
 _docs = None if settings.environment == "production" else "/docs"
@@ -41,6 +41,7 @@ app.include_router(stats.router, dependencies=[Depends(require_admin)])
 # Postcode coverage — all authenticated users can read; edit restricted in router
 app.include_router(postcode.router, dependencies=_auth)
 app.include_router(postcode_work_types.router, dependencies=_auth)
+app.include_router(postcode_fee_types.router,  dependencies=_auth)
 
 
 @app.get("/health", tags=["health"])

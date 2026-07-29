@@ -6,14 +6,13 @@ import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutl
 import {
   getPostcodeSurveyors, addPostcodeSurveyor, updatePostcodeSurveyor, deletePostcodeSurveyor,
   getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
+  getPostcodeFeeTypes, addPostcodeFeeType, updatePostcodeFeeType, deletePostcodeFeeType,
 } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 
 const { Option } = Select
 
 const POSTCODE_EDITOR = 'abbeywilkinson123@gmail.com'
-const FEE_COLOURS = { STANDARD: 'green', QUOTABLE: 'red', HIGHER: 'gold' }
-const FEE_LABELS  = { STANDARD: 'Standard', QUOTABLE: 'Quotable only', HIGHER: 'Higher fee' }
 const PREF_LABELS = { '##': '★★ Top pick', '#': '★ Preferred', '': '' }
 
 // Parse coverage string into individual district codes and leftover notes
@@ -36,7 +35,7 @@ function parseCoverage(str) {
   return { codes: [...new Set(codes)].sort((a, b) => parseInt(a) - parseInt(b)), notes }
 }
 
-function SurveyorModal({ open, onClose, onSave, initial, workTypes = [] }) {
+function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeTypes = [] }) {
   const [form] = Form.useForm()
   const [saving, setSaving] = useState(false)
   const isEdit = !!initial
@@ -50,7 +49,7 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [] }) {
         coverage:      initial.coverage,
         work_types:    initial.work_types ? initial.work_types.split(',').map(w => w.trim()).filter(Boolean) : [],
         fee_cat:       initial.fee_cat ? initial.fee_cat.split(',') : [],
-      } : { fee_cat: ['STANDARD'] })
+      } : { fee_cat: [] })
     }
   }, [open, initial])
 
@@ -96,10 +95,8 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [] }) {
           </Select>
         </Form.Item>
         <Form.Item name="fee_cat" label="Fee Category" rules={[{ required: true, type: 'array', min: 1 }]}>
-          <Select mode="multiple">
-            <Option value="STANDARD">Standard fee scale</Option>
-            <Option value="QUOTABLE">Quotable work only</Option>
-            <Option value="HIGHER">Higher / fix / min fee</Option>
+          <Select mode="multiple" placeholder="Select fee types">
+            {feeTypes.map(ft => <Option key={ft.id} value={ft.name}>{ft.name}</Option>)}
           </Select>
         </Form.Item>
       </Form>
@@ -211,6 +208,110 @@ function WorkTypeManager({ open, onClose, workTypes, onChange }) {
   )
 }
 
+function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
+  const [newName, setNewName]     = useState('')
+  const [editingFt, setEditingFt] = useState(null)
+  const [editName, setEditName]   = useState('')
+  const [saving, setSaving]       = useState(false)
+
+  const handleAdd = async () => {
+    if (!newName.trim()) return
+    setSaving(true)
+    try {
+      await addPostcodeFeeType({ name: newName.trim() })
+      setNewName('')
+      onChange()
+    } catch {
+      message.error('Failed to add — may already exist')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleEdit = async (id) => {
+    if (!editName.trim()) return
+    setSaving(true)
+    try {
+      await updatePostcodeFeeType(id, { name: editName.trim() })
+      setEditingFt(null)
+      onChange()
+    } catch {
+      message.error('Failed to update')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleDelete = async (id) => {
+    try {
+      await deletePostcodeFeeType(id)
+      onChange()
+    } catch {
+      message.error('Failed to delete')
+    }
+  }
+
+  return (
+    <Modal
+      title="Manage Fee Types"
+      open={open}
+      onCancel={onClose}
+      footer={null}
+      width={400}
+    >
+      <div style={{ marginBottom: 16 }}>
+        <Space.Compact style={{ width: '100%' }}>
+          <Input
+            placeholder="New fee type name"
+            value={newName}
+            onChange={e => setNewName(e.target.value)}
+            onPressEnter={handleAdd}
+          />
+          <Button type="primary" icon={<PlusOutlined />} loading={saving} onClick={handleAdd}>
+            Add
+          </Button>
+        </Space.Compact>
+      </div>
+      <Table
+        dataSource={feeTypes}
+        rowKey="id"
+        size="small"
+        pagination={false}
+        columns={[
+          {
+            title: 'Name',
+            dataIndex: 'name',
+            render: (name, r) => editingFt?.id === r.id
+              ? <Input
+                  value={editName}
+                  onChange={e => setEditName(e.target.value)}
+                  onPressEnter={() => handleEdit(r.id)}
+                  size="small"
+                  autoFocus
+                />
+              : name,
+          },
+          {
+            title: '',
+            width: 80,
+            render: (_, r) => editingFt?.id === r.id
+              ? <Space>
+                  <Button size="small" type="primary" loading={saving} onClick={() => handleEdit(r.id)}>Save</Button>
+                  <Button size="small" onClick={() => setEditingFt(null)}>Cancel</Button>
+                </Space>
+              : <Space>
+                  <Button type="text" size="small" icon={<EditOutlined />} onClick={() => { setEditingFt(r); setEditName(r.name) }} />
+                  <Popconfirm title="Delete this fee type?" onConfirm={() => handleDelete(r.id)} okText="Delete" okButtonProps={{ danger: true }}>
+                    <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+                  </Popconfirm>
+                </Space>,
+          },
+        ]}
+      />
+    </Modal>
+  )
+}
+
 export default function PostcodeCoverage() {
   const { user } = useAuth()
   const canEdit = user?.email === POSTCODE_EDITOR
@@ -226,6 +327,8 @@ export default function PostcodeCoverage() {
   const [pageSize, setPageSize]       = useState(50)
   const [workTypes, setWorkTypes]     = useState([])
   const [wtModalOpen, setWtModal]     = useState(false)
+  const [feeTypes, setFeeTypes]       = useState([])
+  const [ftModalOpen, setFtModal]     = useState(false)
 
   const load = async () => {
     setLoading(true)
@@ -237,7 +340,11 @@ export default function PostcodeCoverage() {
     setWorkTypes(await getPostcodeWorkTypes())
   }
 
-  useEffect(() => { load(); loadWorkTypes() }, [])
+  const loadFeeTypes = async () => {
+    setFeeTypes(await getPostcodeFeeTypes())
+  }
+
+  useEffect(() => { load(); loadWorkTypes(); loadFeeTypes() }, [])
 
   const areas = useMemo(() => [...new Set(data.map(r => r.postcode_area))].sort(), [data])
 
@@ -372,7 +479,7 @@ export default function PostcodeCoverage() {
       render: v => (
         <Space wrap size={2}>
           {(v || '').split(',').filter(Boolean).map(cat => (
-            <Tag key={cat} color={FEE_COLOURS[cat]}>{FEE_LABELS[cat]}</Tag>
+            <Tag key={cat}>{cat}</Tag>
           ))}
         </Space>
       ),
@@ -425,13 +532,11 @@ export default function PostcodeCoverage() {
         <Select
           placeholder="Fee type"
           allowClear
-          style={{ width: 160 }}
+          style={{ width: 180 }}
           value={feeFilter}
           onChange={v => setFee(v || null)}
         >
-          <Option value="STANDARD">Standard fee scale</Option>
-          <Option value="QUOTABLE">Quotable work only</Option>
-          <Option value="HIGHER">Higher / fix / min fee</Option>
+          {feeTypes.map(ft => <Option key={ft.id} value={ft.name}>{ft.name}</Option>)}
         </Select>
         <Select
           placeholder="Work type"
@@ -447,6 +552,9 @@ export default function PostcodeCoverage() {
         </Button>
         <Tooltip title="Manage work types">
           <Button icon={<SettingOutlined />} onClick={() => setWtModal(true)} />
+        </Tooltip>
+        <Tooltip title="Manage fee types">
+          <Button icon={<SettingOutlined />} onClick={() => setFtModal(true)} />
         </Tooltip>
       </div>
 
@@ -471,6 +579,7 @@ export default function PostcodeCoverage() {
         onSave={handleSave}
         initial={editing}
         workTypes={workTypes}
+        feeTypes={feeTypes}
       />
 
       <WorkTypeManager
@@ -478,6 +587,13 @@ export default function PostcodeCoverage() {
         onClose={() => setWtModal(false)}
         workTypes={workTypes}
         onChange={loadWorkTypes}
+      />
+
+      <FeeTypeManager
+        open={ftModalOpen}
+        onClose={() => setFtModal(false)}
+        feeTypes={feeTypes}
+        onChange={loadFeeTypes}
       />
 
       <style>{`.custom-postcode-row td { background: #f9f0ff !important; }`}</style>
