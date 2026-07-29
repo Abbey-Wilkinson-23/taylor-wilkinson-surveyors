@@ -45,7 +45,7 @@ function SurveyorModal({ open, onClose, onSave, initial }) {
         name:          initial.name,
         preferred:     initial.preferred || undefined,
         coverage:      initial.coverage,
-        work_types:    initial.work_types,
+        work_types:    initial.work_types ? initial.work_types.split(',').map(w => w.trim()).filter(Boolean) : [],
         fee_cat:       initial.fee_cat ? initial.fee_cat.split(',') : [],
       } : { fee_cat: ['STANDARD'] })
     }
@@ -88,7 +88,20 @@ function SurveyorModal({ open, onClose, onSave, initial }) {
           <Input.TextArea rows={2} placeholder="e.g. 1-10, 15, 20-25 (check distance)" />
         </Form.Item>
         <Form.Item name="work_types" label="Work Types">
-          <Input placeholder="e.g. R / C / GDV" />
+          <Select mode="multiple" placeholder="Select work types" allowClear>
+            <Option value="R">Residential (R)</Option>
+            <Option value="C">Commercial (C)</Option>
+            <Option value="GDV">GDV</Option>
+            <Option value="Homebuyers">Homebuyers</Option>
+            <Option value="HMO">HMO</Option>
+            <Option value="Building Survey">Building Survey</Option>
+            <Option value="Agricultural">Agricultural</Option>
+            <Option value="Private Resi">Private Resi</Option>
+            <Option value="L2">L2</Option>
+            <Option value="L3">L3</Option>
+            <Option value="Land Registry">Land Registry</Option>
+            <Option value="Dilapidations">Schedule of Conditions / Dilapidations</Option>
+          </Select>
         </Form.Item>
         <Form.Item name="fee_cat" label="Fee Category" rules={[{ required: true, type: 'array', min: 1 }]}>
           <Select mode="multiple">
@@ -129,7 +142,7 @@ export default function PostcodeCoverage() {
   const filtered = useMemo(() => data.filter(r => {
     if (areaFilter && r.postcode_area !== areaFilter) return false
     if (feeFilter  && !r.fee_cat.split(',').includes(feeFilter)) return false
-    if (workFilter && !r.work_types.toUpperCase().includes(workFilter)) return false
+    if (workFilter && !r.work_types.split(',').map(w => w.trim()).includes(workFilter)) return false
     if (!search) return true
     const q = search.toLowerCase()
     return [r.postcode_area, r.name, r.coverage].some(v => v?.toLowerCase().includes(q))
@@ -145,7 +158,7 @@ export default function PostcodeCoverage() {
       name:          values.name.trim(),
       preferred:     values.preferred || '',
       coverage:      values.coverage  || '',
-      work_types:    values.work_types || '',
+      work_types:    (values.work_types || []).join(','),
       fee_cat:       values.fee_cat.join(','),
     }
     try {
@@ -321,13 +334,22 @@ export default function PostcodeCoverage() {
         <Select
           placeholder="Work type"
           allowClear
-          style={{ width: 140 }}
+          style={{ width: 180 }}
           value={workFilter}
           onChange={v => setWork(v || null)}
         >
           <Option value="R">Residential (R)</Option>
           <Option value="C">Commercial (C)</Option>
           <Option value="GDV">GDV</Option>
+          <Option value="Homebuyers">Homebuyers</Option>
+          <Option value="HMO">HMO</Option>
+          <Option value="Building Survey">Building Survey</Option>
+          <Option value="Agricultural">Agricultural</Option>
+          <Option value="Private Resi">Private Resi</Option>
+          <Option value="L2">L2</Option>
+          <Option value="L3">L3</Option>
+          <Option value="Land Registry">Land Registry</Option>
+          <Option value="Dilapidations">Dilapidations</Option>
         </Select>
         <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>
           Add Surveyor
