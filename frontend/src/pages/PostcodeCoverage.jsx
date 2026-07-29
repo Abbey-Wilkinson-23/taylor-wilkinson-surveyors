@@ -1,9 +1,12 @@
 import { useEffect, useState, useMemo } from 'react'
 import {
-  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm
+  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip
 } from 'antd'
-import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined } from '@ant-design/icons'
-import { getPostcodeSurveyors, addPostcodeSurveyor, updatePostcodeSurveyor, deletePostcodeSurveyor } from '../api/client'
+import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons'
+import {
+  getPostcodeSurveyors, addPostcodeSurveyor, updatePostcodeSurveyor, deletePostcodeSurveyor,
+  getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
+} from '../api/client'
 import { useAuth } from '../context/AuthContext'
 
 const { Option } = Select
@@ -33,7 +36,7 @@ function parseCoverage(str) {
   return { codes: [...new Set(codes)].sort((a, b) => parseInt(a) - parseInt(b)), notes }
 }
 
-function SurveyorModal({ open, onClose, onSave, initial }) {
+function SurveyorModal({ open, onClose, onSave, initial, workTypes = [] }) {
   const [form] = Form.useForm()
   const [saving, setSaving] = useState(false)
   const isEdit = !!initial
@@ -89,18 +92,7 @@ function SurveyorModal({ open, onClose, onSave, initial }) {
         </Form.Item>
         <Form.Item name="work_types" label="Work Types">
           <Select mode="multiple" placeholder="Select work types" allowClear>
-            <Option value="R">Residential (R)</Option>
-            <Option value="C">Commercial (C)</Option>
-            <Option value="GDV">GDV</Option>
-            <Option value="Homebuyers">Homebuyers</Option>
-            <Option value="HMO">HMO</Option>
-            <Option value="Building Survey">Building Survey</Option>
-            <Option value="Agricultural">Agricultural</Option>
-            <Option value="Private Resi">Private Resi</Option>
-            <Option value="L2">L2</Option>
-            <Option value="L3">L3</Option>
-            <Option value="Land Registry">Land Registry</Option>
-            <Option value="Dilapidations">Schedule of Conditions / Dilapidations</Option>
+            {workTypes.map(wt => <Option key={wt.id} value={wt.name}>{wt.name}</Option>)}
           </Select>
         </Form.Item>
         <Form.Item name="fee_cat" label="Fee Category" rules={[{ required: true, type: 'array', min: 1 }]}>
@@ -115,19 +107,125 @@ function SurveyorModal({ open, onClose, onSave, initial }) {
   )
 }
 
+function WorkTypeManager({ open, onClose, workTypes, onChange }) {
+  const [newName, setNewName]     = useState('')
+  const [editingWt, setEditingWt] = useState(null) // { id, name }
+  const [editName, setEditName]   = useState('')
+  const [saving, setSaving]       = useState(false)
+
+  const handleAdd = async () => {
+    if (!newName.trim()) return
+    setSaving(true)
+    try {
+      await addPostcodeWorkType({ name: newName.trim() })
+      setNewName('')
+      onChange()
+    } catch {
+      message.error('Failed to add — may already exist')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleEdit = async (id) => {
+    if (!editName.trim()) return
+    setSaving(true)
+    try {
+      await updatePostcodeWorkType(id, { name: editName.trim() })
+      setEditingWt(null)
+      onChange()
+    } catch {
+      message.error('Failed to update')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleDelete = async (id) => {
+    try {
+      await deletePostcodeWorkType(id)
+      onChange()
+    } catch {
+      message.error('Failed to delete')
+    }
+  }
+
+  return (
+    <Modal
+      title="Manage Work Types"
+      open={open}
+      onCancel={onClose}
+      footer={null}
+      width={400}
+    >
+      <div style={{ marginBottom: 16 }}>
+        <Space.Compact style={{ width: '100%' }}>
+          <Input
+            placeholder="New work type name"
+            value={newName}
+            onChange={e => setNewName(e.target.value)}
+            onPressEnter={handleAdd}
+          />
+          <Button type="primary" icon={<PlusOutlined />} loading={saving} onClick={handleAdd}>
+            Add
+          </Button>
+        </Space.Compact>
+      </div>
+      <Table
+        dataSource={workTypes}
+        rowKey="id"
+        size="small"
+        pagination={false}
+        columns={[
+          {
+            title: 'Name',
+            dataIndex: 'name',
+            render: (name, r) => editingWt?.id === r.id
+              ? <Input
+                  value={editName}
+                  onChange={e => setEditName(e.target.value)}
+                  onPressEnter={() => handleEdit(r.id)}
+                  size="small"
+                  autoFocus
+                />
+              : name,
+          },
+          {
+            title: '',
+            width: 80,
+            render: (_, r) => editingWt?.id === r.id
+              ? <Space>
+                  <Button size="small" type="primary" loading={saving} onClick={() => handleEdit(r.id)}>Save</Button>
+                  <Button size="small" onClick={() => setEditingWt(null)}>Cancel</Button>
+                </Space>
+              : <Space>
+                  <Button type="text" size="small" icon={<EditOutlined />} onClick={() => { setEditingWt(r); setEditName(r.name) }} />
+                  <Popconfirm title="Delete this work type?" onConfirm={() => handleDelete(r.id)} okText="Delete" okButtonProps={{ danger: true }}>
+                    <Button type="text" size="small" danger icon={<DeleteOutlined />} />
+                  </Popconfirm>
+                </Space>,
+          },
+        ]}
+      />
+    </Modal>
+  )
+}
+
 export default function PostcodeCoverage() {
   const { user } = useAuth()
   const canEdit = user?.email === POSTCODE_EDITOR
 
-  const [data, setData]           = useState([])
-  const [loading, setLoading]     = useState(false)
-  const [search, setSearch]       = useState('')
-  const [areaFilter, setArea]     = useState(null)
-  const [feeFilter, setFee]       = useState(null)
-  const [workFilter, setWork]     = useState(null)
-  const [modalOpen, setModalOpen] = useState(false)
-  const [editing, setEditing]     = useState(null)  // null = add mode, object = edit mode
-  const [pageSize, setPageSize]   = useState(50)
+  const [data, setData]               = useState([])
+  const [loading, setLoading]         = useState(false)
+  const [search, setSearch]           = useState('')
+  const [areaFilter, setArea]         = useState(null)
+  const [feeFilter, setFee]           = useState(null)
+  const [workFilter, setWork]         = useState(null)
+  const [modalOpen, setModalOpen]     = useState(false)
+  const [editing, setEditing]         = useState(null)
+  const [pageSize, setPageSize]       = useState(50)
+  const [workTypes, setWorkTypes]     = useState([])
+  const [wtModalOpen, setWtModal]     = useState(false)
 
   const load = async () => {
     setLoading(true)
@@ -135,7 +233,11 @@ export default function PostcodeCoverage() {
     finally { setLoading(false) }
   }
 
-  useEffect(() => { load() }, [])
+  const loadWorkTypes = async () => {
+    setWorkTypes(await getPostcodeWorkTypes())
+  }
+
+  useEffect(() => { load(); loadWorkTypes() }, [])
 
   const areas = useMemo(() => [...new Set(data.map(r => r.postcode_area))].sort(), [data])
 
@@ -338,22 +440,14 @@ export default function PostcodeCoverage() {
           value={workFilter}
           onChange={v => setWork(v || null)}
         >
-          <Option value="R">Residential (R)</Option>
-          <Option value="C">Commercial (C)</Option>
-          <Option value="GDV">GDV</Option>
-          <Option value="Homebuyers">Homebuyers</Option>
-          <Option value="HMO">HMO</Option>
-          <Option value="Building Survey">Building Survey</Option>
-          <Option value="Agricultural">Agricultural</Option>
-          <Option value="Private Resi">Private Resi</Option>
-          <Option value="L2">L2</Option>
-          <Option value="L3">L3</Option>
-          <Option value="Land Registry">Land Registry</Option>
-          <Option value="Dilapidations">Dilapidations</Option>
+          {workTypes.map(wt => <Option key={wt.id} value={wt.name}>{wt.name}</Option>)}
         </Select>
         <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>
           Add Surveyor
         </Button>
+        <Tooltip title="Manage work types">
+          <Button icon={<SettingOutlined />} onClick={() => setWtModal(true)} />
+        </Tooltip>
       </div>
 
       <div style={{ marginBottom: 8, color: '#888', fontSize: 13 }}>
@@ -376,6 +470,14 @@ export default function PostcodeCoverage() {
         onClose={closeModal}
         onSave={handleSave}
         initial={editing}
+        workTypes={workTypes}
+      />
+
+      <WorkTypeManager
+        open={wtModalOpen}
+        onClose={() => setWtModal(false)}
+        workTypes={workTypes}
+        onChange={loadWorkTypes}
       />
 
       <style>{`.custom-postcode-row td { background: #f9f0ff !important; }`}</style>

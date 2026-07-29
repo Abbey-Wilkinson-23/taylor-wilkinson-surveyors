@@ -299,6 +299,13 @@ class InstructionStatusHistory(Base):
 # Postcode coverage
 # ---------------------------------------------------------------------------
 
+class PostcodeWorkType(Base):
+    __tablename__ = "postcode_work_types"
+
+    id   = Column(Integer, primary_key=True)
+    name = Column(Text, nullable=False, unique=True)
+
+
 class PostcodeSurveyor(Base):
     __tablename__ = "postcode_surveyors"
 

@@ -84,10 +84,16 @@ export const updateUser   = (id, data)    => api.patch(`/auth/users/${id}`, data
 export const removeUser   = (id)          => api.delete(`/auth/users/${id}`)
 
 // --- Postcode coverage ---
-export const getPostcodeSurveyors    = ()        => api.get('/postcode/').then(r => r.data)
-export const addPostcodeSurveyor     = (data)    => api.post('/postcode/', data).then(r => r.data)
+export const getPostcodeSurveyors    = ()         => api.get('/postcode/').then(r => r.data)
+export const addPostcodeSurveyor     = (data)     => api.post('/postcode/', data).then(r => r.data)
 export const updatePostcodeSurveyor  = (id, data) => api.patch(`/postcode/${id}`, data).then(r => r.data)
-export const deletePostcodeSurveyor  = (id)      => api.delete(`/postcode/${id}`)
+export const deletePostcodeSurveyor  = (id)       => api.delete(`/postcode/${id}`)
+
+// --- Postcode work types ---
+export const getPostcodeWorkTypes    = ()         => api.get('/postcode-work-types/').then(r => r.data)
+export const addPostcodeWorkType     = (data)     => api.post('/postcode-work-types/', data).then(r => r.data)
+export const updatePostcodeWorkType  = (id, data) => api.patch(`/postcode-work-types/${id}`, data).then(r => r.data)
+export const deletePostcodeWorkType  = (id)       => api.delete(`/postcode-work-types/${id}`)
 
 // --- Stats ---
 const arrayParamSerializer = (p) => {
