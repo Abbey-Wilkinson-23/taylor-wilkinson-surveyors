@@ -435,7 +435,7 @@ export default function PostcodeCoverage() {
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (name, r) => (
         <span>
-          {name}
+          {name.replace(/\s*\([\d\s,&–\-]+\)\s*/g, '').trim()}
           {r.preferred && (
             <Tag color="purple" style={{ marginLeft: 6, fontSize: 11 }}>
               {PREF_LABELS[r.preferred]}
