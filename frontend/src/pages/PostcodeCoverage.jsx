@@ -1,6 +1,6 @@
 import { useEffect, useState, useMemo } from 'react'
 import {
-  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip
+  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Tabs
 } from 'antd'
 import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons'
 import {
@@ -104,7 +104,7 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
   )
 }
 
-function WorkTypeManager({ open, onClose, workTypes, onChange }) {
+function WorkTypeManager({ workTypes, onChange }) {
   const [newName, setNewName]     = useState('')
   const [editingWt, setEditingWt] = useState(null) // { id, name }
   const [editName, setEditName]   = useState('')
@@ -147,14 +147,8 @@ function WorkTypeManager({ open, onClose, workTypes, onChange }) {
     }
   }
 
-  return (
-    <Modal
-      title="Manage Work Types"
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      width={400}
-    >
+  const content = (
+    <>
       <div style={{ marginBottom: 16 }}>
         <Space.Compact style={{ width: '100%' }}>
           <Input
@@ -204,8 +198,9 @@ function WorkTypeManager({ open, onClose, workTypes, onChange }) {
           },
         ]}
       />
-    </Modal>
+    </>
   )
+  return content
 }
 
 const TAG_COLOURS = [
@@ -225,7 +220,7 @@ function ColourSelect({ value, onChange }) {
   )
 }
 
-function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
+function FeeTypeManager({ feeTypes, onChange }) {
   const [newName, setNewName]     = useState('')
   const [newColour, setNewColour] = useState('default')
   const [editingFt, setEditingFt] = useState(null)
@@ -272,13 +267,7 @@ function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
   }
 
   return (
-    <Modal
-      title="Manage Fee Types"
-      open={open}
-      onCancel={onClose}
-      footer={null}
-      width={460}
-    >
+    <>
       <div style={{ marginBottom: 16 }}>
         <Space.Compact style={{ width: '100%' }}>
           <Input
@@ -331,7 +320,7 @@ function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
           },
         ]}
       />
-    </Modal>
+    </>
   )
 }
 
@@ -349,9 +338,8 @@ export default function PostcodeCoverage() {
   const [editing, setEditing]         = useState(null)
   const [pageSize, setPageSize]       = useState(50)
   const [workTypes, setWorkTypes]     = useState([])
-  const [wtModalOpen, setWtModal]     = useState(false)
   const [feeTypes, setFeeTypes]       = useState([])
-  const [ftModalOpen, setFtModal]     = useState(false)
+  const [settingsOpen, setSettings]   = useState(false)
 
   const load = async () => {
     setLoading(true)
@@ -574,11 +562,8 @@ export default function PostcodeCoverage() {
         <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>
           Add Surveyor
         </Button>
-        <Tooltip title="Manage work types">
-          <Button icon={<SettingOutlined />} onClick={() => setWtModal(true)} />
-        </Tooltip>
-        <Tooltip title="Manage fee types">
-          <Button icon={<SettingOutlined />} onClick={() => setFtModal(true)} />
+        <Tooltip title="Settings">
+          <Button icon={<SettingOutlined />} onClick={() => setSettings(true)} />
         </Tooltip>
       </div>
 
@@ -606,19 +591,28 @@ export default function PostcodeCoverage() {
         feeTypes={feeTypes}
       />
 
-      <WorkTypeManager
-        open={wtModalOpen}
-        onClose={() => setWtModal(false)}
-        workTypes={workTypes}
-        onChange={loadWorkTypes}
-      />
-
-      <FeeTypeManager
-        open={ftModalOpen}
-        onClose={() => setFtModal(false)}
-        feeTypes={feeTypes}
-        onChange={loadFeeTypes}
-      />
+      <Modal
+        title="Settings"
+        open={settingsOpen}
+        onCancel={() => setSettings(false)}
+        footer={null}
+        width={480}
+      >
+        <Tabs
+          items={[
+            {
+              key: 'work-types',
+              label: 'Work Types',
+              children: <WorkTypeManager inline workTypes={workTypes} onChange={loadWorkTypes} />,
+            },
+            {
+              key: 'fee-types',
+              label: 'Fee Types',
+              children: <FeeTypeManager inline feeTypes={feeTypes} onChange={loadFeeTypes} />,
+            },
+          ]}
+        />
+      </Modal>
 
       <style>{`.custom-postcode-row td { background: #f9f0ff !important; }`}</style>
     </Card>
