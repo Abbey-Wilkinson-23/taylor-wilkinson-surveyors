@@ -3,9 +3,10 @@ import {
   Card, Table, Button, Tag, Space, Modal, Form, Input, Select,
   Typography, Popconfirm, Switch, message, Checkbox,
 } from 'antd'
-import { PlusOutlined, SettingOutlined } from '@ant-design/icons'
+import { PlusOutlined, SettingOutlined, EyeOutlined } from '@ant-design/icons'
 import { getUsers, addUser, updateUser, removeUser } from '../api/client'
 import { useAuth } from '../context/AuthContext'
+import { useNavigate } from 'react-router-dom'
 
 const { Text } = Typography
 
@@ -81,7 +82,8 @@ function PermissionsModal({ open, onClose, target, currentUser, onChange }) {
 }
 
 export default function Users() {
-  const { user: currentUser } = useAuth()
+  const { user: currentUser, impersonate } = useAuth()
+  const navigate = useNavigate()
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [addModal, setAddModal] = useState(false)
@@ -222,13 +224,20 @@ export default function Users() {
     {
       title: '',
       key: 'actions',
-      width: 100,
+      width: 130,
       render: (_, record) => {
         if (record.email === DEVELOPER_EMAIL) return null
         const isSelf = record.email === currentUser?.email
         const canEdit = isDeveloper || record.role !== 'admin'
         return (
           <Space>
+            {isDeveloper && !isSelf && (
+              <Button
+                size="small"
+                icon={<EyeOutlined />}
+                onClick={() => { impersonate(record); navigate('/instructions') }}
+              />
+            )}
             {canEdit && !isSelf && (
               <Button
                 size="small"

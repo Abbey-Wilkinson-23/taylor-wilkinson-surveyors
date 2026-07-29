@@ -1,4 +1,4 @@
-import { Layout, Menu, Avatar, Typography, Popconfirm, Switch } from 'antd'
+import { Layout, Menu, Avatar, Typography, Popconfirm, Switch, Button } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import {
@@ -12,6 +12,7 @@ import {
   EnvironmentOutlined,
   SunOutlined,
   MoonOutlined,
+  EyeOutlined,
 } from '@ant-design/icons'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
@@ -38,7 +39,7 @@ const ALL_ITEMS = [
 export default function AppLayout({ children }) {
   const navigate = useNavigate()
   const location = useLocation()
-  const { user, logout } = useAuth()
+  const { user, realUser, impersonating, logout, stopImpersonating } = useAuth()
   const { dark, toggleDark } = useTheme()
   const [hovered, setHovered] = useState(false)
   const SIDEBAR_BG = dark ? SIDEBAR_BG_DARK : SIDEBAR_BG_LIGHT
@@ -58,6 +59,36 @@ export default function AppLayout({ children }) {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
+      {/* Impersonation banner */}
+      {impersonating && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 200,
+          background: '#d46b08',
+          color: '#fff',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 16,
+          padding: '6px 16px',
+          fontSize: 13,
+          fontWeight: 500,
+        }}>
+          <EyeOutlined />
+          Viewing as {impersonating.email} ({impersonating.role})
+          <Button
+            size="small"
+            onClick={() => { stopImpersonating(); navigate('/users') }}
+            style={{ background: '#fff', color: '#d46b08', borderColor: '#fff', fontWeight: 600 }}
+          >
+            Stop impersonating
+          </Button>
+        </div>
+      )}
+
       {/* Sidebar */}
       <div
         onMouseEnter={() => setHovered(true)}
@@ -66,7 +97,7 @@ export default function AppLayout({ children }) {
           position: 'fixed',
           height: '100vh',
           left: 0,
-          top: 0,
+          top: impersonating ? 37 : 0,
           zIndex: 100,
           width: expanded ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED,
           background: SIDEBAR_BG,
@@ -138,7 +169,7 @@ export default function AppLayout({ children }) {
           overflow: 'hidden',
           flexShrink: 0,
         }}>
-          <Avatar size={32} style={{ background: '#8753A8', flexShrink: 0, fontSize: 13 }}>
+          <Avatar size={32} style={{ background: impersonating ? '#d46b08' : '#8753A8', flexShrink: 0, fontSize: 13 }}>
             {user?.email?.[0]?.toUpperCase()}
           </Avatar>
           {expanded && (
@@ -151,7 +182,7 @@ export default function AppLayout({ children }) {
               </Text>
             </div>
           )}
-          {expanded && (
+          {expanded && !impersonating && (
             <Popconfirm title="Sign out?" onConfirm={logout} okText="Sign out" placement="topRight">
               <LogoutOutlined style={{ color: 'rgba(255,255,255,0.6)', cursor: 'pointer', fontSize: 14, flexShrink: 0 }} />
             </Popconfirm>
@@ -160,7 +191,7 @@ export default function AppLayout({ children }) {
       </div>
 
       {/* Main content */}
-      <Layout style={{ marginLeft: expanded ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED, transition: 'margin-left 0.2s ease' }}>
+      <Layout style={{ marginLeft: expanded ? SIDEBAR_WIDTH : SIDEBAR_COLLAPSED, marginTop: impersonating ? 37 : 0, transition: 'margin-left 0.2s ease' }}>
         <Content style={{ margin: 24 }}>
           {children}
         </Content>

@@ -16,20 +16,20 @@ import PostcodeCoverage from './pages/PostcodeCoverage'
 import { AuthProvider, useAuth } from './context/AuthContext'
 
 function ProtectedRoute({ children, adminOnly = false }) {
-  const { user, loading } = useAuth()
+  const { realUser, loading } = useAuth()
   const location = useLocation()
 
   if (loading) return <Spin style={{ display: 'block', marginTop: 80 }} />
-  if (!user) return <Navigate to="/login" state={{ from: location }} replace />
-  if (adminOnly && user.role !== 'admin' && user.role !== 'developer') return <Navigate to="/instructions" replace />
+  if (!realUser) return <Navigate to="/login" state={{ from: location }} replace />
+  if (adminOnly && realUser.role !== 'admin' && realUser.role !== 'developer') return <Navigate to="/instructions" replace />
   return children
 }
 
 function AppRoutes() {
-  const { user } = useAuth()
+  const { realUser } = useAuth()
   return (
     <Routes>
-      <Route path="/login" element={user ? <Navigate to="/instructions" replace /> : <Login />} />
+      <Route path="/login" element={realUser ? <Navigate to="/instructions" replace /> : <Login />} />
       <Route path="/" element={<Navigate to="/instructions" replace />} />
       <Route path="/instructions" element={<ProtectedRoute><AppLayout><Instructions /></AppLayout></ProtectedRoute>} />
       <Route path="/instructions/new" element={<ProtectedRoute><AppLayout><NewInstruction /></AppLayout></ProtectedRoute>} />
