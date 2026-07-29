@@ -129,7 +129,7 @@ async def add_user(
     db.add(user)
     await db.commit()
     await db.refresh(user)
-    await send_email(
+    send_email(
         to=email,
         subject="You've been added to Taylor Wilkinson Surveyors",
         html=welcome_email_html(email, role.value),

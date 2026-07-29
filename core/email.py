@@ -8,6 +8,8 @@ from core.config import settings
 
 logger = logging.getLogger(__name__)
 
+SMTP_TIMEOUT = 10  # seconds
+
 
 def _send_sync(to: str, subject: str, html: str) -> None:
     sender = settings.smtp_from or settings.smtp_user
@@ -17,23 +19,27 @@ def _send_sync(to: str, subject: str, html: str) -> None:
     msg["To"]      = to
     msg.attach(MIMEText(html, "html"))
 
-    with smtplib.SMTP(settings.smtp_host, settings.smtp_port) as smtp:
+    with smtplib.SMTP(settings.smtp_host, settings.smtp_port, timeout=SMTP_TIMEOUT) as smtp:
         smtp.ehlo()
         smtp.starttls()
         smtp.login(settings.smtp_user, settings.smtp_pass)
         smtp.sendmail(sender, to, msg.as_string())
 
 
-async def send_email(to: str, subject: str, html: str) -> None:
-    """Send an email in a thread pool. Silently logs on failure."""
-    if not settings.smtp_host or not settings.smtp_user:
-        logger.info("SMTP not configured — skipping email to %s", to)
-        return
+async def _send_in_background(to: str, subject: str, html: str) -> None:
     try:
         await asyncio.to_thread(_send_sync, to, subject, html)
         logger.info("Email sent to %s: %s", to, subject)
     except Exception as exc:
         logger.error("Failed to send email to %s: %s", to, exc)
+
+
+def send_email(to: str, subject: str, html: str) -> None:
+    """Schedule an email to send in the background. Returns immediately."""
+    if not settings.smtp_host or not settings.smtp_user:
+        logger.info("SMTP not configured — skipping email to %s", to)
+        return
+    asyncio.create_task(_send_in_background(to, subject, html))
 
 
 def welcome_email_html(email: str, role: str) -> str:
