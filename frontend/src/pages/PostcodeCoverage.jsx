@@ -48,7 +48,7 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
         surveyor_number: initial.surveyor_number || '',
         preferred:       initial.preferred || undefined,
         coverage:        initial.coverage,
-        work_types:      initial.work_types ? initial.work_types.split(',').map(w => w.trim()).filter(Boolean) : [],
+        work_types:      initial.work_types ? initial.work_types.split(/,|\s*\/\s*/).map(w => w.trim()).filter(Boolean) : [],
         fee_cat:         initial.fee_cat ? initial.fee_cat.split(',') : [],
       } : { fee_cat: [] })
     }
@@ -366,7 +366,7 @@ export default function PostcodeCoverage() {
   const filtered = useMemo(() => data.filter(r => {
     if (areaFilter && r.postcode_area !== areaFilter) return false
     if (feeFilter  && !r.fee_cat.split(',').includes(feeFilter)) return false
-    if (workFilter && !r.work_types.split(',').map(w => w.trim()).includes(workFilter)) return false
+    if (workFilter && !r.work_types.split(/,|\s*\/\s*/).map(w => w.trim()).includes(workFilter)) return false
     if (!search) return true
     const q = search.toLowerCase()
     return [r.postcode_area, r.name, r.coverage].some(v => v?.toLowerCase().includes(q))
@@ -485,7 +485,7 @@ export default function PostcodeCoverage() {
       dataIndex: 'work_types',
       key: 'work_types',
       width: 110,
-      render: v => (v || '').split(',').map(w => w.trim()).filter(Boolean).join(' / ') || '—',
+      render: v => (v || '').split(/,|\s*\/\s*/).map(w => w.trim()).filter(Boolean).join(' / ') || '—',
     },
     {
       title: 'Fee Category',
