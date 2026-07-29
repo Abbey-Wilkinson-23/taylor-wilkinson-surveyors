@@ -208,18 +208,38 @@ function WorkTypeManager({ open, onClose, workTypes, onChange }) {
   )
 }
 
+const TAG_COLOURS = [
+  'default', 'red', 'volcano', 'orange', 'gold', 'yellow',
+  'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple', 'magenta',
+]
+
+function ColourSelect({ value, onChange }) {
+  return (
+    <Select value={value || 'default'} onChange={onChange} style={{ width: 130 }} size="small">
+      {TAG_COLOURS.map(c => (
+        <Option key={c} value={c}>
+          <Tag color={c} style={{ margin: 0 }}>{c}</Tag>
+        </Option>
+      ))}
+    </Select>
+  )
+}
+
 function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
   const [newName, setNewName]     = useState('')
+  const [newColour, setNewColour] = useState('default')
   const [editingFt, setEditingFt] = useState(null)
   const [editName, setEditName]   = useState('')
+  const [editColour, setEditColour] = useState('default')
   const [saving, setSaving]       = useState(false)
 
   const handleAdd = async () => {
     if (!newName.trim()) return
     setSaving(true)
     try {
-      await addPostcodeFeeType({ name: newName.trim() })
+      await addPostcodeFeeType({ name: newName.trim(), colour: newColour === 'default' ? null : newColour })
       setNewName('')
+      setNewColour('default')
       onChange()
     } catch {
       message.error('Failed to add — may already exist')
@@ -232,7 +252,7 @@ function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
     if (!editName.trim()) return
     setSaving(true)
     try {
-      await updatePostcodeFeeType(id, { name: editName.trim() })
+      await updatePostcodeFeeType(id, { name: editName.trim(), colour: editColour === 'default' ? null : editColour })
       setEditingFt(null)
       onChange()
     } catch {
@@ -257,7 +277,7 @@ function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
       open={open}
       onCancel={onClose}
       footer={null}
-      width={400}
+      width={460}
     >
       <div style={{ marginBottom: 16 }}>
         <Space.Compact style={{ width: '100%' }}>
@@ -267,6 +287,7 @@ function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
             onChange={e => setNewName(e.target.value)}
             onPressEnter={handleAdd}
           />
+          <ColourSelect value={newColour} onChange={setNewColour} />
           <Button type="primary" icon={<PlusOutlined />} loading={saving} onClick={handleAdd}>
             Add
           </Button>
@@ -280,27 +301,29 @@ function FeeTypeManager({ open, onClose, feeTypes, onChange }) {
         columns={[
           {
             title: 'Name',
-            dataIndex: 'name',
-            render: (name, r) => editingFt?.id === r.id
-              ? <Input
-                  value={editName}
-                  onChange={e => setEditName(e.target.value)}
-                  onPressEnter={() => handleEdit(r.id)}
-                  size="small"
-                  autoFocus
-                />
-              : name,
+            render: (_, r) => editingFt?.id === r.id
+              ? <Space>
+                  <Input
+                    value={editName}
+                    onChange={e => setEditName(e.target.value)}
+                    size="small"
+                    autoFocus
+                    style={{ width: 160 }}
+                  />
+                  <ColourSelect value={editColour} onChange={setEditColour} />
+                </Space>
+              : <Tag color={r.colour || undefined}>{r.name}</Tag>,
           },
           {
             title: '',
-            width: 80,
+            width: 100,
             render: (_, r) => editingFt?.id === r.id
               ? <Space>
                   <Button size="small" type="primary" loading={saving} onClick={() => handleEdit(r.id)}>Save</Button>
                   <Button size="small" onClick={() => setEditingFt(null)}>Cancel</Button>
                 </Space>
               : <Space>
-                  <Button type="text" size="small" icon={<EditOutlined />} onClick={() => { setEditingFt(r); setEditName(r.name) }} />
+                  <Button type="text" size="small" icon={<EditOutlined />} onClick={() => { setEditingFt(r); setEditName(r.name); setEditColour(r.colour || 'default') }} />
                   <Popconfirm title="Delete this fee type?" onConfirm={() => handleDelete(r.id)} okText="Delete" okButtonProps={{ danger: true }}>
                     <Button type="text" size="small" danger icon={<DeleteOutlined />} />
                   </Popconfirm>
@@ -478,9 +501,10 @@ export default function PostcodeCoverage() {
       sorter: (a, b) => a.fee_cat.localeCompare(b.fee_cat),
       render: v => (
         <Space wrap size={2}>
-          {(v || '').split(',').filter(Boolean).map(cat => (
-            <Tag key={cat}>{cat}</Tag>
-          ))}
+          {(v || '').split(',').filter(Boolean).map(cat => {
+            const ft = feeTypes.find(f => f.name === cat)
+            return <Tag key={cat} color={ft?.colour || undefined}>{cat}</Tag>
+          })}
         </Space>
       ),
     },
