@@ -485,6 +485,7 @@ export default function PostcodeCoverage() {
       dataIndex: 'work_types',
       key: 'work_types',
       width: 110,
+      render: v => (v || '').split(',').map(w => w.trim()).filter(Boolean).join(' / ') || '—',
     },
     {
       title: 'Fee Category',
