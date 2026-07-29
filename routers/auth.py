@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from core.auth import create_access_token, get_current_user, require_admin
 from core.config import settings
 from core.database import get_db
-from models.orm import User, UserRole, DEVELOPER_EMAIL, DEFAULT_PERMISSIONS
+from models.orm import User, UserRole, DEVELOPER_EMAIL, DEFAULT_PERMISSIONS, ALL_PAGES
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -75,7 +75,11 @@ async def google_login(payload: GoogleTokenRequest, db: AsyncSession = Depends(g
             detail="Your account is not approved. Contact an administrator.",
         )
 
-    effective_permissions = user.page_permissions or DEFAULT_PERMISSIONS.get(user.role.value, "")
+    # Developer always gets all pages regardless of what's stored
+    if user.role == UserRole.developer:
+        effective_permissions = ALL_PAGES
+    else:
+        effective_permissions = user.page_permissions or DEFAULT_PERMISSIONS.get(user.role.value, "")
     return TokenResponse(
         access_token=create_access_token(email=email, role=user.role.value),
         email=email,

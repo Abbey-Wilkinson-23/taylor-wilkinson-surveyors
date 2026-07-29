@@ -43,11 +43,12 @@ export default function AppLayout({ children }) {
   const [hovered, setHovered] = useState(false)
   const SIDEBAR_BG = dark ? SIDEBAR_BG_DARK : SIDEBAR_BG_LIGHT
 
+  const isDeveloper = user?.role === 'developer'
   const allowedPages = user?.page_permissions
     ? new Set(user.page_permissions.split(',').map(p => p.trim()))
     : new Set(['instructions', 'clients', 'surveyors', 'survey-types', 'postcode-coverage'])
 
-  const menuItems = ALL_ITEMS.filter(i => allowedPages.has(i.pageKey))
+  const menuItems = isDeveloper ? ALL_ITEMS : ALL_ITEMS.filter(i => allowedPages.has(i.pageKey))
 
   const selectedKey = menuItems
     .map(i => i.key)
