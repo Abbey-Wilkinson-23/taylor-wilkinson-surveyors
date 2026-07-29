@@ -17,13 +17,16 @@ ALL_PAGES = 'instructions,clients,surveyors,survey-types,postcode-coverage,stats
 
 
 def upgrade():
-    # Add 'developer' to the enum
-    op.execute("ALTER TYPE user_role ADD VALUE IF NOT EXISTS 'developer'")
+    # Step 1: Add 'developer' to the enum — must be committed before use
+    # so we run this outside the transaction using AUTOCOMMIT
+    conn = op.get_bind()
+    conn.execution_options(isolation_level="AUTOCOMMIT").execute(
+        sa.text("ALTER TYPE user_role ADD VALUE IF NOT EXISTS 'developer'")
+    )
 
-    # Add page_permissions column — NULL means "use role defaults"
+    # Step 2: Add page_permissions column and update Abbey's account
+    # (new transaction after the enum value is committed)
     op.add_column('users', sa.Column('page_permissions', sa.Text(), nullable=True))
-
-    # Set developer on Abbey's account
     op.execute(
         f"UPDATE users SET role = 'developer', page_permissions = '{ALL_PAGES}' "
         f"WHERE email = '{DEVELOPER_EMAIL}'"
