@@ -43,12 +43,13 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
   useEffect(() => {
     if (open) {
       form.setFieldsValue(initial ? {
-        postcode_area: initial.postcode_area,
-        name:          initial.name,
-        preferred:     initial.preferred || undefined,
-        coverage:      initial.coverage,
-        work_types:    initial.work_types ? initial.work_types.split(',').map(w => w.trim()).filter(Boolean) : [],
-        fee_cat:       initial.fee_cat ? initial.fee_cat.split(',') : [],
+        postcode_area:   initial.postcode_area,
+        name:            initial.name.replace(/\s*\([\d\s,&–\-]+\)\s*/g, '').trim(),
+        surveyor_number: initial.surveyor_number || '',
+        preferred:       initial.preferred || undefined,
+        coverage:        initial.coverage,
+        work_types:      initial.work_types ? initial.work_types.split(',').map(w => w.trim()).filter(Boolean) : [],
+        fee_cat:         initial.fee_cat ? initial.fee_cat.split(',') : [],
       } : { fee_cat: [] })
     }
   }, [open, initial])
@@ -78,7 +79,10 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
           <Input placeholder="e.g. SW" style={{ textTransform: 'uppercase' }} />
         </Form.Item>
         <Form.Item name="name" label="Surveyor / Firm Name" rules={[{ required: true }]}>
-          <Input placeholder="e.g. John Smith (123) Acme Surveyors" />
+          <Input placeholder="e.g. John Smith" />
+        </Form.Item>
+        <Form.Item name="surveyor_number" label="Surveyor Number">
+          <Input placeholder="e.g. 123 or 160-169 or 758, 761 & 774" />
         </Form.Item>
         <Form.Item name="preferred" label="Preference">
           <Select allowClear placeholder="None">
@@ -374,12 +378,13 @@ export default function PostcodeCoverage() {
 
   const handleSave = async (values) => {
     const payload = {
-      postcode_area: values.postcode_area.toUpperCase().trim(),
-      name:          values.name.trim(),
-      preferred:     values.preferred || '',
-      coverage:      values.coverage  || '',
-      work_types:    (values.work_types || []).join(','),
-      fee_cat:       values.fee_cat.join(','),
+      postcode_area:   values.postcode_area.toUpperCase().trim(),
+      name:            values.name.trim(),
+      surveyor_number: values.surveyor_number?.trim() || null,
+      preferred:       values.preferred || '',
+      coverage:        values.coverage  || '',
+      work_types:      (values.work_types || []).join(','),
+      fee_cat:         values.fee_cat.join(','),
     }
     try {
       if (editing) {

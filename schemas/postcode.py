@@ -18,18 +18,20 @@ class PostcodeSurveyorOut(BaseModel):
 
 
 class PostcodeSurveyorCreate(BaseModel):
-    postcode_area: str
-    name:          str
-    preferred:     str = ""
-    coverage:      str = ""
-    work_types:    str = ""
-    fee_cat:       str  # STANDARD | QUOTABLE | HIGHER
+    postcode_area:   str
+    name:            str
+    surveyor_number: str | None = None
+    preferred:       str = ""
+    coverage:        str = ""
+    work_types:      str = ""
+    fee_cat:         str
 
 
 class PostcodeSurveyorUpdate(BaseModel):
-    postcode_area: str | None = None
-    name:          str | None = None
-    preferred:     str | None = None
-    coverage:      str | None = None
-    work_types:    str | None = None
-    fee_cat:       str | None = None
+    postcode_area:   str | None = None
+    name:            str | None = None
+    surveyor_number: str | None = None
+    preferred:       str | None = None
+    coverage:        str | None = None
+    work_types:      str | None = None
+    fee_cat:         str | None = None
