@@ -10,6 +10,14 @@ class Settings(BaseSettings):
     allowed_origins:  str  = "http://localhost:5173,http://localhost:4173"
     environment:      str  = "development"   # "production" disables /docs
 
+    # SMTP — leave blank to disable email sending
+    smtp_host:        str  = ""
+    smtp_port:        int  = 587
+    smtp_user:        str  = ""
+    smtp_pass:        str  = ""
+    smtp_from:        str  = ""   # display name + address, e.g. "TWS <you@gmail.com>"
+    app_url:          str  = ""   # e.g. https://tws.vercel.app
+
     class Config:
         env_file = ".env"
 

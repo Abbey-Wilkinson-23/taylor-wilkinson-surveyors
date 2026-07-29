@@ -8,6 +8,7 @@ from pydantic import BaseModel
 from core.auth import create_access_token, get_current_user, require_admin
 from core.config import settings
 from core.database import get_db
+from core.email import send_email, welcome_email_html
 from models.orm import User, UserRole, DEVELOPER_EMAIL, DEFAULT_PERMISSIONS, ALL_PAGES
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -128,6 +129,11 @@ async def add_user(
     db.add(user)
     await db.commit()
     await db.refresh(user)
+    await send_email(
+        to=email,
+        subject="You've been added to Taylor Wilkinson Surveyors",
+        html=welcome_email_html(email, role.value),
+    )
     return user
 
 
