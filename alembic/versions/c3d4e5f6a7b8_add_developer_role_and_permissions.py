@@ -17,15 +17,14 @@ ALL_PAGES = 'instructions,clients,surveyors,survey-types,postcode-coverage,stats
 
 
 def upgrade():
-    # Step 1: Add 'developer' to the enum — must be committed before use
-    # so we run this outside the transaction using AUTOCOMMIT
+    # Step 1: Add 'developer' to the enum — PostgreSQL requires this runs outside
+    # a transaction. Commit the open alembic transaction first, then ALTER TYPE,
+    # then the remaining DDL/DML starts a fresh implicit transaction.
     conn = op.get_bind()
-    conn.execution_options(isolation_level="AUTOCOMMIT").execute(
-        sa.text("ALTER TYPE user_role ADD VALUE IF NOT EXISTS 'developer'")
-    )
+    conn.execute(sa.text("COMMIT"))
+    conn.execute(sa.text("ALTER TYPE user_role ADD VALUE IF NOT EXISTS 'developer'"))
 
     # Step 2: Add page_permissions column and update Abbey's account
-    # (new transaction after the enum value is committed)
     op.add_column('users', sa.Column('page_permissions', sa.Text(), nullable=True))
     op.execute(
         f"UPDATE users SET role = 'developer', page_permissions = '{ALL_PAGES}' "
