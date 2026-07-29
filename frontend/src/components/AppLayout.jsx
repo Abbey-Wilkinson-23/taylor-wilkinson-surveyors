@@ -25,17 +25,14 @@ const SIDEBAR_BG_DARK  = '#1c2128'
 const SIDEBAR_WIDTH = 220
 const SIDEBAR_COLLAPSED = 64
 
-const BASE_ITEMS = [
-  { key: '/instructions',      icon: <FileTextOutlined />,    label: 'Instructions'     },
-  { key: '/clients',           icon: <TeamOutlined />,        label: 'Clients'          },
-  { key: '/surveyors',         icon: <UserOutlined />,        label: 'Surveyors'        },
-  { key: '/survey-types',      icon: <ProfileOutlined />,     label: 'Survey Types'     },
-  { key: '/postcode-coverage', icon: <EnvironmentOutlined />, label: 'Postcode Coverage'},
-]
-
-const ADMIN_ITEMS = [
-  { key: '/stats', icon: <BarChartOutlined />, label: 'Stats'        },
-  { key: '/users', icon: <SafetyOutlined />,   label: 'Users'        },
+const ALL_ITEMS = [
+  { key: '/instructions',      pageKey: 'instructions',      icon: <FileTextOutlined />,    label: 'Instructions'     },
+  { key: '/clients',           pageKey: 'clients',           icon: <TeamOutlined />,        label: 'Clients'          },
+  { key: '/surveyors',         pageKey: 'surveyors',         icon: <UserOutlined />,        label: 'Surveyors'        },
+  { key: '/survey-types',      pageKey: 'survey-types',      icon: <ProfileOutlined />,     label: 'Survey Types'     },
+  { key: '/postcode-coverage', pageKey: 'postcode-coverage', icon: <EnvironmentOutlined />, label: 'Postcode Coverage'},
+  { key: '/stats',             pageKey: 'stats',             icon: <BarChartOutlined />,    label: 'Stats'            },
+  { key: '/users',             pageKey: 'users',             icon: <SafetyOutlined />,      label: 'Users'            },
 ]
 
 export default function AppLayout({ children }) {
@@ -46,8 +43,11 @@ export default function AppLayout({ children }) {
   const [hovered, setHovered] = useState(false)
   const SIDEBAR_BG = dark ? SIDEBAR_BG_DARK : SIDEBAR_BG_LIGHT
 
-  const isAdmin = user?.role === 'admin'
-  const menuItems = isAdmin ? [...BASE_ITEMS, ...ADMIN_ITEMS] : BASE_ITEMS
+  const allowedPages = user?.page_permissions
+    ? new Set(user.page_permissions.split(',').map(p => p.trim()))
+    : new Set(['instructions', 'clients', 'surveyors', 'survey-types', 'postcode-coverage'])
+
+  const menuItems = ALL_ITEMS.filter(i => allowedPages.has(i.pageKey))
 
   const selectedKey = menuItems
     .map(i => i.key)

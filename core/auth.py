@@ -8,7 +8,7 @@ from sqlalchemy import select
 
 from core.config import settings
 from core.database import get_db
-from models.orm import User, UserRole
+from models.orm import User, UserRole, DEVELOPER_EMAIL
 
 ALGORITHM = "HS256"
 TOKEN_EXPIRE_HOURS = 8
@@ -47,6 +47,6 @@ async def get_current_user(
 
 
 async def require_admin(user: User = Depends(get_current_user)) -> User:
-    if user.role != UserRole.admin:
+    if user.role not in (UserRole.admin, UserRole.developer):
         raise HTTPException(status_code=403, detail="Admin access required")
     return user

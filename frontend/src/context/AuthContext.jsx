@@ -15,10 +15,10 @@ export function AuthProvider({ children }) {
     setLoading(false)
   }, [])
 
-  const login = (email, role, token) => {
+  const login = (email, role, token, page_permissions) => {
     localStorage.setItem('tws_token', token)
-    localStorage.setItem('tws_user', JSON.stringify({ email, role }))
-    setUser({ email, role })
+    localStorage.setItem('tws_user', JSON.stringify({ email, role, page_permissions }))
+    setUser({ email, role, page_permissions })
   }
 
   const logout = () => {

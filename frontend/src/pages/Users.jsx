@@ -1,21 +1,95 @@
 import { useEffect, useState } from 'react'
 import {
   Card, Table, Button, Tag, Space, Modal, Form, Input, Select,
-  Typography, Popconfirm, Switch, message,
+  Typography, Popconfirm, Switch, message, Checkbox,
 } from 'antd'
-import { PlusOutlined } from '@ant-design/icons'
+import { PlusOutlined, SettingOutlined } from '@ant-design/icons'
 import { getUsers, addUser, updateUser, removeUser } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 
 const { Text } = Typography
+
+const DEVELOPER_EMAIL = 'abbeywilkinson123@gmail.com'
+
+const ALL_PAGES = [
+  { key: 'instructions',      label: 'Instructions'      },
+  { key: 'clients',           label: 'Clients'           },
+  { key: 'surveyors',         label: 'Surveyors'         },
+  { key: 'survey-types',      label: 'Survey Types'      },
+  { key: 'postcode-coverage', label: 'Postcode Coverage' },
+  { key: 'stats',             label: 'Stats'             },
+  { key: 'users',             label: 'Users'             },
+]
+
+const DEFAULT_PERMISSIONS = {
+  developer: ALL_PAGES.map(p => p.key).join(','),
+  admin:     ALL_PAGES.map(p => p.key).join(','),
+  user:      'instructions,clients,surveyors,survey-types,postcode-coverage',
+}
+
+function PermissionsModal({ open, onClose, target, currentUser, onChange }) {
+  const [checked, setChecked] = useState([])
+  const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    if (open && target) {
+      const perms = target.page_permissions || DEFAULT_PERMISSIONS[target.role] || ''
+      setChecked(perms.split(',').map(p => p.trim()).filter(Boolean))
+    }
+  }, [open, target])
+
+  const handleSave = async () => {
+    setSaving(true)
+    try {
+      await updateUser(target.id, { page_permissions: checked.join(',') })
+      message.success('Permissions updated')
+      onChange()
+      onClose()
+    } catch (e) {
+      message.error(e.response?.data?.detail || 'Failed to update permissions')
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const toggle = (key) => setChecked(prev =>
+    prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]
+  )
+
+  return (
+    <Modal
+      title={`Page permissions — ${target?.email}`}
+      open={open}
+      onCancel={onClose}
+      onOk={handleSave}
+      okText="Save"
+      confirmLoading={saving}
+    >
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 16 }}>
+        {ALL_PAGES.map(p => (
+          <Checkbox
+            key={p.key}
+            checked={checked.includes(p.key)}
+            onChange={() => toggle(p.key)}
+          >
+            {p.label}
+          </Checkbox>
+        ))}
+      </div>
+    </Modal>
+  )
+}
 
 export default function Users() {
   const { user: currentUser } = useAuth()
   const [users, setUsers] = useState([])
   const [loading, setLoading] = useState(true)
   const [addModal, setAddModal] = useState(false)
+  const [permTarget, setPermTarget] = useState(null)
   const [saving, setSaving] = useState(false)
   const [form] = Form.useForm()
+
+  const isDeveloper = currentUser?.role === 'developer'
 
   const load = async () => {
     setLoading(true)
@@ -69,12 +143,17 @@ export default function Users() {
     }
   }
 
+  const roleTag = (role) => {
+    const colours = { developer: 'volcano', admin: 'purple', user: 'default' }
+    return <Tag color={colours[role] || 'default'}>{role.charAt(0).toUpperCase() + role.slice(1)}</Tag>
+  }
+
   const columns = [
     {
       title: 'Email',
       dataIndex: 'email',
       key: 'email',
-      render: (email, record) => (
+      render: (email) => (
         <Space>
           <Text>{email}</Text>
           {email === currentUser?.email && <Tag color="purple">You</Tag>}
@@ -85,31 +164,57 @@ export default function Users() {
       title: 'Role',
       dataIndex: 'role',
       key: 'role',
-      width: 160,
-      render: (role, record) => (
-        <Select
-          size="small"
-          value={role}
-          style={{ width: 120 }}
-          disabled={record.email === currentUser?.email}
-          onChange={v => handleRoleChange(record.id, v)}
-          options={[
-            { value: 'user',  label: 'User'  },
-            { value: 'admin', label: 'Admin' },
-          ]}
-        />
-      ),
+      width: 180,
+      render: (role, record) => {
+        // Developer row — just show badge, never editable
+        if (record.email === DEVELOPER_EMAIL) return roleTag(role)
+        // Admins editing other admins — only developer can change role
+        const canChangeRole = isDeveloper || role !== 'admin'
+        const isSelf = record.email === currentUser?.email
+
+        if (!canChangeRole || isSelf) return roleTag(role)
+
+        return (
+          <Select
+            size="small"
+            value={role}
+            style={{ width: 120 }}
+            onChange={v => handleRoleChange(record.id, v)}
+            options={[
+              { value: 'user',  label: 'User'  },
+              { value: 'admin', label: 'Admin' },
+            ]}
+          />
+        )
+      },
+    },
+    {
+      title: 'Pages',
+      key: 'permissions',
+      render: (_, record) => {
+        if (record.email === DEVELOPER_EMAIL) return <Tag color="volcano">All (Developer)</Tag>
+        const perms = record.page_permissions || DEFAULT_PERMISSIONS[record.role] || ''
+        const pages = perms.split(',').filter(Boolean)
+        return (
+          <Space wrap size={[2, 2]}>
+            {pages.map(p => {
+              const page = ALL_PAGES.find(x => x.key === p)
+              return <Tag key={p} style={{ fontSize: 11 }}>{page?.label || p}</Tag>
+            })}
+          </Space>
+        )
+      },
     },
     {
       title: 'Active',
       dataIndex: 'is_active',
       key: 'active',
-      width: 80,
+      width: 70,
       render: (active, record) => (
         <Switch
           size="small"
           checked={active}
-          disabled={record.email === currentUser?.email}
+          disabled={record.email === DEVELOPER_EMAIL || record.email === currentUser?.email}
           onChange={v => handleActiveToggle(record.id, v)}
         />
       ),
@@ -117,19 +222,34 @@ export default function Users() {
     {
       title: '',
       key: 'actions',
-      width: 80,
-      render: (_, record) =>
-        record.email !== currentUser?.email ? (
-          <Popconfirm
-            title="Remove this user?"
-            description="They will no longer be able to log in."
-            onConfirm={() => handleRemove(record.id)}
-            okText="Remove"
-            okButtonProps={{ danger: true }}
-          >
-            <Button size="small" danger type="text">Remove</Button>
-          </Popconfirm>
-        ) : null,
+      width: 100,
+      render: (_, record) => {
+        if (record.email === DEVELOPER_EMAIL) return null
+        const isSelf = record.email === currentUser?.email
+        const canEdit = isDeveloper || record.role !== 'admin'
+        return (
+          <Space>
+            {canEdit && !isSelf && (
+              <Button
+                size="small"
+                icon={<SettingOutlined />}
+                onClick={() => setPermTarget(record)}
+              />
+            )}
+            {!isSelf && (
+              <Popconfirm
+                title="Remove this user?"
+                description="They will no longer be able to log in."
+                onConfirm={() => handleRemove(record.id)}
+                okText="Remove"
+                okButtonProps={{ danger: true }}
+              >
+                <Button size="small" danger type="text">Remove</Button>
+              </Popconfirm>
+            )}
+          </Space>
+        )
+      },
     },
   ]
 
@@ -175,13 +295,21 @@ export default function Users() {
           <Form.Item name="role" label="Role" initialValue="user">
             <Select
               options={[
-                { value: 'user',  label: 'User — can access all pages except Stats' },
-                { value: 'admin', label: 'Admin — full access including Stats and Users' },
+                { value: 'user',  label: 'User — limited page access' },
+                { value: 'admin', label: 'Admin — full access' },
               ]}
             />
           </Form.Item>
         </Form>
       </Modal>
+
+      <PermissionsModal
+        open={!!permTarget}
+        onClose={() => setPermTarget(null)}
+        target={permTarget}
+        currentUser={currentUser}
+        onChange={load}
+      />
     </>
   )
 }

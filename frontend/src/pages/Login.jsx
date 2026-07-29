@@ -20,7 +20,7 @@ export default function Login() {
     setError(null)
     try {
       const data = await googleAuth(credentialResponse.credential)
-      login(data.email, data.role, data.access_token)
+      login(data.email, data.role, data.access_token, data.page_permissions)
       navigate(from, { replace: true })
     } catch (e) {
       setError(e.response?.data?.detail || 'Login failed. You may not have access to this system.')

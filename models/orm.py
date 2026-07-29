@@ -21,18 +21,30 @@ class Base(DeclarativeBase):
 # ---------------------------------------------------------------------------
 
 class UserRole(str, enum.Enum):
-    admin = "admin"
-    user  = "user"
+    developer = "developer"
+    admin     = "admin"
+    user      = "user"
+
+DEVELOPER_EMAIL = "abbeywilkinson123@gmail.com"
+
+# Pages available to each role by default (if no custom page_permissions set)
+ALL_PAGES = "instructions,clients,surveyors,survey-types,postcode-coverage,stats,users"
+DEFAULT_PERMISSIONS = {
+    "developer": ALL_PAGES,
+    "admin":     "instructions,clients,surveyors,survey-types,postcode-coverage,stats,users",
+    "user":      "instructions,clients,surveyors,survey-types,postcode-coverage",
+}
 
 
 class User(Base):
     __tablename__ = "users"
 
-    id         = Column(Integer, primary_key=True)
-    email      = Column(Text, unique=True, nullable=False)
-    role       = Column(SAEnum(UserRole, name="user_role"), nullable=False, default=UserRole.user)
-    is_active  = Column(Boolean, nullable=False, default=True)
-    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now())
+    id               = Column(Integer, primary_key=True)
+    email            = Column(Text, unique=True, nullable=False)
+    role             = Column(SAEnum(UserRole, name="user_role", create_constraint=False), nullable=False, default=UserRole.user)
+    is_active        = Column(Boolean, nullable=False, default=True)
+    page_permissions = Column(Text, nullable=True)   # CSV of allowed page keys; NULL = use role default
+    created_at       = Column(TIMESTAMP(timezone=True), server_default=func.now())
 
 
 # ---------------------------------------------------------------------------

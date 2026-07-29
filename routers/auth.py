@@ -8,7 +8,7 @@ from pydantic import BaseModel
 from core.auth import create_access_token, get_current_user, require_admin
 from core.config import settings
 from core.database import get_db
-from models.orm import User, UserRole
+from models.orm import User, UserRole, DEVELOPER_EMAIL, DEFAULT_PERMISSIONS
 
 router = APIRouter(prefix="/auth", tags=["auth"])
 
@@ -22,16 +22,18 @@ class GoogleTokenRequest(BaseModel):
 
 
 class TokenResponse(BaseModel):
-    access_token: str
-    email: str
-    role: str
+    access_token:     str
+    email:            str
+    role:             str
+    page_permissions: str | None = None
 
 
 class UserOut(BaseModel):
-    id:        int
-    email:     str
-    role:      str
-    is_active: bool
+    id:               int
+    email:            str
+    role:             str
+    is_active:        bool
+    page_permissions: str | None = None
     model_config = {"from_attributes": True}
 
 
@@ -41,8 +43,9 @@ class UserCreate(BaseModel):
 
 
 class UserUpdate(BaseModel):
-    role:      str | None = None
-    is_active: bool | None = None
+    role:             str | None = None
+    is_active:        bool | None = None
+    page_permissions: str | None = None
 
 
 # ---------------------------------------------------------------------------
@@ -72,10 +75,12 @@ async def google_login(payload: GoogleTokenRequest, db: AsyncSession = Depends(g
             detail="Your account is not approved. Contact an administrator.",
         )
 
+    effective_permissions = user.page_permissions or DEFAULT_PERMISSIONS.get(user.role.value, "")
     return TokenResponse(
         access_token=create_access_token(email=email, role=user.role.value),
         email=email,
         role=user.role.value,
+        page_permissions=effective_permissions,
     )
 
 
@@ -132,6 +137,17 @@ async def update_user(
     user = (await db.execute(select(User).where(User.id == user_id))).scalar_one_or_none()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
+
+    # Developer accounts can never be modified by non-developers
+    if user.email == DEVELOPER_EMAIL and current_user.role != UserRole.developer:
+        raise HTTPException(status_code=403, detail="Cannot modify the developer account")
+
+    # Only developer can set role to developer or change another admin's permissions
+    if payload.role == "developer":
+        raise HTTPException(status_code=403, detail="Cannot assign developer role")
+    if payload.role is not None and user.role == UserRole.admin and current_user.role != UserRole.developer:
+        raise HTTPException(status_code=403, detail="Only a developer can change an admin's role")
+
     if payload.role is not None:
         try:
             user.role = UserRole(payload.role)
@@ -141,6 +157,8 @@ async def update_user(
         if user.id == current_user.id and not payload.is_active:
             raise HTTPException(status_code=400, detail="Cannot deactivate your own account")
         user.is_active = payload.is_active
+    if payload.page_permissions is not None:
+        user.page_permissions = payload.page_permissions or None
     await db.commit()
     await db.refresh(user)
     return user
