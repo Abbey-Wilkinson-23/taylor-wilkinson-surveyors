@@ -15,13 +15,13 @@ async def run():
             rows = result.fetchall()
             print(f"\n{firm}: {len(rows)} rows")
             for row in rows:
-                if row.fee_cat != "Quotable":
+                if row.fee_cat != "QUOTABLE":
                     await db.execute(text(
-                        "UPDATE postcode_surveyors SET fee_cat = 'Quotable' WHERE id = :id"
+                        "UPDATE postcode_surveyors SET fee_cat = 'QUOTABLE' WHERE id = :id"
                     ), {"id": row.id})
-                    print(f"  [{row.id}] {row.name!r}: {row.fee_cat!r} → 'Quotable'")
+                    print(f"  [{row.id}] {row.name!r}: {row.fee_cat!r} → 'QUOTABLE'")
                 else:
-                    print(f"  [{row.id}] {row.name!r}: already Quotable")
+                    print(f"  [{row.id}] {row.name!r}: already QUOTABLE")
 
         await db.commit()
         print("\nDone.")
