@@ -15,6 +15,18 @@ const { Option } = Select
 const POSTCODE_EDITOR = 'abbeywilkinson123@gmail.com'
 const PREF_LABELS = { '##': '★★ Top pick', '#': '★ Preferred', '': '' }
 
+const FEE_ORDER = ['Quotable', 'Higher', 'Standard']
+const sortFeeCats = (cats) =>
+  [...cats].sort((a, b) => {
+    const ai = FEE_ORDER.indexOf(a)
+    const bi = FEE_ORDER.indexOf(b)
+    // Known types sorted by order; unknowns go at the end alphabetically
+    if (ai === -1 && bi === -1) return a.localeCompare(b)
+    if (ai === -1) return 1
+    if (bi === -1) return -1
+    return ai - bi
+  })
+
 // Parse coverage string into individual district codes and leftover notes
 function parseCoverage(str) {
   if (!str) return { codes: [], notes: '' }
@@ -384,7 +396,7 @@ export default function PostcodeCoverage() {
       preferred:       values.preferred || '',
       coverage:        values.coverage  || '',
       work_types:      (values.work_types || []).join(','),
-      fee_cat:         values.fee_cat.join(','),
+      fee_cat:         sortFeeCats(values.fee_cat).join(','),
     }
     try {
       if (editing) {
@@ -495,7 +507,7 @@ export default function PostcodeCoverage() {
       sorter: (a, b) => a.fee_cat.localeCompare(b.fee_cat),
       render: v => (
         <Space wrap size={2}>
-          {(v || '').split(',').filter(Boolean).map(cat => {
+          {sortFeeCats((v || '').split(',').filter(Boolean)).map(cat => {
             const ft = feeTypes.find(f => f.name === cat)
             return <Tag key={cat} color={ft?.colour || undefined}>{cat}</Tag>
           })}
