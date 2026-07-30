@@ -39,8 +39,9 @@ class UserOut(BaseModel):
 
 
 class UserCreate(BaseModel):
-    email: str
-    role:  str = "user"
+    email:            str
+    role:             str = "user"
+    page_permissions: str | None = None
 
 
 class UserUpdate(BaseModel):
@@ -125,7 +126,7 @@ async def add_user(
         role = UserRole(payload.role)
     except ValueError:
         raise HTTPException(status_code=400, detail="Invalid role")
-    user = User(email=email, role=role)
+    user = User(email=email, role=role, page_permissions=payload.page_permissions or None)
     db.add(user)
     await db.commit()
     await db.refresh(user)

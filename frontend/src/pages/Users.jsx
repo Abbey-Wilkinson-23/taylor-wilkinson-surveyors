@@ -105,7 +105,10 @@ export default function Users() {
     const values = await form.validateFields()
     setSaving(true)
     try {
-      await addUser(values)
+      await addUser({
+        ...values,
+        page_permissions: (values.page_permissions || []).join(','),
+      })
       message.success(`${values.email} added`)
       setAddModal(false)
       form.resetFields()
@@ -290,7 +293,12 @@ export default function Users() {
         confirmLoading={saving}
         okText="Add"
       >
-        <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
+        <Form
+          form={form}
+          layout="vertical"
+          style={{ marginTop: 16 }}
+          initialValues={{ role: 'user', page_permissions: DEFAULT_PERMISSIONS.user.split(',') }}
+        >
           <Form.Item
             name="email"
             label="Google Email"
@@ -301,13 +309,23 @@ export default function Users() {
           >
             <Input placeholder="name@example.com" />
           </Form.Item>
-          <Form.Item name="role" label="Role" initialValue="user">
+          <Form.Item name="role" label="Role">
             <Select
               options={[
                 { value: 'user',  label: 'User — limited page access' },
                 { value: 'admin', label: 'Admin — full access' },
               ]}
+              onChange={role => {
+                form.setFieldValue('page_permissions', DEFAULT_PERMISSIONS[role].split(','))
+              }}
             />
+          </Form.Item>
+          <Form.Item name="page_permissions" label="Page Permissions">
+            <Checkbox.Group style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              {ALL_PAGES.map(p => (
+                <Checkbox key={p.key} value={p.key}>{p.label}</Checkbox>
+              ))}
+            </Checkbox.Group>
           </Form.Item>
         </Form>
       </Modal>
