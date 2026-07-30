@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+import { useEffect, useState, useMemo, useRef } from 'react'
 import {
   Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Tabs
 } from 'antd'
@@ -45,6 +45,30 @@ function parseCoverage(str) {
   }).replace(/\b(\d+)\b/g, (_, n) => { codes.push(n); return '' })
   const notes = remaining.replace(/[,\s]+/g, ' ').trim()
   return { codes: [...new Set(codes)].sort((a, b) => parseInt(a) - parseInt(b)), notes }
+}
+
+// Select that closes when the mouse leaves the dropdown area
+function HoverSelect({ children, ...props }) {
+  const [forceClose, setForceClose] = useState(false)
+  const timerRef = useRef(null)
+  const clear = () => clearTimeout(timerRef.current)
+  const scheduleClose = () => { timerRef.current = setTimeout(() => setForceClose(true), 200) }
+  const cancelClose  = () => { clear(); setForceClose(false) }
+  return (
+    <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
+      <Select
+        open={forceClose ? false : undefined}
+        onDropdownVisibleChange={v => { if (v) cancelClose() }}
+        dropdownRender={menu => (
+          <div onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>{menu}</div>
+        )}
+        style={{ width: '100%' }}
+        {...props}
+      >
+        {children}
+      </Select>
+    </div>
+  )
 }
 
 function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeTypes = [] }) {
@@ -106,14 +130,14 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
           <Input.TextArea rows={2} placeholder="e.g. 1-10, 15, 20-25 (check distance)" />
         </Form.Item>
         <Form.Item name="work_types" label="Work Types">
-          <Select mode="multiple" placeholder="Select work types" allowClear>
+          <HoverSelect mode="multiple" placeholder="Select work types" allowClear>
             {workTypes.map(wt => <Option key={wt.id} value={wt.name}>{wt.name}</Option>)}
-          </Select>
+          </HoverSelect>
         </Form.Item>
         <Form.Item name="fee_cat" label="Fee Category" rules={[{ required: true, type: 'array', min: 1 }]}>
-          <Select mode="multiple" placeholder="Select fee types">
+          <HoverSelect mode="multiple" placeholder="Select fee types">
             {feeTypes.map(ft => <Option key={ft.id} value={ft.name}>{ft.name}</Option>)}
-          </Select>
+          </HoverSelect>
         </Form.Item>
       </Form>
     </Modal>
@@ -402,7 +426,23 @@ export default function PostcodeCoverage() {
       if (editing) {
         const updated = await updatePostcodeSurveyor(editing.id, payload)
         setData(prev => prev.map(r => r.id === updated.id ? updated : r))
-        message.success('Surveyor updated')
+
+        // Propagate fee_cat change to all rows with the same surveyor number
+        const feeCatChanged = payload.fee_cat !== editing.fee_cat
+        const siblings = payload.surveyor_number && feeCatChanged
+          ? data.filter(r => r.id !== editing.id && r.surveyor_number === payload.surveyor_number)
+          : []
+        if (siblings.length > 0) {
+          await Promise.all(siblings.map(r => updatePostcodeSurveyor(r.id, { fee_cat: payload.fee_cat })))
+          setData(prev => prev.map(r =>
+            r.id !== editing.id && r.surveyor_number === payload.surveyor_number
+              ? { ...r, fee_cat: payload.fee_cat }
+              : r
+          ))
+          message.success(`Updated — also applied to ${siblings.length} other area${siblings.length > 1 ? 's' : ''} with the same surveyor number`)
+        } else {
+          message.success('Surveyor updated')
+        }
       } else {
         const created = await addPostcodeSurveyor(payload)
         setData(prev => [...prev, created])
