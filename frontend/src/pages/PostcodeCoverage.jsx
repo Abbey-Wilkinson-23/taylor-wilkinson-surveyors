@@ -44,7 +44,7 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
     if (open) {
       form.setFieldsValue(initial ? {
         postcode_area:   initial.postcode_area,
-        name:            initial.name.replace(/\s*\([\d\s,&–\-]+\)\s*/g, '').trim(),
+        name:            initial.name.replace(/\s*\([\d\s,&–\-]+\)\s*/g, ' ').trim(),
         surveyor_number: initial.surveyor_number || '',
         preferred:       initial.preferred || undefined,
         coverage:        initial.coverage,
@@ -440,7 +440,7 @@ export default function PostcodeCoverage() {
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (name, r) => (
         <span>
-          {name.replace(/\s*\([\d\s,&–\-]+\)\s*/g, '').trim()}
+          {name.replace(/\s*\([\d\s,&–\-]+\)\s*/g, ' ').trim()}
           {r.preferred && (
             <Tag color="purple" style={{ marginLeft: 6, fontSize: 11 }}>
               {PREF_LABELS[r.preferred]}
