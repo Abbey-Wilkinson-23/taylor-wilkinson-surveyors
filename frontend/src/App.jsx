@@ -15,22 +15,41 @@ import Users from './pages/Users'
 import PostcodeCoverage from './pages/PostcodeCoverage'
 import { AuthProvider, useAuth } from './context/AuthContext'
 
+const PAGE_ORDER = [
+  { pageKey: 'instructions',      path: '/instructions'      },
+  { pageKey: 'clients',           path: '/clients'           },
+  { pageKey: 'surveyors',         path: '/surveyors'         },
+  { pageKey: 'survey-types',      path: '/survey-types'      },
+  { pageKey: 'postcode-coverage', path: '/postcode-coverage' },
+  { pageKey: 'stats',             path: '/stats'             },
+  { pageKey: 'users',             path: '/users'             },
+]
+
+function getDefaultRoute(user) {
+  if (!user) return '/login'
+  if (user.role === 'developer' || user.role === 'admin') return '/instructions'
+  const allowed = new Set((user.page_permissions || '').split(',').map(p => p.trim()).filter(Boolean))
+  const first = PAGE_ORDER.find(p => allowed.has(p.pageKey))
+  return first ? first.path : '/instructions'
+}
+
 function ProtectedRoute({ children, adminOnly = false }) {
   const { realUser, loading } = useAuth()
   const location = useLocation()
 
   if (loading) return <Spin style={{ display: 'block', marginTop: 80 }} />
   if (!realUser) return <Navigate to="/login" state={{ from: location }} replace />
-  if (adminOnly && realUser.role !== 'admin' && realUser.role !== 'developer') return <Navigate to="/instructions" replace />
+  if (adminOnly && realUser.role !== 'admin' && realUser.role !== 'developer') return <Navigate to={getDefaultRoute(realUser)} replace />
   return children
 }
 
 function AppRoutes() {
   const { realUser } = useAuth()
+  const defaultRoute = getDefaultRoute(realUser)
   return (
     <Routes>
-      <Route path="/login" element={realUser ? <Navigate to="/instructions" replace /> : <Login />} />
-      <Route path="/" element={<Navigate to="/instructions" replace />} />
+      <Route path="/login" element={realUser ? <Navigate to={defaultRoute} replace /> : <Login />} />
+      <Route path="/" element={<Navigate to={defaultRoute} replace />} />
       <Route path="/instructions" element={<ProtectedRoute><AppLayout><Instructions /></AppLayout></ProtectedRoute>} />
       <Route path="/instructions/new" element={<ProtectedRoute><AppLayout><NewInstruction /></AppLayout></ProtectedRoute>} />
       <Route path="/instructions/:id" element={<ProtectedRoute><AppLayout><InstructionDetail /></AppLayout></ProtectedRoute>} />
@@ -41,7 +60,7 @@ function AppRoutes() {
 <Route path="/stats" element={<ProtectedRoute adminOnly><AppLayout><Stats /></AppLayout></ProtectedRoute>} />
       <Route path="/users" element={<ProtectedRoute adminOnly><AppLayout><Users /></AppLayout></ProtectedRoute>} />
       <Route path="/postcode-coverage" element={<ProtectedRoute><AppLayout><PostcodeCoverage /></AppLayout></ProtectedRoute>} />
-      <Route path="*" element={<Navigate to="/instructions" replace />} />
+      <Route path="*" element={<Navigate to={defaultRoute} replace />} />
     </Routes>
   )
 }
