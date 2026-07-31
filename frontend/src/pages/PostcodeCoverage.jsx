@@ -34,7 +34,9 @@ function parseCoverage(str) {
   // Replace em-dashes with hyphens, split on commas/newlines
   const cleaned = str.replace(/–/g, '-').replace(/\n/g, ' ')
   // Pull out all numeric tokens (plain numbers or ranges like 10-16)
-  const remaining = cleaned.replace(/\b(\d+)\s*-\s*(\d+)\b/g, (_, a, b) => {
+  const remaining = cleaned.replace(/\b(\d+)\s*-\s*(\d+)\b/g, (match, a, b, offset) => {
+    // Don't extract if preceded by £
+    if (offset > 0 && cleaned[offset - 1] === '£') return match
     const start = parseInt(a), end = parseInt(b)
     if (end - start < 50) { // sanity cap — don't expand huge ranges
       for (let i = start; i <= end; i++) codes.push(String(i))
@@ -42,7 +44,7 @@ function parseCoverage(str) {
       codes.push(`${a}-${b}`)
     }
     return ''
-  }).replace(/\b(\d+)\b/g, (_, n) => { codes.push(n); return '' })
+  }).replace(/(?<!£)\b(\d+)\b/g, (_, n) => { codes.push(n); return '' })
   const notes = remaining.replace(/[,\s]+/g, ' ').trim()
   return { codes: [...new Set(codes)].sort((a, b) => parseInt(a) - parseInt(b)), notes }
 }
