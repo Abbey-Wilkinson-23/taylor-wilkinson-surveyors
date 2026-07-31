@@ -2,7 +2,7 @@ import { useEffect, useState, useMemo, useRef } from 'react'
 import {
   Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Tabs
 } from 'antd'
-import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined } from '@ant-design/icons'
+import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 import {
   getPostcodeSurveyors, addPostcodeSurveyor, updatePostcodeSurveyor, deletePostcodeSurveyor,
   getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
@@ -15,7 +15,7 @@ const { Option } = Select
 const POSTCODE_EDITOR = 'abbeywilkinson123@gmail.com'
 const PREF_LABELS = { '##': '★★ Top pick', '#': '★ Preferred', '': '' }
 
-const FEE_ORDER = ['Quotable', 'Higher', 'Standard']
+const FEE_ORDER = ['QUOTABLE', 'HIGHER', 'STANDARD', 'Quotable', 'Higher', 'Standard']
 const sortFeeCats = (cats) =>
   [...cats].sort((a, b) => {
     const ai = FEE_ORDER.indexOf(a)
@@ -620,6 +620,9 @@ export default function PostcodeCoverage() {
         <Button type="primary" icon={<PlusOutlined />} onClick={openAdd}>
           Add Surveyor
         </Button>
+        <Tooltip title="Refresh">
+          <Button icon={<ReloadOutlined />} onClick={() => { load(); loadWorkTypes(); loadFeeTypes() }} loading={loading} />
+        </Tooltip>
         <Tooltip title="Settings">
           <Button icon={<SettingOutlined />} onClick={() => setSettings(true)} />
         </Tooltip>
