@@ -1,15 +1,15 @@
 """add base_postcode to postcode_surveyors
 
-Revision ID: a1b2c3d4e5f6
-Revises: f3a4b5c6d7e8
+Revision ID: b4c5d6e7f8a9
+Revises: a1b2c3d4e5f6
 Branch Labels: None
 Depends On: None
 """
 import sqlalchemy as sa
 from alembic import op
 
-revision = 'a1b2c3d4e5f6'
-down_revision = 'f3a4b5c6d7e8'
+revision = 'b4c5d6e7f8a9'
+down_revision = 'a1b2c3d4e5f6'
 branch_labels = None
 depends_on = None
 
