@@ -100,6 +100,7 @@ export default function SurveyorDetail() {
         office_town: data.office_town,
         office_county: data.office_county,
         office_postcode: data.office_postcode,
+        base_postcode: data.base_postcode,
         firm_type: data.firm_type,
         num_partners: data.num_partners,
         notes: data.notes,
@@ -137,6 +138,7 @@ export default function SurveyorDetail() {
         office_town: values.office_town || null,
         office_county: values.office_county || null,
         office_postcode: values.office_postcode || null,
+        base_postcode: values.base_postcode?.trim().toUpperCase() || null,
         firm_type: values.firm_type || null,
         num_partners: values.num_partners || null,
         notes: values.notes || null,
@@ -282,6 +284,11 @@ export default function SurveyorDetail() {
               <Col span={8}>
                 <Form.Item name="office_postcode" label="Postcode"><Input style={{ textTransform: 'uppercase' }} /></Form.Item>
               </Col>
+              <Col span={8}>
+                <Form.Item name="base_postcode" label="Base Postcode" extra="Where this surveyor is based">
+                  <Input style={{ textTransform: 'uppercase' }} placeholder="e.g. EH1 1AB" />
+                </Form.Item>
+              </Col>
             </Row>
 
             <Divider orientation="left">Coverage Postcodes</Divider>
@@ -400,11 +407,14 @@ export default function SurveyorDetail() {
 
       {/* Office Address */}
       <SectionCard title="Office Address">
-        {addressParts.length > 0 ? (
-          <Text>{addressParts.join(', ')}</Text>
-        ) : (
-          <Text type="secondary">No address set</Text>
-        )}
+        <Descriptions column={1} size="small" styles={{ label: SECTION_LABEL_STYLE }}>
+          <Descriptions.Item label="Address">
+            {addressParts.length > 0 ? <Text>{addressParts.join(', ')}</Text> : <Text type="secondary">—</Text>}
+          </Descriptions.Item>
+          <Descriptions.Item label="Base Postcode">
+            {surveyor.base_postcode || <Text type="secondary">—</Text>}
+          </Descriptions.Item>
+        </Descriptions>
       </SectionCard>
 
       {/* Coverage */}

@@ -106,6 +106,7 @@ export default function Surveyors() {
     { title: 'Company', dataIndex: 'company_name', key: 'company_name', render: v => v || '—' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Work Phone', dataIndex: 'phone', key: 'phone' },
+    { title: 'Base Postcode', dataIndex: 'base_postcode', key: 'base_postcode', render: v => v || '—' },
     {
       title: 'PI Cover',
       dataIndex: 'pi_cover_amount',

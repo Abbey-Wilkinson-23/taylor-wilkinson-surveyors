@@ -158,6 +158,7 @@ class Surveyor(Base):
     office_town           = Column(Text)
     office_county         = Column(Text)
     office_postcode       = Column(Text)
+    base_postcode         = Column(Text, nullable=True)
     firm_type             = Column(Text)   # sole_trader | partnership | limited_company
     num_partners          = Column(Integer)
     notes                 = Column(Text)
