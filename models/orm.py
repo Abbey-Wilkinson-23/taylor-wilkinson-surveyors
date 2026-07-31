@@ -337,5 +337,6 @@ class PostcodeSurveyor(Base):
     coverage         = Column(Text, nullable=False, default="")
     work_types       = Column(Text, nullable=False, default="")
     fee_cat          = Column(Text, nullable=False)                # STANDARD | QUOTABLE | HIGHER
+    base_postcode    = Column(Text, nullable=True)
     is_custom        = Column(Boolean, nullable=False, default=False)
     created_at       = Column(TIMESTAMP(timezone=True), server_default=func.now())

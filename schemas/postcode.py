@@ -11,6 +11,7 @@ class PostcodeSurveyorOut(BaseModel):
     coverage:         str
     work_types:       str
     fee_cat:          str
+    base_postcode:    str | None
     is_custom:        bool
     created_at:       datetime
 
@@ -25,6 +26,7 @@ class PostcodeSurveyorCreate(BaseModel):
     coverage:        str = ""
     work_types:      str = ""
     fee_cat:         str
+    base_postcode:   str | None = None
 
 
 class PostcodeSurveyorUpdate(BaseModel):
@@ -35,3 +37,4 @@ class PostcodeSurveyorUpdate(BaseModel):
     coverage:        str | None = None
     work_types:      str | None = None
     fee_cat:         str | None = None
+    base_postcode:   str | None = None

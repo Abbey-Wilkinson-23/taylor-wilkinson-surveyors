@@ -88,6 +88,7 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
         coverage:        initial.coverage,
         work_types:      initial.work_types ? initial.work_types.split(/,|\s*\/\s*/).map(w => w.trim()).filter(Boolean) : [],
         fee_cat:         initial.fee_cat ? initial.fee_cat.split(',') : [],
+        base_postcode:   initial.base_postcode || '',
       } : { fee_cat: [] })
     }
   }, [open, initial])
@@ -140,6 +141,9 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
           <HoverSelect mode="multiple" placeholder="Select fee types">
             {feeTypes.map(ft => <Option key={ft.id} value={ft.name}>{ft.name}</Option>)}
           </HoverSelect>
+        </Form.Item>
+        <Form.Item name="base_postcode" label="Base Postcode">
+          <Input placeholder="e.g. EH1 1AB" style={{ textTransform: 'uppercase' }} />
         </Form.Item>
       </Form>
     </Modal>
@@ -423,6 +427,7 @@ export default function PostcodeCoverage() {
       coverage:        values.coverage  || '',
       work_types:      (values.work_types || []).join(','),
       fee_cat:         sortFeeCats(values.fee_cat).join(','),
+      base_postcode:   values.base_postcode?.trim().toUpperCase() || null,
     }
     try {
       if (editing) {
@@ -486,6 +491,13 @@ export default function PostcodeCoverage() {
       width: 70,
       sorter: (a, b) => a.postcode_area.localeCompare(b.postcode_area),
       render: v => <span style={{ fontWeight: 700, color: '#794899' }}>{v}</span>,
+    },
+    {
+      title: 'Base',
+      dataIndex: 'base_postcode',
+      key: 'base_postcode',
+      width: 90,
+      render: v => v ? <span style={{ color: '#555', fontSize: 12 }}>{v}</span> : <span style={{ color: '#bbb' }}>—</span>,
     },
     {
       title: 'Surveyor / Firm',
