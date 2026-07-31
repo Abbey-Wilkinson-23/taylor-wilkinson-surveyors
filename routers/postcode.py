@@ -51,14 +51,16 @@ async def update_postcode_surveyor(
     await db.commit()
     await db.refresh(entry)
 
-    # If base_postcode changed and this entry has a surveyor_number, sync to surveyors table
-    if 'base_postcode' in updates and entry.surveyor_number:
+    # Sync relevant fields to surveyors table if surveyor_number matches
+    sync_fields = {k for k in ('base_postcode', 'work_types', 'fee_cat') if k in updates}
+    if sync_fields and entry.surveyor_number:
         result = await db.execute(
             select(Surveyor).where(Surveyor.surveyor_number == entry.surveyor_number)
         )
         surveyor = result.scalar_one_or_none()
         if surveyor:
-            surveyor.base_postcode = entry.base_postcode
+            for field in sync_fields:
+                setattr(surveyor, field, getattr(entry, field))
             await db.commit()
 
     return entry

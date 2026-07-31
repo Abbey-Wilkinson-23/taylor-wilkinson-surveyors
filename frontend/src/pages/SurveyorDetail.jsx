@@ -9,6 +9,7 @@ import {
   getSurveyor, updateSurveyor, deleteSurveyor, restoreSurveyor,
   getSurveyTypes, getClients,
   setSurveyorCoverage, setSurveyorSurveyTypes, setSurveyorClientExclusions,
+  getPostcodeWorkTypes, getPostcodeFeeTypes,
 } from '../api/client'
 
 const { Text, Title } = Typography
@@ -71,6 +72,8 @@ export default function SurveyorDetail() {
   const [surveyor, setSurveyor] = useState(null)
   const [surveyTypes, setSurveyTypes] = useState([])
   const [clients, setClients] = useState([])
+  const [workTypes, setWorkTypes] = useState([])
+  const [feeTypes, setFeeTypes] = useState([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -101,6 +104,8 @@ export default function SurveyorDetail() {
         office_county: data.office_county,
         office_postcode: data.office_postcode,
         base_postcode: data.base_postcode,
+        work_types: data.work_types ? data.work_types.split(/,|\s*\/\s*/).map(w => w.trim()).filter(Boolean) : [],
+        fee_cat: data.fee_cat ? data.fee_cat.split(',').map(f => f.trim()).filter(Boolean) : [],
         firm_type: data.firm_type,
         num_partners: data.num_partners,
         notes: data.notes,
@@ -118,6 +123,8 @@ export default function SurveyorDetail() {
     load()
     getSurveyTypes().then(setSurveyTypes)
     getClients().then(setClients)
+    getPostcodeWorkTypes().then(setWorkTypes)
+    getPostcodeFeeTypes().then(setFeeTypes)
   }, [id])
 
   const handleSave = async (values) => {
@@ -139,6 +146,8 @@ export default function SurveyorDetail() {
         office_county: values.office_county || null,
         office_postcode: values.office_postcode || null,
         base_postcode: values.base_postcode?.trim().toUpperCase() || null,
+        work_types: (values.work_types || []).join(', ') || null,
+        fee_cat: (values.fee_cat || []).join(',') || null,
         firm_type: values.firm_type || null,
         num_partners: values.num_partners || null,
         notes: values.notes || null,
@@ -289,6 +298,18 @@ export default function SurveyorDetail() {
                   <Input style={{ textTransform: 'uppercase' }} placeholder="e.g. EH1 1AB" />
                 </Form.Item>
               </Col>
+              <Col span={12}>
+                <Form.Item name="work_types" label="Work Types">
+                  <Select mode="multiple" placeholder="Select work types" allowClear
+                    options={workTypes.map(wt => ({ value: wt.name, label: wt.name }))} />
+                </Form.Item>
+              </Col>
+              <Col span={12}>
+                <Form.Item name="fee_cat" label="Fee Category">
+                  <Select mode="multiple" placeholder="Select fee types" allowClear
+                    options={feeTypes.map(ft => ({ value: ft.name, label: ft.name }))} />
+                </Form.Item>
+              </Col>
             </Row>
 
             <Divider orientation="left">Coverage Postcodes</Divider>
@@ -416,6 +437,28 @@ export default function SurveyorDetail() {
           </Descriptions.Item>
         </Descriptions>
       </SectionCard>
+
+      {/* Work Types + Fee Category */}
+      <Row gutter={16}>
+        <Col xs={24} md={12}>
+          <SectionCard title="Work Types">
+            <Space wrap size={4}>
+              {surveyor.work_types
+                ? surveyor.work_types.split(/,\s*/).filter(Boolean).map(w => <Tag key={w}>{w}</Tag>)
+                : <Text type="secondary">None set</Text>}
+            </Space>
+          </SectionCard>
+        </Col>
+        <Col xs={24} md={12}>
+          <SectionCard title="Fee Category">
+            <Space wrap size={4}>
+              {surveyor.fee_cat
+                ? surveyor.fee_cat.split(',').filter(Boolean).map(f => <Tag key={f}>{f}</Tag>)
+                : <Text type="secondary">None set</Text>}
+            </Space>
+          </SectionCard>
+        </Col>
+      </Row>
 
       {/* Coverage */}
       <SectionCard title="Coverage Postcodes">

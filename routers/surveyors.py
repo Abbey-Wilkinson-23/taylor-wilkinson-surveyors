@@ -5,7 +5,7 @@ from sqlalchemy import Integer, select
 from sqlalchemy.orm import selectinload
 
 from core.database import get_db
-from models.orm import Client, Surveyor, SurveyorClientExclusion, SurveyorCoverage, SurveyorQualification, SurveyType
+from models.orm import Client, PostcodeSurveyor, Surveyor, SurveyorClientExclusion, SurveyorCoverage, SurveyorQualification, SurveyType
 from schemas.surveyor import SurveyorCreate, SurveyorDetail, SurveyorOut, SurveyorUpdate
 
 router = APIRouter(prefix="/surveyors", tags=["surveyors"])
@@ -68,9 +68,24 @@ async def update_surveyor(
     db: AsyncSession = Depends(get_db),
 ):
     surveyor = await get_surveyor_or_404(id, db)
-    for field, value in _to_orm_fields(payload.model_dump(exclude_unset=True)).items():
+    updates = _to_orm_fields(payload.model_dump(exclude_unset=True))
+    for field, value in updates.items():
         setattr(surveyor, field, value)
     await db.commit()
+
+    # Sync work_types, fee_cat, base_postcode back to all postcode coverage rows
+    sync_fields = {k for k in ('work_types', 'fee_cat', 'base_postcode') if k in updates}
+    if sync_fields and surveyor.surveyor_number:
+        result = await db.execute(
+            select(PostcodeSurveyor).where(PostcodeSurveyor.surveyor_number == surveyor.surveyor_number)
+        )
+        postcode_rows = result.scalars().all()
+        for row in postcode_rows:
+            for field in sync_fields:
+                setattr(row, field, getattr(surveyor, field))
+        if postcode_rows:
+            await db.commit()
+
     return await get_surveyor_or_404(id, db)
 
 

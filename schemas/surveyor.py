@@ -59,6 +59,8 @@ class SurveyorDetail(BaseModel):
     office_county:        str | None
     office_postcode:      str | None
     base_postcode:        str | None
+    work_types:           str | None
+    fee_cat:              str | None
     firm_type:            str | None
     num_partners:         int | None
     notes:                str | None
@@ -81,7 +83,7 @@ class SurveyorDetail(BaseModel):
             'id', 'surveyor_number', 'first_name', 'last_name', 'company_name',
             'email', 'phone', 'personal_phone', 'pi_cover_amount',
             'office_address_line_1', 'office_address_line_2', 'office_town',
-            'office_county', 'office_postcode', 'base_postcode', 'firm_type', 'num_partners',
+            'office_county', 'office_postcode', 'base_postcode', 'work_types', 'fee_cat', 'firm_type', 'num_partners',
             'notes', 'is_active',
         ]
         data = {f: getattr(obj, f, None) for f in flat_fields}
@@ -121,6 +123,8 @@ class SurveyorCreate(BaseModel):
     office_county:        str | None = None
     office_postcode:      str | None = None
     base_postcode:        str | None = None
+    work_types:           str | None = None
+    fee_cat:              str | None = None
     firm_type:            str | None = None
     num_partners:         int | None = None
     notes:                str | None = None
@@ -142,6 +146,8 @@ class SurveyorUpdate(BaseModel):
     office_county:        str | None = None
     office_postcode:      str | None = None
     base_postcode:        str | None = None
+    work_types:           str | None = None
+    fee_cat:              str | None = None
     firm_type:            str | None = None
     num_partners:         int | None = None
     notes:                str | None = None
