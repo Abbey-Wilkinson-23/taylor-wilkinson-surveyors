@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import {
   Card, Table, Button, Tag, Space, Modal, Form, Input, Select,
-  Typography, Popconfirm, Switch, message, Checkbox,
+  Typography, Popconfirm, Switch, message, Checkbox, Tooltip,
 } from 'antd'
-import { PlusOutlined, SettingOutlined, EyeOutlined } from '@ant-design/icons'
+import { PlusOutlined, SettingOutlined, EyeOutlined, WifiOutlined } from '@ant-design/icons'
 import { getUsers, addUser, updateUser, removeUser } from '../api/client'
 import { useAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
@@ -11,6 +11,30 @@ import { useNavigate } from 'react-router-dom'
 const { Text } = Typography
 
 const DEVELOPER_EMAIL = 'abbeywilkinson123@gmail.com'
+
+const PAGE_LABELS = {
+  '/instructions':      'Instructions',
+  '/clients':           'Clients',
+  '/surveyors':         'Surveyors',
+  '/survey-types':      'Survey Types',
+  '/postcode-coverage': 'Postcode Coverage',
+  '/stats':             'Stats',
+  '/users':             'Users',
+}
+
+function timeAgo(iso) {
+  if (!iso) return '—'
+  const diff = Math.floor((Date.now() - new Date(iso)) / 1000)
+  if (diff < 60)  return 'just now'
+  if (diff < 3600) return `${Math.floor(diff / 60)}m ago`
+  if (diff < 86400) return `${Math.floor(diff / 3600)}h ago`
+  return new Date(iso).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: '2-digit' })
+}
+
+function isOnline(lastActiveIso) {
+  if (!lastActiveIso) return false
+  return (Date.now() - new Date(lastActiveIso)) < 3 * 60 * 1000 // within 3 mins
+}
 
 const ALL_PAGES = [
   { key: 'instructions',      label: 'Instructions'      },
@@ -206,6 +230,42 @@ export default function Users() {
               const page = ALL_PAGES.find(x => x.key === p)
               return <Tag key={p} style={{ fontSize: 11 }}>{page?.label || p}</Tag>
             })}
+          </Space>
+        )
+      },
+    },
+    {
+      title: 'Last Login',
+      key: 'last_login',
+      width: 110,
+      render: (_, r) => (
+        <Tooltip title={r.last_login_at ? new Date(r.last_login_at).toLocaleString('en-GB') : 'Never'}>
+          <span style={{ fontSize: 12, color: '#888' }}>{timeAgo(r.last_login_at)}</span>
+        </Tooltip>
+      ),
+    },
+    {
+      title: 'Last Active',
+      key: 'last_active',
+      width: 160,
+      render: (_, r) => {
+        const online = isOnline(r.last_active_at)
+        const pageLabel = r.last_page ? (PAGE_LABELS[r.last_page] || r.last_page) : null
+        return (
+          <Space size={4}>
+            {online && (
+              <Tooltip title="Currently online">
+                <WifiOutlined style={{ color: '#52c41a', fontSize: 12 }} />
+              </Tooltip>
+            )}
+            <Tooltip title={r.last_active_at ? new Date(r.last_active_at).toLocaleString('en-GB') : 'Never'}>
+              <span style={{ fontSize: 12, color: online ? '#52c41a' : '#888' }}>
+                {timeAgo(r.last_active_at)}
+              </span>
+            </Tooltip>
+            {pageLabel && (
+              <span style={{ fontSize: 11, color: '#aaa' }}>· {pageLabel}</span>
+            )}
           </Space>
         )
       },

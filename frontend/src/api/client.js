@@ -77,11 +77,12 @@ export const updateStatus = (id, data) => api.patch(`/instructions/${id}/status`
 export const undoStatus   = (id)      => api.post(`/instructions/${id}/undo-status`).then(r => r.data)
 
 // --- Auth / Users ---
-export const googleAuth   = (credential) => api.post('/auth/google', { credential }).then(r => r.data)
-export const getUsers     = ()            => api.get('/auth/users').then(r => r.data)
-export const addUser      = (data)        => api.post('/auth/users', data).then(r => r.data)
-export const updateUser   = (id, data)    => api.patch(`/auth/users/${id}`, data).then(r => r.data)
-export const removeUser   = (id)          => api.delete(`/auth/users/${id}`)
+export const googleAuth    = (credential) => api.post('/auth/google', { credential }).then(r => r.data)
+export const getUsers      = ()            => api.get('/auth/users').then(r => r.data)
+export const addUser       = (data)        => api.post('/auth/users', data).then(r => r.data)
+export const updateUser    = (id, data)    => api.patch(`/auth/users/${id}`, data).then(r => r.data)
+export const removeUser    = (id)          => api.delete(`/auth/users/${id}`)
+export const pingActivity  = (page)        => api.post('/auth/activity', { page }).catch(() => {})
 
 // --- Postcode coverage ---
 export const getPostcodeSurveyors    = ()         => api.get('/postcode/').then(r => r.data)

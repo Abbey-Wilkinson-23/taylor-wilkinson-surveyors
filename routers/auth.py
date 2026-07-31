@@ -1,3 +1,4 @@
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
@@ -35,7 +36,14 @@ class UserOut(BaseModel):
     role:             str
     is_active:        bool
     page_permissions: str | None = None
+    last_login_at:    datetime | None = None
+    last_active_at:   datetime | None = None
+    last_page:        str | None = None
     model_config = {"from_attributes": True}
+
+
+class ActivityPing(BaseModel):
+    page: str
 
 
 class UserCreate(BaseModel):
@@ -76,6 +84,10 @@ async def google_login(payload: GoogleTokenRequest, db: AsyncSession = Depends(g
             status_code=403,
             detail="Your account is not approved. Contact an administrator.",
         )
+
+    # Record login timestamp
+    user.last_login_at = datetime.now(timezone.utc)
+    await db.commit()
 
     # Developer always gets all pages regardless of what's stored
     if user.role == UserRole.developer:
@@ -173,6 +185,17 @@ async def update_user(
     await db.commit()
     await db.refresh(user)
     return user
+
+
+@router.post("/activity", status_code=204)
+async def record_activity(
+    payload: ActivityPing,
+    current_user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    current_user.last_active_at = datetime.now(timezone.utc)
+    current_user.last_page = payload.page
+    await db.commit()
 
 
 @router.delete("/users/{user_id}", status_code=204)

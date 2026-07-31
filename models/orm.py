@@ -44,6 +44,9 @@ class User(Base):
     role             = Column(SAEnum(UserRole, name="user_role", create_constraint=False), nullable=False, default=UserRole.user)
     is_active        = Column(Boolean, nullable=False, default=True)
     page_permissions = Column(Text, nullable=True)   # CSV of allowed page keys; NULL = use role default
+    last_login_at    = Column(TIMESTAMP(timezone=True), nullable=True)
+    last_active_at   = Column(TIMESTAMP(timezone=True), nullable=True)
+    last_page        = Column(Text, nullable=True)
     created_at       = Column(TIMESTAMP(timezone=True), server_default=func.now())
 
 

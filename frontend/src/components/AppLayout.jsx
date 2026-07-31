@@ -1,6 +1,7 @@
 import { Layout, Menu, Avatar, Typography, Popconfirm, Switch, Button } from 'antd'
 import { useNavigate, useLocation } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
+import { pingActivity } from '../api/client'
 import {
   FileTextOutlined,
   TeamOutlined,
@@ -43,6 +44,16 @@ export default function AppLayout({ children }) {
   const { dark, toggleDark } = useTheme()
   const [hovered, setHovered] = useState(false)
   const SIDEBAR_BG = dark ? SIDEBAR_BG_DARK : SIDEBAR_BG_LIGHT
+
+  // Ping activity on every route change and every 2 minutes while active
+  const intervalRef = useRef(null)
+  useEffect(() => {
+    if (!realUser) return
+    pingActivity(location.pathname)
+    clearInterval(intervalRef.current)
+    intervalRef.current = setInterval(() => pingActivity(location.pathname), 2 * 60 * 1000)
+    return () => clearInterval(intervalRef.current)
+  }, [location.pathname, realUser])
 
   const isDeveloper = user?.role === 'developer'
   const allowedPages = user?.page_permissions
