@@ -5,7 +5,7 @@ from sqlalchemy import select, func, cast, Integer
 from sqlalchemy import text
 
 from core.database import get_db
-from models.orm import PostcodeSurveyor
+from models.orm import PostcodeSurveyor, Surveyor
 from schemas.postcode import PostcodeSurveyorCreate, PostcodeSurveyorUpdate, PostcodeSurveyorOut
 
 router = APIRouter(prefix="/postcode", tags=["postcode"])
@@ -45,10 +45,22 @@ async def update_postcode_surveyor(
     entry = result.scalar_one_or_none()
     if not entry:
         raise HTTPException(status_code=404, detail="Surveyor not found")
-    for field, value in payload.model_dump(exclude_unset=True).items():
+    updates = payload.model_dump(exclude_unset=True)
+    for field, value in updates.items():
         setattr(entry, field, value)
     await db.commit()
     await db.refresh(entry)
+
+    # If base_postcode changed and this entry has a surveyor_number, sync to surveyors table
+    if 'base_postcode' in updates and entry.surveyor_number:
+        result = await db.execute(
+            select(Surveyor).where(Surveyor.surveyor_number == entry.surveyor_number)
+        )
+        surveyor = result.scalar_one_or_none()
+        if surveyor:
+            surveyor.base_postcode = entry.base_postcode
+            await db.commit()
+
     return entry
 
 
