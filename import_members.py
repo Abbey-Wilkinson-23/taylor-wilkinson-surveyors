@@ -1,16 +1,23 @@
 """
-Parse MEMBERS OFFICE DETAILS doc and import surveyors into the database.
-Run: railway run python import_members.py
+Parse a MEMBERS OFFICE DETAILS doc and import surveyors into the database.
+Run: python3 import_members.py <doc.txt> [num_min] [num_max] [left_numbers.txt]
 
-The doc is uploaded to Railway as members.txt (converted via textutil).
+The doc is uploaded to Railway as plain text (converted locally via textutil).
+left_numbers.txt (optional) lists one surveyor_number per line — those are
+imported with is_active=False (identified as having left the company via the
+grey/"LEFT" markers in the source doc).
 """
 import asyncio
 import re
+import sys
 from sqlalchemy import select, text
 from core.database import AsyncSessionLocal
 from models.orm import Surveyor
 
-DOC_PATH = "/app/members.txt"
+DOC_PATH = sys.argv[1] if len(sys.argv) > 1 else "/app/members.txt"
+NUM_MIN = int(sys.argv[2]) if len(sys.argv) > 2 else 1
+NUM_MAX = int(sys.argv[3]) if len(sys.argv) > 3 else 500
+LEFT_NUMBERS_PATH = sys.argv[4] if len(sys.argv) > 4 else None
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -54,7 +61,7 @@ NAME_WORDS_TO_STRIP = {
 # Split text into records
 # ---------------------------------------------------------------------------
 
-def split_records(raw):
+def split_records(raw, num_min=1, num_max=500):
     record_start = re.compile(r'^\s*(\d{1,3})\s*$')
     lines = raw.split('\n')
     records = []
@@ -69,7 +76,7 @@ def split_records(raw):
         m = record_start.match(stripped)
         if m:
             n = int(m.group(1))
-            if 1 <= n <= 500:
+            if num_min <= n <= num_max:
                 if current_num is not None and current_lines:
                     records.append((str(current_num), '\n'.join(current_lines)))
                 current_num = n
@@ -220,7 +227,7 @@ def extract_address(lines):
                 return addr
     return []
 
-def parse_record(num, block):
+def parse_record(num, block, left_numbers=frozenset()):
     raw_lines = block.split('\n')
     # Remove HYPERLINK lines entirely for name/address parsing
     lines = [clean_hyperlinks(l) for l in raw_lines]
@@ -270,7 +277,7 @@ def parse_record(num, block):
         'rics_number': None,  # stored via qualification field
         'firm_type': extract_firm_type(block),
         'num_partners': extract_num_partners(block),
-        'is_active': True,
+        'is_active': str(num) not in left_numbers,
     }
 
 # ---------------------------------------------------------------------------
@@ -280,8 +287,18 @@ def parse_record(num, block):
 async def run():
     with open(DOC_PATH, encoding='utf-8', errors='replace') as f:
         raw = f.read()
+    # Word's cell breaks convert to a literal BEL (0x07), not a newline —
+    # e.g. "501\x07IRCHESTER" — which hides the record-start number from the
+    # line-based splitter below.
+    raw = raw.replace('\x07', '\n')
 
-    records = split_records(raw)
+    left_numbers = frozenset()
+    if LEFT_NUMBERS_PATH:
+        with open(LEFT_NUMBERS_PATH, encoding='utf-8') as f:
+            left_numbers = frozenset(line.strip() for line in f if line.strip())
+        print(f"Loaded {len(left_numbers)} left/inactive surveyor numbers")
+
+    records = split_records(raw, NUM_MIN, NUM_MAX)
     print(f"Found {len(records)} records")
 
     async with AsyncSessionLocal() as db:
@@ -295,7 +312,7 @@ async def run():
                 skipped += 1
                 continue
 
-            parsed = parse_record(num, block)
+            parsed = parse_record(num, block, left_numbers)
             s = Surveyor(**parsed)
             db.add(s)
             added += 1
@@ -327,4 +344,5 @@ async def run():
         await db.commit()
         print(f"Synced {result.rowcount} surveyors")
 
-asyncio.run(run())
+if __name__ == "__main__":
+    asyncio.run(run())
