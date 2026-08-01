@@ -27,6 +27,7 @@ export default function Surveyors() {
   const [postcodeFilter, setPostcodeFilter] = useState(null)
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [pageSize, setPageSize] = useState(20)
   const [createForm] = Form.useForm()
 
   const fetchData = async (deleted = showDeleted) => {
@@ -202,7 +203,12 @@ export default function Surveyors() {
         columns={columns}
         rowKey="id"
         loading={loading}
-        pagination={{ pageSize: 20, showSizeChanger: true }}
+        pagination={{
+          pageSize,
+          showSizeChanger: true,
+          pageSizeOptions: [10, 20, 50, 100, 200],
+          onShowSizeChange: (_, size) => setPageSize(size),
+        }}
         size="small"
         scroll={{ x: true }}
         onRow={(record) => ({

@@ -111,6 +111,7 @@ export default function Instructions() {
   const [search, setSearch] = useState('')
   const [showChasers, setShowChasers] = useState(false)
   const [inspectionFilter, setInspectionFilter] = useState(null)
+  const [pageSize, setPageSize] = useState(20)
   const [filters, setFilters] = useState({ status: [], client_id: [], date_from: null, date_to: null })
 
   const fetchInstructions = async (f = filters) => {
@@ -246,7 +247,12 @@ export default function Instructions() {
         columns={columns(navigate)}
         rowKey="id"
         loading={loading}
-        pagination={{ pageSize: 20, showSizeChanger: true }}
+        pagination={{
+          pageSize,
+          showSizeChanger: true,
+          pageSizeOptions: [10, 20, 50, 100, 200],
+          onShowSizeChange: (_, size) => setPageSize(size),
+        }}
         size="small"
         scroll={{ x: true }}
         onRow={(record) => {
