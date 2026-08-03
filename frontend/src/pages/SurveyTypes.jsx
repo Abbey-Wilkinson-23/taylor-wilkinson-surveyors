@@ -160,27 +160,24 @@ export default function SurveyTypes() {
   )
 
   return (
-    <Card
-      extra={
-        <Space>
-          <Space>
-            <span style={{ fontSize: 13 }}>Show deleted</span>
-            <Switch size="small" checked={showDeleted} onChange={handleToggleDeleted} />
-          </Space>
+    <Card>
+      <div style={{ display: 'flex', gap: 8, alignItems: 'center', marginBottom: 12, flexWrap: 'nowrap' }}>
+        <Input
+          prefix={<SearchOutlined />}
+          placeholder="Search by name, code, description…"
+          allowClear
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{ flex: 1, minWidth: 0 }}
+        />
+        <Space style={{ flexShrink: 0 }}>
+          <span style={{ fontSize: 13 }}>Show deleted</span>
+          <Switch size="small" checked={showDeleted} onChange={handleToggleDeleted} />
           <Button type="primary" icon={<PlusOutlined />} onClick={() => setCreateModalOpen(true)}>
             Add Survey Type
           </Button>
         </Space>
-      }
-    >
-      <Input
-        prefix={<SearchOutlined />}
-        placeholder="Search by name, code, description…"
-        allowClear
-        value={search}
-        onChange={e => setSearch(e.target.value)}
-        style={{ marginBottom: 12, maxWidth: 360 }}
-      />
+      </div>
       <Table
         dataSource={filtered}
         columns={columns}
