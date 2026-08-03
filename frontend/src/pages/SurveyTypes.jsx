@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import {
   Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, Popconfirm, message
 } from 'antd'
-import { PlusOutlined, EditOutlined, DeleteOutlined, UndoOutlined } from '@ant-design/icons'
+import { PlusOutlined, EditOutlined, DeleteOutlined, UndoOutlined, SearchOutlined } from '@ant-design/icons'
 import {
   getSurveyTypes, createSurveyType, updateSurveyType, deleteSurveyType, restoreSurveyType
 } from '../api/client'
@@ -11,6 +11,7 @@ export default function SurveyTypes() {
   const [surveyTypes, setSurveyTypes] = useState([])
   const [loading, setLoading] = useState(false)
   const [showDeleted, setShowDeleted] = useState(false)
+  const [search, setSearch] = useState('')
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [editModalOpen, setEditModalOpen] = useState(false)
   const [editingType, setEditingType] = useState(null)
@@ -29,6 +30,14 @@ export default function SurveyTypes() {
   }
 
   useEffect(() => { fetch() }, [])
+
+  const filtered = useMemo(() => {
+    if (!search) return surveyTypes
+    const q = search.toLowerCase()
+    return surveyTypes.filter(t =>
+      [t.name, t.code, t.description].some(v => v?.toLowerCase().includes(q))
+    )
+  }, [surveyTypes, search])
 
   const handleToggleDeleted = (checked) => {
     setShowDeleted(checked)
@@ -164,8 +173,16 @@ export default function SurveyTypes() {
         </Space>
       }
     >
+      <Input
+        prefix={<SearchOutlined />}
+        placeholder="Search by name, code, description…"
+        allowClear
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+        style={{ marginBottom: 12, maxWidth: 360 }}
+      />
       <Table
-        dataSource={surveyTypes}
+        dataSource={filtered}
         columns={columns}
         rowKey="id"
         loading={loading}
