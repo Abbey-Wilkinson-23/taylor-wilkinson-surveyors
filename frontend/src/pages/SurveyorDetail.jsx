@@ -46,10 +46,22 @@ function SectionCard({ title, children, style }) {
   )
 }
 
+// Sort outward codes alphabetically by letter prefix, then numerically by
+// the number suffix (so CA2 comes before CA10, not after).
+function compareOutwardCodes(a, b) {
+  const pa = a.match(/^([A-Za-z]+)(\d+)$/)
+  const pb = b.match(/^([A-Za-z]+)(\d+)$/)
+  if (pa && pb) {
+    if (pa[1] !== pb[1]) return pa[1].localeCompare(pb[1])
+    return parseInt(pa[2], 10) - parseInt(pb[2], 10)
+  }
+  return a.localeCompare(b)
+}
+
 function CoverageTags({ coverage }) {
   if (!coverage.length) return <Text type="secondary">None set</Text>
   const sorted = [...coverage].sort((a, b) => {
-    if (a.distance_band === b.distance_band) return a.code.localeCompare(b.code)
+    if (a.distance_band === b.distance_band) return compareOutwardCodes(a.code, b.code)
     return (a.distance_band === '25' ? 1 : 0) - (b.distance_band === '25' ? 1 : 0)
   })
   return (
@@ -109,8 +121,14 @@ export default function SurveyorDetail() {
         firm_type: data.firm_type,
         num_partners: data.num_partners,
         notes: data.notes,
-        coverage_15: data.coverage.filter(c => c.distance_band === '15' || !c.distance_band).map(c => c.code),
-        coverage_25: data.coverage.filter(c => c.distance_band === '25').map(c => c.code),
+        coverage_15: data.coverage
+          .filter(c => c.distance_band === '15' || !c.distance_band)
+          .sort((a, b) => compareOutwardCodes(a.code, b.code))
+          .map(c => c.code),
+        coverage_25: data.coverage
+          .filter(c => c.distance_band === '25')
+          .sort((a, b) => compareOutwardCodes(a.code, b.code))
+          .map(c => c.code),
         qualified_survey_type_ids: data.qualified_survey_type_ids,
         excluded_client_ids: data.excluded_client_ids,
       })

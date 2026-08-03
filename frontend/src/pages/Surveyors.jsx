@@ -8,6 +8,18 @@ import { getSurveyors, createSurveyor, deleteSurveyor, restoreSurveyor } from '.
 
 const { Text } = Typography
 
+// Sort outward codes alphabetically by letter prefix, then numerically by
+// the number suffix (so CA2 comes before CA10, not after).
+function compareOutwardCodes(a, b) {
+  const pa = a.match(/^([A-Za-z]+)(\d+)$/)
+  const pb = b.match(/^([A-Za-z]+)(\d+)$/)
+  if (pa && pb) {
+    if (pa[1] !== pb[1]) return pa[1].localeCompare(pb[1])
+    return parseInt(pa[2], 10) - parseInt(pb[2], 10)
+  }
+  return a.localeCompare(b)
+}
+
 function formatPiCover(v) {
   if (v == null) return '—'
   const n = Number(v)
@@ -119,7 +131,7 @@ export default function Surveyors() {
       key: 'coverage',
       render: (_, r) => {
         const codes = [...(r.coverage || [])].sort((a, b) => {
-          if (a.distance_band === b.distance_band) return a.code.localeCompare(b.code)
+          if (a.distance_band === b.distance_band) return compareOutwardCodes(a.code, b.code)
           return (a.distance_band === '25' ? 1 : 0) - (b.distance_band === '25' ? 1 : 0)
         })
         if (!codes.length) return <Text type="secondary">—</Text>
