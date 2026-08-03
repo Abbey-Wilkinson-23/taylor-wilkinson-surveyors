@@ -88,6 +88,20 @@ async def update_postcode_surveyor(
     return entry
 
 
+@router.delete("/by-number/{surveyor_number}", status_code=204)
+async def delete_postcode_surveyor_by_number(surveyor_number: str, db: AsyncSession = Depends(get_db)):
+    """Remove every postcode-area row for this surveyor number (not just one area)."""
+    result = await db.execute(
+        select(PostcodeSurveyor).where(PostcodeSurveyor.surveyor_number == surveyor_number)
+    )
+    rows = result.scalars().all()
+    if not rows:
+        raise HTTPException(status_code=404, detail="Surveyor not found")
+    for row in rows:
+        await db.delete(row)
+    await db.commit()
+
+
 @router.delete("/{id}", status_code=204)
 async def delete_postcode_surveyor(id: int, db: AsyncSession = Depends(get_db)):
     result = await db.execute(select(PostcodeSurveyor).where(PostcodeSurveyor.id == id))

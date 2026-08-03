@@ -90,6 +90,7 @@ export const addPostcodeSurveyor     = (data)     => api.post('/postcode/', data
 export const addPostcodeSurveyorBulk = (data)     => api.post('/postcode/bulk', data).then(r => r.data)
 export const updatePostcodeSurveyor  = (id, data) => api.patch(`/postcode/${id}`, data).then(r => r.data)
 export const deletePostcodeSurveyor  = (id)       => api.delete(`/postcode/${id}`)
+export const deletePostcodeSurveyorByNumber = (surveyorNumber) => api.delete(`/postcode/by-number/${encodeURIComponent(surveyorNumber)}`)
 
 // --- Postcode work types ---
 export const getPostcodeWorkTypes    = ()         => api.get('/postcode-work-types/').then(r => r.data)

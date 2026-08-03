@@ -1,10 +1,11 @@
 import { useEffect, useState, useMemo, useRef } from 'react'
 import {
-  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Tabs
+  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Tabs, Dropdown
 } from 'antd'
 import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 import {
   getPostcodeSurveyors, addPostcodeSurveyorBulk, updatePostcodeSurveyor, deletePostcodeSurveyor,
+  deletePostcodeSurveyorByNumber,
   getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
   getPostcodeFeeTypes, addPostcodeFeeType, updatePostcodeFeeType, deletePostcodeFeeType,
 } from '../api/client'
@@ -447,6 +448,14 @@ export default function PostcodeCoverage() {
 
   const areas = useMemo(() => [...new Set(data.map(r => r.postcode_area))].sort(), [data])
 
+  const surveyorNumberCounts = useMemo(() => {
+    const counts = {}
+    for (const r of data) {
+      if (r.surveyor_number) counts[r.surveyor_number] = (counts[r.surveyor_number] || 0) + 1
+    }
+    return counts
+  }, [data])
+
   const filtered = useMemo(() => data.filter(r => {
     if (areaFilter && r.postcode_area !== areaFilter) return false
     if (feeFilter  && !r.fee_cat.split(',').includes(feeFilter)) return false
@@ -516,6 +525,16 @@ export default function PostcodeCoverage() {
       await deletePostcodeSurveyor(id)
       setData(prev => prev.filter(r => r.id !== id))
       message.success('Removed')
+    } catch {
+      message.error('Failed to remove')
+    }
+  }
+
+  const handleDeleteAllAreas = async (surveyorNumber) => {
+    try {
+      await deletePostcodeSurveyorByNumber(surveyorNumber)
+      setData(prev => prev.filter(r => r.surveyor_number !== surveyorNumber))
+      message.success('Surveyor removed from all areas')
     } catch {
       message.error('Failed to remove')
     }
@@ -621,24 +640,62 @@ export default function PostcodeCoverage() {
       title: '',
       key: 'actions',
       width: 80,
-      render: (_, r) => (
-        <Space>
-          <Button
-            type="text"
-            icon={<EditOutlined />}
-            size="small"
-            onClick={() => openEdit(r)}
-          />
-          <Popconfirm
-            title="Remove this surveyor?"
-            onConfirm={() => handleDelete(r.id)}
-            okText="Remove"
-            okButtonProps={{ danger: true }}
-          >
-            <Button type="text" danger icon={<DeleteOutlined />} size="small" />
-          </Popconfirm>
-        </Space>
-      ),
+      render: (_, r) => {
+        const siblingCount = r.surveyor_number ? (surveyorNumberCounts[r.surveyor_number] || 1) : 1
+        return (
+          <Space>
+            <Button
+              type="text"
+              icon={<EditOutlined />}
+              size="small"
+              onClick={() => openEdit(r)}
+            />
+            {siblingCount > 1 ? (
+              <Dropdown
+                trigger={['click']}
+                menu={{
+                  items: [
+                    {
+                      key: 'area',
+                      label: `Delete ${r.postcode_area} only`,
+                      onClick: () => Modal.confirm({
+                        title: `Remove ${r.postcode_area} coverage only?`,
+                        content: `${r.name} still covers ${siblingCount - 1} other area${siblingCount - 1 > 1 ? 's' : ''} — only the ${r.postcode_area} row will be removed.`,
+                        okText: 'Remove area',
+                        okButtonProps: { danger: true },
+                        onOk: () => handleDelete(r.id),
+                      }),
+                    },
+                    {
+                      key: 'all',
+                      danger: true,
+                      label: `Delete surveyor entirely (${siblingCount} areas)`,
+                      onClick: () => Modal.confirm({
+                        title: 'Remove this surveyor entirely?',
+                        content: `This removes all ${siblingCount} postcode areas for ${r.name} (#${r.surveyor_number}).`,
+                        okText: 'Remove all',
+                        okButtonProps: { danger: true },
+                        onOk: () => handleDeleteAllAreas(r.surveyor_number),
+                      }),
+                    },
+                  ],
+                }}
+              >
+                <Button type="text" danger icon={<DeleteOutlined />} size="small" />
+              </Dropdown>
+            ) : (
+              <Popconfirm
+                title="Remove this surveyor?"
+                onConfirm={() => handleDelete(r.id)}
+                okText="Remove"
+                okButtonProps={{ danger: true }}
+              >
+                <Button type="text" danger icon={<DeleteOutlined />} size="small" />
+              </Popconfirm>
+            )}
+          </Space>
+        )
+      },
     },
   ]
 
