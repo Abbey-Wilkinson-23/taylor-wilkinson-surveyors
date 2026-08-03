@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import Integer, select
+from sqlalchemy import select, text
 from sqlalchemy.orm import selectinload
 
 from core.database import get_db
@@ -50,8 +50,11 @@ async def list_surveyors(
     query = select(Surveyor).options(selectinload(Surveyor.coverage))
     if active_only:
         query = query.where(Surveyor.is_active == True)
+    # Order by the first number found in surveyor_number — some entries carry
+    # compound values like "109,111-114" that aren't valid plain integers, so
+    # casting the whole column (as before) would error out the whole query.
     result = await db.execute(query.order_by(
-        Surveyor.surveyor_number.cast(Integer).asc().nulls_last()
+        text("(regexp_match(surveyors.surveyor_number, '(\\d+)'))[1]::integer ASC NULLS LAST")
     ))
     return result.scalars().all()
 
