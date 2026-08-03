@@ -5,7 +5,7 @@ import {
 import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 import {
   getPostcodeSurveyors, addPostcodeSurveyorBulk, updatePostcodeSurveyor, deletePostcodeSurveyor,
-  deletePostcodeSurveyorByNumber,
+  deletePostcodeSurveyorByNumber, getSurveyors,
   getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
   getPostcodeFeeTypes, addPostcodeFeeType, updatePostcodeFeeType, deletePostcodeFeeType,
 } from '../api/client'
@@ -429,6 +429,7 @@ export default function PostcodeCoverage() {
   const [workTypes, setWorkTypes]     = useState([])
   const [feeTypes, setFeeTypes]       = useState([])
   const [settingsOpen, setSettings]   = useState(false)
+  const [activeSurveyorNumbers, setActiveSurveyorNumbers] = useState(new Set())
 
   const load = async () => {
     setLoading(true)
@@ -444,7 +445,12 @@ export default function PostcodeCoverage() {
     setFeeTypes(await getPostcodeFeeTypes())
   }
 
-  useEffect(() => { load(); loadWorkTypes(); loadFeeTypes() }, [])
+  const loadActiveSurveyorNumbers = async () => {
+    const active = await getSurveyors(true)
+    setActiveSurveyorNumbers(new Set(active.map(s => s.surveyor_number).filter(Boolean)))
+  }
+
+  useEffect(() => { load(); loadWorkTypes(); loadFeeTypes(); loadActiveSurveyorNumbers() }, [])
 
   const areas = useMemo(() => [...new Set(data.map(r => r.postcode_area))].sort(), [data])
 
@@ -464,6 +470,15 @@ export default function PostcodeCoverage() {
     const q = search.toLowerCase()
     return [r.postcode_area, r.name, r.coverage].some(v => v?.toLowerCase().includes(q))
   }), [data, areaFilter, feeFilter, workFilter, search])
+
+  const distinctActiveSurveyorCount = useMemo(() => {
+    const numbers = new Set(
+      filtered
+        .map(r => r.surveyor_number)
+        .filter(n => n && activeSurveyorNumbers.has(n))
+    )
+    return numbers.size
+  }, [filtered, activeSurveyorNumbers])
 
   const openAdd  = ()  => { setEditing(null); setModalOpen(true) }
   const openEdit = (r) => { setEditing(r);    setModalOpen(true) }
@@ -741,7 +756,7 @@ export default function PostcodeCoverage() {
           Add Surveyor
         </Button>
         <Tooltip title="Refresh">
-          <Button icon={<ReloadOutlined />} onClick={() => { load(); loadWorkTypes(); loadFeeTypes() }} loading={loading} />
+          <Button icon={<ReloadOutlined />} onClick={() => { load(); loadWorkTypes(); loadFeeTypes(); loadActiveSurveyorNumbers() }} loading={loading} />
         </Tooltip>
         <Tooltip title="Settings">
           <Button icon={<SettingOutlined />} onClick={() => setSettings(true)} />
@@ -749,7 +764,7 @@ export default function PostcodeCoverage() {
       </div>
 
       <div style={{ marginBottom: 8, color: '#888', fontSize: 13 }}>
-        {filtered.length} surveyor{filtered.length !== 1 ? 's' : ''} shown
+        {distinctActiveSurveyorCount} active surveyor{distinctActiveSurveyorCount !== 1 ? 's' : ''} shown
       </div>
 
       <Table
