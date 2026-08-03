@@ -67,8 +67,6 @@ class SurveyorDetail(BaseModel):
     is_active:            bool
     # Relationship summaries
     coverage:             list[dict]
-    qualified_survey_type_ids:   list[int]
-    qualified_survey_type_names: list[str]
     excluded_client_ids:         list[int]
     excluded_client_names:       list[str]
 
@@ -89,13 +87,8 @@ class SurveyorDetail(BaseModel):
         data = {f: getattr(obj, f, None) for f in flat_fields}
         data['qualification'] = getattr(obj, 'rics_number', None)
         cov = getattr(obj, 'coverage', None) or []
-        quals = getattr(obj, 'qualifications', None) or []
         excls = getattr(obj, 'client_exclusions', None) or []
         data['coverage'] = [{'code': c.outward_code, 'distance_band': c.distance_band} for c in cov]
-        data['qualified_survey_type_ids'] = [q.survey_type_id for q in quals]
-        data['qualified_survey_type_names'] = [
-            q.survey_type.name for q in quals if q.survey_type
-        ]
         data['excluded_client_ids'] = [e.client_id for e in excls]
         data['excluded_client_names'] = [
             e.client.company_name for e in excls if e.client

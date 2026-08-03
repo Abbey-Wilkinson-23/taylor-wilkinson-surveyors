@@ -171,7 +171,6 @@ class Surveyor(Base):
     created_at            = Column(TIMESTAMP(timezone=True), server_default=func.now())
 
     coverage          = relationship("SurveyorCoverage", back_populates="surveyor", cascade="all, delete-orphan")
-    qualifications    = relationship("SurveyorQualification", back_populates="surveyor", cascade="all, delete-orphan")
     client_exclusions = relationship("SurveyorClientExclusion", back_populates="surveyor", cascade="all, delete-orphan")
 
 
@@ -186,16 +185,6 @@ class SurveyorCoverage(Base):
     surveyor        = relationship("Surveyor", back_populates="coverage")
 
     __table_args__  = (UniqueConstraint("surveyor_id", "outward_code"),)
-
-
-class SurveyorQualification(Base):
-    __tablename__ = "surveyor_qualifications"
-
-    surveyor_id     = Column(Integer, ForeignKey("surveyors.id"), primary_key=True)
-    survey_type_id  = Column(Integer, ForeignKey("survey_types.id"), primary_key=True)
-
-    surveyor        = relationship("Surveyor", back_populates="qualifications")
-    survey_type     = relationship("SurveyType")
 
 
 class SurveyorClientExclusion(Base):

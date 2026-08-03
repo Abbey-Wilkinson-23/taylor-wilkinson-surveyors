@@ -8,8 +8,8 @@ import { ArrowLeftOutlined, EditOutlined, SaveOutlined, CloseOutlined, DeleteOut
 import {
   getSurveyor, updateSurveyor, deleteSurveyor, restoreSurveyor,
   getSurveyTypes, getClients,
-  setSurveyorCoverage, setSurveyorSurveyTypes, setSurveyorClientExclusions,
-  getPostcodeWorkTypes, getPostcodeFeeTypes,
+  setSurveyorCoverage, setSurveyorClientExclusions,
+  getPostcodeFeeTypes,
 } from '../api/client'
 
 const { Text, Title } = Typography
@@ -84,7 +84,6 @@ export default function SurveyorDetail() {
   const [surveyor, setSurveyor] = useState(null)
   const [surveyTypes, setSurveyTypes] = useState([])
   const [clients, setClients] = useState([])
-  const [workTypes, setWorkTypes] = useState([])
   const [feeTypes, setFeeTypes] = useState([])
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
@@ -129,7 +128,6 @@ export default function SurveyorDetail() {
           .filter(c => c.distance_band === '25')
           .sort((a, b) => compareOutwardCodes(a.code, b.code))
           .map(c => c.code),
-        qualified_survey_type_ids: data.qualified_survey_type_ids,
         excluded_client_ids: data.excluded_client_ids,
       })
     } finally {
@@ -141,7 +139,6 @@ export default function SurveyorDetail() {
     load()
     getSurveyTypes().then(setSurveyTypes)
     getClients().then(setClients)
-    getPostcodeWorkTypes().then(setWorkTypes)
     getPostcodeFeeTypes().then(setFeeTypes)
   }, [id])
 
@@ -173,7 +170,6 @@ export default function SurveyorDetail() {
       const coverage15 = (values.coverage_15 || []).map(code => ({ code: code.toUpperCase(), distance_band: '15' }))
       const coverage25 = (values.coverage_25 || []).map(code => ({ code: code.toUpperCase(), distance_band: '25' }))
       await setSurveyorCoverage(id, [...coverage15, ...coverage25])
-      await setSurveyorSurveyTypes(id, values.qualified_survey_type_ids || [])
       await setSurveyorClientExclusions(id, values.excluded_client_ids || [])
       message.success('Saved')
       setEditing(false)
@@ -319,7 +315,7 @@ export default function SurveyorDetail() {
               <Col span={12}>
                 <Form.Item name="work_types" label="Work Types">
                   <Select mode="multiple" placeholder="Select work types" allowClear
-                    options={workTypes.map(wt => ({ value: wt.name, label: wt.name }))} />
+                    options={surveyTypes.map(st => ({ value: st.name, label: st.name }))} />
                 </Form.Item>
               </Col>
               <Col span={12}>
@@ -336,16 +332,6 @@ export default function SurveyorDetail() {
             </Form.Item>
             <Form.Item name="coverage_25" label="Within 25 miles (over 15)">
               <Select mode="tags" tokenSeparators={[',', ' ']} placeholder="SW1A, E1, B1…" options={[]} />
-            </Form.Item>
-
-            <Divider orientation="left">Types of Work</Divider>
-            <Form.Item name="qualified_survey_type_ids" extra="Survey types this surveyor is qualified to carry out.">
-              <Select
-                mode="multiple"
-                optionFilterProp="label"
-                placeholder="Select survey types"
-                options={surveyTypes.map(t => ({ value: t.id, label: t.name }))}
-              />
             </Form.Item>
 
             <Divider orientation="left">Cannot Work For</Divider>
@@ -497,27 +483,14 @@ export default function SurveyorDetail() {
         )}
       </SectionCard>
 
-      {/* Types of Work + Cannot Work For */}
-      <Row gutter={16}>
-        <Col xs={24} md={12}>
-          <SectionCard title="Types of Work">
-            <Space wrap size={4}>
-              {surveyor.qualified_survey_type_names.length > 0
-                ? surveyor.qualified_survey_type_names.map(n => <Tag key={n} color="purple">{n}</Tag>)
-                : <Text type="secondary">None set</Text>}
-            </Space>
-          </SectionCard>
-        </Col>
-        <Col xs={24} md={12}>
-          <SectionCard title="Cannot Work For">
-            <Space wrap size={4}>
-              {surveyor.excluded_client_names.length > 0
-                ? surveyor.excluded_client_names.map(n => <Tag key={n} color="red">{n}</Tag>)
-                : <Text type="secondary">No exclusions</Text>}
-            </Space>
-          </SectionCard>
-        </Col>
-      </Row>
+      {/* Cannot Work For */}
+      <SectionCard title="Cannot Work For">
+        <Space wrap size={4}>
+          {surveyor.excluded_client_names.length > 0
+            ? surveyor.excluded_client_names.map(n => <Tag key={n} color="red">{n}</Tag>)
+            : <Text type="secondary">No exclusions</Text>}
+        </Space>
+      </SectionCard>
 
       {/* Notes — inline editable */}
       <SectionCard title="Notes">

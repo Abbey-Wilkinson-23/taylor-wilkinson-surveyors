@@ -1,12 +1,11 @@
 import { useEffect, useState, useMemo, useRef } from 'react'
 import {
-  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Tabs, Dropdown
+  Table, Input, Select, Button, Tag, Card, Space, Modal, Form, message, Popconfirm, Tooltip, Dropdown
 } from 'antd'
 import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 import {
   getPostcodeSurveyors, addPostcodeSurveyorBulk, updatePostcodeSurveyor, deletePostcodeSurveyor,
-  deletePostcodeSurveyorByNumber, getSurveyors,
-  getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
+  deletePostcodeSurveyorByNumber, getSurveyors, getSurveyTypes,
   getPostcodeFeeTypes, addPostcodeFeeType, updatePostcodeFeeType, deletePostcodeFeeType,
 } from '../api/client'
 import { useAuth } from '../context/AuthContext'
@@ -193,105 +192,6 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
   )
 }
 
-function WorkTypeManager({ workTypes, onChange }) {
-  const [newName, setNewName]     = useState('')
-  const [editingWt, setEditingWt] = useState(null) // { id, name }
-  const [editName, setEditName]   = useState('')
-  const [saving, setSaving]       = useState(false)
-
-  const handleAdd = async () => {
-    if (!newName.trim()) return
-    setSaving(true)
-    try {
-      await addPostcodeWorkType({ name: newName.trim() })
-      setNewName('')
-      onChange()
-    } catch {
-      message.error('Failed to add — may already exist')
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  const handleEdit = async (id) => {
-    if (!editName.trim()) return
-    setSaving(true)
-    try {
-      await updatePostcodeWorkType(id, { name: editName.trim() })
-      setEditingWt(null)
-      onChange()
-    } catch {
-      message.error('Failed to update')
-    } finally {
-      setSaving(false)
-    }
-  }
-
-  const handleDelete = async (id) => {
-    try {
-      await deletePostcodeWorkType(id)
-      onChange()
-    } catch {
-      message.error('Failed to delete')
-    }
-  }
-
-  const content = (
-    <>
-      <div style={{ marginBottom: 16 }}>
-        <Space.Compact style={{ width: '100%' }}>
-          <Input
-            placeholder="New work type name"
-            value={newName}
-            onChange={e => setNewName(e.target.value)}
-            onPressEnter={handleAdd}
-          />
-          <Button type="primary" icon={<PlusOutlined />} loading={saving} onClick={handleAdd}>
-            Add
-          </Button>
-        </Space.Compact>
-      </div>
-      <Table
-        dataSource={workTypes}
-        rowKey="id"
-        size="small"
-        pagination={false}
-        columns={[
-          {
-            title: 'Name',
-            dataIndex: 'name',
-            render: (name, r) => editingWt?.id === r.id
-              ? <Input
-                  value={editName}
-                  onChange={e => setEditName(e.target.value)}
-                  onPressEnter={() => handleEdit(r.id)}
-                  size="small"
-                  autoFocus
-                />
-              : name,
-          },
-          {
-            title: '',
-            width: 80,
-            render: (_, r) => editingWt?.id === r.id
-              ? <Space>
-                  <Button size="small" type="primary" loading={saving} onClick={() => handleEdit(r.id)}>Save</Button>
-                  <Button size="small" onClick={() => setEditingWt(null)}>Cancel</Button>
-                </Space>
-              : <Space>
-                  <Button type="text" size="small" icon={<EditOutlined />} onClick={() => { setEditingWt(r); setEditName(r.name) }} />
-                  <Popconfirm title="Delete this work type?" onConfirm={() => handleDelete(r.id)} okText="Delete" okButtonProps={{ danger: true }}>
-                    <Button type="text" size="small" danger icon={<DeleteOutlined />} />
-                  </Popconfirm>
-                </Space>,
-          },
-        ]}
-      />
-    </>
-  )
-  return content
-}
-
 const TAG_COLOURS = [
   'default', 'red', 'volcano', 'orange', 'gold', 'yellow',
   'lime', 'green', 'cyan', 'blue', 'geekblue', 'purple', 'magenta',
@@ -438,7 +338,7 @@ export default function PostcodeCoverage() {
   }
 
   const loadWorkTypes = async () => {
-    setWorkTypes(await getPostcodeWorkTypes())
+    setWorkTypes(await getSurveyTypes())
   }
 
   const loadFeeTypes = async () => {
@@ -784,26 +684,13 @@ export default function PostcodeCoverage() {
       />
 
       <Modal
-        title="Settings"
+        title="Fee Categories"
         open={settingsOpen}
         onCancel={() => setSettings(false)}
         footer={null}
         width={480}
       >
-        <Tabs
-          items={[
-            {
-              key: 'work-types',
-              label: 'Work Types',
-              children: <WorkTypeManager inline workTypes={workTypes} onChange={loadWorkTypes} />,
-            },
-            {
-              key: 'fee-types',
-              label: 'Fee Types',
-              children: <FeeTypeManager inline feeTypes={feeTypes} onChange={loadFeeTypes} />,
-            },
-          ]}
-        />
+        <FeeTypeManager inline feeTypes={feeTypes} onChange={loadFeeTypes} />
       </Modal>
     </Card>
   )

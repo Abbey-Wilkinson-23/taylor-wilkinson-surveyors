@@ -43,7 +43,6 @@ export const updateSurveyor = (id, data) => api.patch(`/surveyors/${id}`, data).
 export const deleteSurveyor = (id) => api.delete(`/surveyors/${id}`)
 export const restoreSurveyor = (id) => api.post(`/surveyors/${id}/restore`).then(r => r.data)
 export const setSurveyorCoverage = (id, coverage) => api.put(`/surveyors/${id}/coverage`, { coverage }).then(r => r.data)
-export const setSurveyorSurveyTypes = (id, survey_type_ids) => api.put(`/surveyors/${id}/survey-types`, { survey_type_ids }).then(r => r.data)
 export const setSurveyorClientExclusions = (id, client_ids) => api.put(`/surveyors/${id}/client-exclusions`, { client_ids }).then(r => r.data)
 
 // --- Survey Types ---

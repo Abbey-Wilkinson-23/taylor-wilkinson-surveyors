@@ -5,14 +5,13 @@ from sqlalchemy import select, text
 from sqlalchemy.orm import selectinload
 
 from core.database import get_db
-from models.orm import Client, PostcodeSurveyor, Surveyor, SurveyorClientExclusion, SurveyorCoverage, SurveyorQualification, SurveyType
+from models.orm import Client, PostcodeSurveyor, Surveyor, SurveyorClientExclusion, SurveyorCoverage
 from schemas.surveyor import SurveyorCreate, SurveyorDetail, SurveyorOut, SurveyorUpdate
 
 router = APIRouter(prefix="/surveyors", tags=["surveyors"])
 
 DETAIL_OPTS = [
     selectinload(Surveyor.coverage),
-    selectinload(Surveyor.qualifications).selectinload(SurveyorQualification.survey_type),
     selectinload(Surveyor.client_exclusions).selectinload(SurveyorClientExclusion.client),
 ]
 
@@ -121,9 +120,6 @@ class CoveragePayload(BaseModel):
     outward_codes: list[str] = []          # legacy / simple path (no band)
     coverage: list[CoverageEntry] = []     # preferred: [{code, distance_band}]
 
-class SurveyTypesPayload(BaseModel):
-    survey_type_ids: list[int]
-
 class ClientExclusionsPayload(BaseModel):
     client_ids: list[int]
 
@@ -150,18 +146,6 @@ async def set_coverage(id: int, payload: CoveragePayload, db: AsyncSession = Dep
         codes = [c.strip().upper() for c in payload.outward_codes if c.strip()]
         for code in dict.fromkeys(codes):  # preserve order, dedupe
             db.add(SurveyorCoverage(surveyor_id=id, outward_code=code))
-    await db.commit()
-    return await get_surveyor_or_404(id, db)
-
-
-@router.put("/{id}/survey-types", response_model=SurveyorDetail)
-async def set_survey_types(id: int, payload: SurveyTypesPayload, db: AsyncSession = Depends(get_db)):
-    surveyor = await get_surveyor_or_404(id, db)
-    for q in list(surveyor.qualifications):
-        await db.delete(q)
-    await db.flush()
-    for st_id in set(payload.survey_type_ids):
-        db.add(SurveyorQualification(surveyor_id=id, survey_type_id=st_id))
     await db.commit()
     return await get_surveyor_or_404(id, db)
 
