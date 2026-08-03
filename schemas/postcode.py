@@ -29,6 +29,21 @@ class PostcodeSurveyorCreate(BaseModel):
     base_postcode:   str | None = None
 
 
+class PostcodeAreaEntry(BaseModel):
+    postcode_area: str
+    coverage:      str = ""
+
+
+class PostcodeSurveyorBulkCreate(BaseModel):
+    name:            str
+    surveyor_number: str | None = None
+    preferred:       str = ""
+    work_types:      str = ""
+    fee_cat:         str
+    base_postcode:   str | None = None
+    areas:           list[PostcodeAreaEntry]
+
+
 class PostcodeSurveyorUpdate(BaseModel):
     postcode_area:   str | None = None
     name:            str | None = None

@@ -87,6 +87,7 @@ export const pingActivity  = (page)        => api.post('/auth/activity', { page 
 // --- Postcode coverage ---
 export const getPostcodeSurveyors    = ()         => api.get('/postcode/').then(r => r.data)
 export const addPostcodeSurveyor     = (data)     => api.post('/postcode/', data).then(r => r.data)
+export const addPostcodeSurveyorBulk = (data)     => api.post('/postcode/bulk', data).then(r => r.data)
 export const updatePostcodeSurveyor  = (id, data) => api.patch(`/postcode/${id}`, data).then(r => r.data)
 export const deletePostcodeSurveyor  = (id)       => api.delete(`/postcode/${id}`)
 

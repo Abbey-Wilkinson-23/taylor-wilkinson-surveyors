@@ -4,7 +4,7 @@ import {
 } from 'antd'
 import { PlusOutlined, SearchOutlined, DeleteOutlined, EditOutlined, SettingOutlined, ReloadOutlined } from '@ant-design/icons'
 import {
-  getPostcodeSurveyors, addPostcodeSurveyor, updatePostcodeSurveyor, deletePostcodeSurveyor,
+  getPostcodeSurveyors, addPostcodeSurveyorBulk, updatePostcodeSurveyor, deletePostcodeSurveyor,
   getPostcodeWorkTypes, addPostcodeWorkType, updatePostcodeWorkType, deletePostcodeWorkType,
   getPostcodeFeeTypes, addPostcodeFeeType, updatePostcodeFeeType, deletePostcodeFeeType,
 } from '../api/client'
@@ -89,7 +89,7 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
         work_types:      initial.work_types ? initial.work_types.split(/,|\s*\/\s*/).map(w => w.trim()).filter(Boolean) : [],
         fee_cat:         initial.fee_cat ? initial.fee_cat.split(',') : [],
         base_postcode:   initial.base_postcode || '',
-      } : { fee_cat: [] })
+      } : { fee_cat: [], areas: [{ postcode_area: '', coverage: '' }] })
     }
   }, [open, initial])
 
@@ -114,9 +114,16 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
       confirmLoading={saving}
     >
       <Form form={form} layout="vertical" style={{ marginTop: 12 }}>
-        <Form.Item name="postcode_area" label="Postcode Area" rules={[{ required: true }]}>
-          <Input placeholder="e.g. SW" style={{ textTransform: 'uppercase' }} />
-        </Form.Item>
+        {isEdit ? (
+          <>
+            <Form.Item name="postcode_area" label="Postcode Area" rules={[{ required: true }]}>
+              <Input placeholder="e.g. SW" style={{ textTransform: 'uppercase' }} />
+            </Form.Item>
+            <Form.Item name="coverage" label="Coverage">
+              <Input.TextArea rows={2} placeholder="e.g. 1-10, 15, 20-25 (check distance)" />
+            </Form.Item>
+          </>
+        ) : null}
         <Form.Item name="name" label="Surveyor / Firm Name" rules={[{ required: true }]}>
           <Input placeholder="e.g. John Smith" />
         </Form.Item>
@@ -129,9 +136,44 @@ function SurveyorModal({ open, onClose, onSave, initial, workTypes = [], feeType
             <Option value="#">★ Preferred (#)</Option>
           </Select>
         </Form.Item>
-        <Form.Item name="coverage" label="Coverage">
-          <Input.TextArea rows={2} placeholder="e.g. 1-10, 15, 20-25 (check distance)" />
-        </Form.Item>
+        {!isEdit && (
+          <Form.List name="areas">
+            {(fields, { add, remove }) => (
+              <Form.Item label="Postcode Areas & Coverage" required>
+                {fields.map((field) => (
+                  <Space key={field.key} align="baseline" style={{ display: 'flex', marginBottom: 8 }}>
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'postcode_area']}
+                      rules={[{ required: true, message: 'Area required' }]}
+                      style={{ marginBottom: 0, width: 90 }}
+                    >
+                      <Input placeholder="e.g. SW" style={{ textTransform: 'uppercase' }} />
+                    </Form.Item>
+                    <Form.Item
+                      {...field}
+                      name={[field.name, 'coverage']}
+                      style={{ marginBottom: 0, flex: 1 }}
+                    >
+                      <Input placeholder="e.g. 1-10, 15, 20-25 (check distance)" />
+                    </Form.Item>
+                    {fields.length > 1 && (
+                      <DeleteOutlined onClick={() => remove(field.name)} style={{ color: '#999' }} />
+                    )}
+                  </Space>
+                ))}
+                <Button
+                  type="dashed"
+                  onClick={() => add({ postcode_area: '', coverage: '' })}
+                  block
+                  icon={<PlusOutlined />}
+                >
+                  Add another postcode area
+                </Button>
+              </Form.Item>
+            )}
+          </Form.List>
+        )}
         <Form.Item name="work_types" label="Work Types">
           <HoverSelect mode="multiple" placeholder="Select work types" allowClear>
             {workTypes.map(wt => <Option key={wt.id} value={wt.name}>{wt.name}</Option>)}
@@ -419,18 +461,21 @@ export default function PostcodeCoverage() {
   const closeModal = () => setModalOpen(false)
 
   const handleSave = async (values) => {
-    const payload = {
-      postcode_area:   values.postcode_area.toUpperCase().trim(),
+    const shared = {
       name:            values.name.trim(),
       surveyor_number: values.surveyor_number?.trim() || null,
       preferred:       values.preferred || '',
-      coverage:        values.coverage  || '',
       work_types:      (values.work_types || []).join(','),
       fee_cat:         sortFeeCats(values.fee_cat).join(','),
       base_postcode:   values.base_postcode?.trim().toUpperCase() || null,
     }
     try {
       if (editing) {
+        const payload = {
+          ...shared,
+          postcode_area: values.postcode_area.toUpperCase().trim(),
+          coverage:      values.coverage || '',
+        }
         const updated = await updatePostcodeSurveyor(editing.id, payload)
         setData(prev => prev.map(r => r.id === updated.id ? updated : r))
 
@@ -451,9 +496,13 @@ export default function PostcodeCoverage() {
           message.success('Surveyor updated')
         }
       } else {
-        const created = await addPostcodeSurveyor(payload)
-        setData(prev => [...prev, created])
-        message.success('Surveyor added')
+        const areas = values.areas.map(a => ({
+          postcode_area: a.postcode_area.toUpperCase().trim(),
+          coverage:      a.coverage || '',
+        }))
+        const created = await addPostcodeSurveyorBulk({ ...shared, areas })
+        setData(prev => [...prev, ...created])
+        message.success(`Surveyor added — ${created.length} postcode area${created.length > 1 ? 's' : ''}`)
       }
       closeModal()
     } catch {

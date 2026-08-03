@@ -6,7 +6,9 @@ from sqlalchemy import text
 
 from core.database import get_db
 from models.orm import PostcodeSurveyor, Surveyor
-from schemas.postcode import PostcodeSurveyorCreate, PostcodeSurveyorUpdate, PostcodeSurveyorOut
+from schemas.postcode import (
+    PostcodeSurveyorCreate, PostcodeSurveyorUpdate, PostcodeSurveyorOut, PostcodeSurveyorBulkCreate,
+)
 
 router = APIRouter(prefix="/postcode", tags=["postcode"])
 
@@ -33,6 +35,26 @@ async def add_postcode_surveyor(
     await db.commit()
     await db.refresh(entry)
     return entry
+
+
+@router.post("/bulk", response_model=list[PostcodeSurveyorOut], status_code=201)
+async def add_postcode_surveyor_bulk(
+    payload: PostcodeSurveyorBulkCreate,
+    db: AsyncSession = Depends(get_db),
+):
+    """Add one surveyor covering multiple postcode areas in one go — creates a
+    separate row per area (each still edited/shown independently), sharing the
+    surveyor's name/number/fee category/work types/base postcode."""
+    shared = payload.model_dump(exclude={"areas"})
+    entries = [
+        PostcodeSurveyor(**shared, postcode_area=area.postcode_area, coverage=area.coverage, is_custom=True)
+        for area in payload.areas
+    ]
+    db.add_all(entries)
+    await db.commit()
+    for entry in entries:
+        await db.refresh(entry)
+    return entries
 
 
 @router.patch("/{id}", response_model=PostcodeSurveyorOut)
