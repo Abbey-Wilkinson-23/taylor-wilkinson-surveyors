@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from fastapi import APIRouter, HTTPException
 from fastapi.params import Depends
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -30,7 +32,7 @@ async def add_postcode_surveyor(
     payload: PostcodeSurveyorCreate,
     db: AsyncSession = Depends(get_db),
 ):
-    entry = PostcodeSurveyor(**payload.model_dump(), is_custom=True)
+    entry = PostcodeSurveyor(**payload.model_dump(), is_custom=True, added_at=datetime.now(timezone.utc))
     db.add(entry)
     await db.commit()
     await db.refresh(entry)
@@ -46,8 +48,10 @@ async def add_postcode_surveyor_bulk(
     separate row per area (each still edited/shown independently), sharing the
     surveyor's name/number/fee category/work types/base postcode."""
     shared = payload.model_dump(exclude={"areas"})
+    now = datetime.now(timezone.utc)
     entries = [
-        PostcodeSurveyor(**shared, postcode_area=area.postcode_area, coverage=area.coverage, is_custom=True)
+        PostcodeSurveyor(**shared, postcode_area=area.postcode_area, coverage=area.coverage,
+                          is_custom=True, added_at=now)
         for area in payload.areas
     ]
     db.add_all(entries)

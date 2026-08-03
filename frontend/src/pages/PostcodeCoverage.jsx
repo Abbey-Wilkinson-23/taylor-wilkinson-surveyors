@@ -595,9 +595,6 @@ export default function PostcodeCoverage() {
               {PREF_LABELS[r.preferred]}
             </Tag>
           )}
-          {r.is_custom && (
-            <Tag color="purple" style={{ marginLeft: 4, fontSize: 10 }}>added</Tag>
-          )}
         </span>
       ),
     },
@@ -775,7 +772,6 @@ export default function PostcodeCoverage() {
         size="small"
         pagination={{ pageSize, showSizeChanger: true, pageSizeOptions: [25, 50, 100, 200], onShowSizeChange: (_, size) => setPageSize(size) }}
         scroll={{ x: true }}
-        rowClassName={r => r.is_custom ? 'custom-postcode-row' : ''}
       />
 
       <SurveyorModal
@@ -809,8 +805,6 @@ export default function PostcodeCoverage() {
           ]}
         />
       </Modal>
-
-      <style>{`.custom-postcode-row td { background: #f9f0ff !important; }`}</style>
     </Card>
   )
 }

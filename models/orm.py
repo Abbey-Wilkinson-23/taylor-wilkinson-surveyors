@@ -346,3 +346,6 @@ class PostcodeSurveyor(Base):
     base_postcode    = Column(Text, nullable=True)
     is_custom        = Column(Boolean, nullable=False, default=False)
     created_at       = Column(TIMESTAMP(timezone=True), server_default=func.now())
+    # Internal only — NULL for rows from the original bulk seed, set when a row
+    # is added through the app. Not exposed via the API or shown in the UI.
+    added_at         = Column(TIMESTAMP(timezone=True), nullable=True)
