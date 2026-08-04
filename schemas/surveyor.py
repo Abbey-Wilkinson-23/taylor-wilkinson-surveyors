@@ -10,11 +10,11 @@ from pydantic import BaseModel, Field, model_validator
 class SurveyorOut(BaseModel):
     id:                   int
     surveyor_number:      str | None
-    first_name:           str
-    last_name:            str
+    first_name:           str | None
+    last_name:            str | None
     company_name:         str | None
     email:                str
-    phone:                str
+    phone:                str | None
     personal_phone:       str | None
     qualification:        str | None = None
     pi_cover_amount:      Decimal | None
@@ -48,11 +48,11 @@ class SurveyorOut(BaseModel):
 class SurveyorDetail(BaseModel):
     id:                   int
     surveyor_number:      str | None
-    first_name:           str
-    last_name:            str
+    first_name:           str | None
+    last_name:            str | None
     company_name:         str | None
     email:                str
-    phone:                str
+    phone:                str | None
     personal_phone:       str | None
     qualification:        str | None
     pi_cover_amount:      Decimal | None
@@ -106,11 +106,11 @@ class SurveyorDetail(BaseModel):
 
 class SurveyorCreate(BaseModel):
     surveyor_number:      str | None = None
-    first_name:           str
-    last_name:            str
+    first_name:           str | None = None
+    last_name:            str | None = None
     company_name:         str | None = None
     email:                str
-    phone:                str
+    phone:                str | None = None
     personal_phone:       str | None = None
     qualification:        str | None = None
     pi_cover_amount:      Decimal | None = None

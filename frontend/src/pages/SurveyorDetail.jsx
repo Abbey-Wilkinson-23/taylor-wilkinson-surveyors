@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {
-  Card, Descriptions, Tag, Button, Space, Divider, Form,
+  Card, Descriptions, Tag, Button, Space,
   Input, Select, DatePicker, Row, Col, Typography, message, Spin, Popconfirm,
 } from 'antd'
-import { ArrowLeftOutlined, EditOutlined, SaveOutlined, CloseOutlined, DeleteOutlined, UndoOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, DeleteOutlined, UndoOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import {
   getSurveyor, updateSurveyor, deleteSurveyor, restoreSurveyor,
@@ -14,6 +14,17 @@ import {
 } from '../api/client'
 
 const { Text, Title } = Typography
+
+const FEE_ORDER = ['QUOTABLE', 'HIGHER', 'STANDARD', 'Quotable', 'Higher', 'Standard']
+const sortFeeCats = (cats) =>
+  [...cats].sort((a, b) => {
+    const ai = FEE_ORDER.indexOf(a)
+    const bi = FEE_ORDER.indexOf(b)
+    if (ai === -1 && bi === -1) return a.localeCompare(b)
+    if (ai === -1) return 1
+    if (bi === -1) return -1
+    return ai - bi
+  })
 
 function formatPiCover(v) {
   if (v == null) return '—'
@@ -93,6 +104,20 @@ function CoverageTags({ coverage }) {
   )
 }
 
+// Wraps a read-only value so it becomes double-clickable to start editing
+function Editable({ field, editingField, onStart, display, children }) {
+  if (editingField === field) return children
+  return (
+    <span
+      onDoubleClick={onStart}
+      style={{ cursor: 'default', display: 'inline-block', minWidth: 40 }}
+      title="Double-click to edit"
+    >
+      {display ?? '—'}
+    </span>
+  )
+}
+
 export default function SurveyorDetail() {
   const { id } = useParams()
   const navigate = useNavigate()
@@ -101,12 +126,25 @@ export default function SurveyorDetail() {
   const [clients, setClients] = useState([])
   const [feeTypes, setFeeTypes] = useState([])
   const [loading, setLoading] = useState(true)
-  const [editing, setEditing] = useState(false)
-  const [saving, setSaving] = useState(false)
+
+  // Single active field being edited (double-click / click-out pattern)
+  const [editingField, setEditingField] = useState(null)
+  const [editingValue, setEditingValue] = useState(null)
+  const editingValueRef = useRef(null) // always holds latest value, avoids stale closure in onBlur
+
+  // Notes
   const [notesEditing, setNotesEditing] = useState(false)
   const [notesValue, setNotesValue] = useState('')
   const [notesSaving, setNotesSaving] = useState(false)
-  const [form] = Form.useForm()
+
+  // Coverage postcodes (both bands saved together)
+  const [coverageEditing, setCoverageEditing] = useState(false)
+  const [coverage15Value, setCoverage15Value] = useState([])
+  const [coverage25Value, setCoverage25Value] = useState([])
+
+  // Cannot Work For
+  const [exclusionsEditing, setExclusionsEditing] = useState(false)
+  const [exclusionsValue, setExclusionsValue] = useState([])
 
   const load = async () => {
     setLoading(true)
@@ -114,38 +152,19 @@ export default function SurveyorDetail() {
       const data = await getSurveyor(id)
       setSurveyor(data)
       setNotesValue(data.notes || '')
-      form.setFieldsValue({
-        surveyor_number: data.surveyor_number,
-        first_name: data.first_name,
-        last_name: data.last_name,
-        company_name: data.company_name,
-        email: data.email,
-        phone: data.phone,
-        personal_phone: data.personal_phone,
-        qualification: data.qualification,
-        pi_cover_amount: data.pi_cover_amount,
-        pi_expiry_date: data.pi_expiry_date ? dayjs(data.pi_expiry_date) : null,
-        office_address_line_1: data.office_address_line_1,
-        office_address_line_2: data.office_address_line_2,
-        office_town: data.office_town,
-        office_county: data.office_county,
-        office_postcode: data.office_postcode,
-        base_postcode: data.base_postcode,
-        work_types: data.work_types ? data.work_types.split(/,|\s*\/\s*/).map(w => w.trim()).filter(Boolean) : [],
-        fee_cat: data.fee_cat ? data.fee_cat.split(',').map(f => f.trim()).filter(Boolean) : [],
-        firm_type: data.firm_type,
-        num_partners: data.num_partners,
-        notes: data.notes,
-        coverage_15: data.coverage
+      setCoverage15Value(
+        data.coverage
           .filter(c => c.distance_band === '15' || !c.distance_band)
           .sort((a, b) => compareOutwardCodes(a.code, b.code))
-          .map(c => c.code),
-        coverage_25: data.coverage
+          .map(c => c.code)
+      )
+      setCoverage25Value(
+        data.coverage
           .filter(c => c.distance_band === '25')
           .sort((a, b) => compareOutwardCodes(a.code, b.code))
-          .map(c => c.code),
-        excluded_client_ids: data.excluded_client_ids,
-      })
+          .map(c => c.code)
+      )
+      setExclusionsValue(data.excluded_client_ids)
     } finally {
       setLoading(false)
     }
@@ -158,43 +177,35 @@ export default function SurveyorDetail() {
     getPostcodeFeeTypes().then(setFeeTypes)
   }, [id])
 
-  const handleSave = async (values) => {
-    setSaving(true)
+  // ── Field-level save ───────────────────────────────────────────────────────
+
+  const startEdit = (field, value) => {
+    setEditingField(field)
+    setEditingValue(value)
+    editingValueRef.current = value
+  }
+
+  const cancelEdit = () => setEditingField(null)
+
+  const commit = async (field, value) => {
+    setEditingField(null)
+    const payload = {}
+    if (field === 'work_types') {
+      payload.work_types = (value || []).join(', ') || null
+    } else if (field === 'fee_cat') {
+      payload.fee_cat = sortFeeCats(value || []).join(',') || null
+    } else if (field === 'pi_expiry_date') {
+      payload.pi_expiry_date = value ? value.format('YYYY-MM-DD') : null
+    } else if (field === 'base_postcode') {
+      payload.base_postcode = value?.trim().toUpperCase() || null
+    } else {
+      payload[field] = value !== '' && value != null ? value : null
+    }
     try {
-      await updateSurveyor(id, {
-        surveyor_number: values.surveyor_number || null,
-        first_name: values.first_name,
-        last_name: values.last_name,
-        company_name: values.company_name || null,
-        email: values.email,
-        phone: values.phone,
-        personal_phone: values.personal_phone || null,
-        qualification: values.qualification || null,
-        pi_cover_amount: values.pi_cover_amount || null,
-        pi_expiry_date: values.pi_expiry_date ? values.pi_expiry_date.format('YYYY-MM-DD') : null,
-        office_address_line_1: values.office_address_line_1 || null,
-        office_address_line_2: values.office_address_line_2 || null,
-        office_town: values.office_town || null,
-        office_county: values.office_county || null,
-        office_postcode: values.office_postcode || null,
-        base_postcode: values.base_postcode?.trim().toUpperCase() || null,
-        work_types: (values.work_types || []).join(', ') || null,
-        fee_cat: (values.fee_cat || []).join(',') || null,
-        firm_type: values.firm_type || null,
-        num_partners: values.num_partners || null,
-        notes: values.notes || null,
-      })
-      const coverage15 = (values.coverage_15 || []).map(code => ({ code: code.toUpperCase(), distance_band: '15' }))
-      const coverage25 = (values.coverage_25 || []).map(code => ({ code: code.toUpperCase(), distance_band: '25' }))
-      await setSurveyorCoverage(id, [...coverage15, ...coverage25])
-      await setSurveyorClientExclusions(id, values.excluded_client_ids || [])
-      message.success('Saved')
-      setEditing(false)
-      load()
+      const updated = await updateSurveyor(id, payload)
+      setSurveyor(updated)
     } catch {
       message.error('Failed to save')
-    } finally {
-      setSaving(false)
     }
   }
 
@@ -221,6 +232,28 @@ export default function SurveyorDetail() {
     }
   }
 
+  const saveCoverage = async () => {
+    setCoverageEditing(false)
+    try {
+      const coverage15 = coverage15Value.map(code => ({ code: code.toUpperCase(), distance_band: '15' }))
+      const coverage25 = coverage25Value.map(code => ({ code: code.toUpperCase(), distance_band: '25' }))
+      const updated = await setSurveyorCoverage(id, [...coverage15, ...coverage25])
+      setSurveyor(updated)
+    } catch {
+      message.error('Failed to save coverage')
+    }
+  }
+
+  const saveExclusions = async () => {
+    setExclusionsEditing(false)
+    try {
+      const updated = await setSurveyorClientExclusions(id, exclusionsValue || [])
+      setSurveyor(updated)
+    } catch {
+      message.error('Failed to save')
+    }
+  }
+
   const handleRestore = async () => {
     try {
       await restoreSurveyor(id)
@@ -231,152 +264,62 @@ export default function SurveyorDetail() {
     }
   }
 
+  // ── Render helpers ─────────────────────────────────────────────────────────
+
+  const textField = (field, currentDisplay, currentValue, inputProps = {}) => (
+    <Editable field={field} editingField={editingField} onStart={() => startEdit(field, currentValue ?? '')} display={currentDisplay}>
+      <Input
+        size="small"
+        autoFocus
+        value={editingValue}
+        onChange={e => { setEditingValue(e.target.value); editingValueRef.current = e.target.value }}
+        onBlur={() => commit(field, editingValueRef.current)}
+        onKeyDown={e => { if (e.key === 'Escape') cancelEdit() }}
+        style={{ width: 200 }}
+        {...inputProps}
+      />
+    </Editable>
+  )
+
+  const selectField = (field, currentDisplay, currentValue, options, extraProps = {}) => (
+    <Editable field={field} editingField={editingField} onStart={() => startEdit(field, currentValue)} display={currentDisplay}>
+      <Select
+        size="small"
+        autoFocus
+        defaultOpen
+        allowClear
+        style={{ minWidth: 200 }}
+        value={editingValue}
+        options={options}
+        onChange={v => commit(field, v ?? null)}
+        onDropdownVisibleChange={open => { if (!open) cancelEdit() }}
+        {...extraProps}
+      />
+    </Editable>
+  )
+
+  const dateField = (field, currentDisplay, currentValue) => (
+    <Editable field={field} editingField={editingField} onStart={() => startEdit(field, currentValue)} display={currentDisplay}>
+      <DatePicker
+        size="small"
+        autoFocus
+        defaultOpen
+        format="DD/MM/YYYY"
+        value={editingValue}
+        onChange={date => { if (date) commit(field, date); else cancelEdit() }}
+        onOpenChange={open => { if (!open) cancelEdit() }}
+      />
+    </Editable>
+  )
+
   if (loading) return <Spin style={{ display: 'block', marginTop: 80 }} />
   if (!surveyor) return <Text>Surveyor not found.</Text>
 
-  const fullName = `${surveyor.first_name} ${surveyor.last_name}`
-  const addressParts = [
-    surveyor.office_address_line_1,
-    surveyor.office_address_line_2,
-    surveyor.office_town,
-    surveyor.office_county,
-    surveyor.office_postcode,
-  ].filter(Boolean)
+  const fullName = [surveyor.first_name, surveyor.last_name].filter(Boolean).join(' ') || 'Unnamed Surveyor'
 
-  // ── EDIT MODE ──────────────────────────────────────────────────────────────
-  if (editing) {
-    return (
-      <>
-        <Space style={{ marginBottom: 16 }}>
-          <Button icon={<ArrowLeftOutlined />} onClick={() => navigate('/surveyors')}>Back</Button>
-        </Space>
+  const feeCats = surveyor.fee_cat ? surveyor.fee_cat.split(',').filter(Boolean) : []
+  const workTypeList = surveyor.work_types ? surveyor.work_types.split(/,\s*/).filter(Boolean) : []
 
-        <Form form={form} layout="vertical" onFinish={handleSave}>
-          <Card
-            title={fullName}
-            extra={
-              <Space>
-                <Button icon={<CloseOutlined />} onClick={() => { setEditing(false); load() }}>Cancel</Button>
-                <Button type="primary" icon={<SaveOutlined />} loading={saving} onClick={() => form.submit()}>Save</Button>
-              </Space>
-            }
-            style={CARD_STYLE}
-          >
-            <Divider orientation="left">Contact</Divider>
-            <Row gutter={16}>
-              <Col span={6}>
-                <Form.Item name="surveyor_number" label="Surveyor No."><Input /></Form.Item>
-              </Col>
-              <Col span={6}>
-                <Form.Item name="first_name" label="First Name" rules={[{ required: true }]}><Input /></Form.Item>
-              </Col>
-              <Col span={6}>
-                <Form.Item name="last_name" label="Last Name" rules={[{ required: true }]}><Input /></Form.Item>
-              </Col>
-              <Col span={6}>
-                <Form.Item name="qualification" label="Qualification"><Input placeholder="e.g. FRICS, MRICS, AssocRICS" /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="email" label="Email" rules={[{ required: true }]}><Input /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="phone" label="Work Phone" rules={[{ required: true }]}><Input /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="personal_phone" label="Personal Phone"><Input /></Form.Item>
-              </Col>
-            </Row>
-
-            <Divider orientation="left">Firm</Divider>
-            <Row gutter={16}>
-              <Col span={8}>
-                <Form.Item name="company_name" label="Company Name"><Input placeholder="Leave blank if sole trader" /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="firm_type" label="Firm Type">
-                  <Select allowClear options={Object.entries(FIRM_TYPE_LABELS).map(([v, l]) => ({ value: v, label: l }))} />
-                </Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="num_partners" label="Number of Partners"><Input type="number" min={1} /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="pi_cover_amount" label="PI Cover Amount">
-                  <Input type="number" min={0} step="0.01" prefix="£" />
-                </Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="pi_expiry_date" label="PI Expiry Date">
-                  <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Divider orientation="left">Office Address</Divider>
-            <Row gutter={16}>
-              <Col span={12}>
-                <Form.Item name="office_address_line_1" label="Address Line 1"><Input /></Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item name="office_address_line_2" label="Address Line 2"><Input /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="office_town" label="Town"><Input /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="office_county" label="County"><Input /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="office_postcode" label="Postcode"><Input style={{ textTransform: 'uppercase' }} /></Form.Item>
-              </Col>
-              <Col span={8}>
-                <Form.Item name="base_postcode" label="Base Postcode" extra="Where this surveyor is based">
-                  <Input style={{ textTransform: 'uppercase' }} placeholder="e.g. EH1 1AB" />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item name="work_types" label="Work Types">
-                  <Select mode="multiple" placeholder="Select work types" allowClear
-                    options={surveyTypes.map(st => ({ value: st.name, label: st.name }))} />
-                </Form.Item>
-              </Col>
-              <Col span={12}>
-                <Form.Item name="fee_cat" label="Fee Category">
-                  <Select mode="multiple" placeholder="Select fee types" allowClear
-                    options={feeTypes.map(ft => ({ value: ft.name, label: ft.name }))} />
-                </Form.Item>
-              </Col>
-            </Row>
-
-            <Divider orientation="left">Coverage Postcodes</Divider>
-            <Form.Item name="coverage_15" label="Within 15 miles" extra="Outward codes — type and press Enter or comma.">
-              <Select mode="tags" tokenSeparators={[',', ' ']} placeholder="SW1A, E1, B1…" options={[]} />
-            </Form.Item>
-            <Form.Item name="coverage_25" label="Within 25 miles (over 15)">
-              <Select mode="tags" tokenSeparators={[',', ' ']} placeholder="SW1A, E1, B1…" options={[]} />
-            </Form.Item>
-
-            <Divider orientation="left">Cannot Work For</Divider>
-            <Form.Item name="excluded_client_ids" extra="Clients this surveyor should not be assigned to.">
-              <Select
-                mode="multiple"
-                optionFilterProp="label"
-                placeholder="Select clients"
-                options={clients.map(c => ({ value: c.id, label: c.company_name }))}
-              />
-            </Form.Item>
-
-            <Divider orientation="left">Notes</Divider>
-            <Form.Item name="notes">
-              <Input.TextArea rows={3} />
-            </Form.Item>
-          </Card>
-        </Form>
-      </>
-    )
-  }
-
-  // ── VIEW MODE ──────────────────────────────────────────────────────────────
   return (
     <>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
@@ -394,7 +337,6 @@ export default function SurveyorDetail() {
           ) : (
             <Button icon={<UndoOutlined />} onClick={handleRestore}>Restore</Button>
           )}
-          <Button type="primary" icon={<EditOutlined />} onClick={() => setEditing(true)}>Edit</Button>
         </Space>
       </div>
 
@@ -402,12 +344,7 @@ export default function SurveyorDetail() {
       <Card style={CARD_STYLE} styles={{ body: { padding: '20px 24px' } }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'baseline', gap: 10, flexWrap: 'wrap' }}>
-              <Title level={3} style={{ margin: 0 }}>{fullName}</Title>
-              {surveyor.qualification && (
-                <Text style={{ fontSize: 15, color: '#8753A8', fontWeight: 500 }}>{surveyor.qualification}</Text>
-              )}
-            </div>
+            <Title level={3} style={{ margin: 0 }}>{fullName}</Title>
             <div style={{ marginTop: 6, display: 'flex', gap: 6, flexWrap: 'wrap', alignItems: 'center' }}>
               {surveyor.surveyor_number && (
                 <Text type="secondary" style={{ fontSize: 13 }}>#{surveyor.surveyor_number}</Text>
@@ -421,12 +358,10 @@ export default function SurveyorDetail() {
               {!surveyor.is_active && <Tag color="red">Deleted</Tag>}
             </div>
           </div>
-          {surveyor.pi_cover_amount && (
-            <div style={{ textAlign: 'right' }}>
-              <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 2 }}>PI Cover</Text>
-              <Text style={{ fontSize: 22, fontWeight: 600, color: '#1a1a1a' }}>{formatPiCover(surveyor.pi_cover_amount)}</Text>
-            </div>
-          )}
+          <div style={{ textAlign: 'right' }}>
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 2 }}>PI Cover</Text>
+            {textField('pi_cover_amount', formatPiCover(surveyor.pi_cover_amount), surveyor.pi_cover_amount ?? '', { type: 'number', min: 0, step: '0.01', prefix: '£', style: { width: 140 } })}
+          </div>
         </div>
       </Card>
 
@@ -435,19 +370,54 @@ export default function SurveyorDetail() {
         <Col xs={24} md={12}>
           <SectionCard title="Contact">
             <Descriptions column={1} size="small" styles={{ label: SECTION_LABEL_STYLE }}>
-              <Descriptions.Item label="Email">{surveyor.email}</Descriptions.Item>
-              <Descriptions.Item label="Work Phone">{surveyor.phone}</Descriptions.Item>
-              <Descriptions.Item label="Personal Phone">{surveyor.personal_phone || '—'}</Descriptions.Item>
+              <Descriptions.Item label="Surveyor No.">
+                {textField('surveyor_number', surveyor.surveyor_number, surveyor.surveyor_number)}
+              </Descriptions.Item>
+              <Descriptions.Item label="First Name">
+                {textField('first_name', surveyor.first_name, surveyor.first_name)}
+              </Descriptions.Item>
+              <Descriptions.Item label="Last Name">
+                {textField('last_name', surveyor.last_name, surveyor.last_name)}
+              </Descriptions.Item>
+              <Descriptions.Item label="Qualification">
+                {textField('qualification', surveyor.qualification, surveyor.qualification, { placeholder: 'e.g. FRICS, MRICS' })}
+              </Descriptions.Item>
+              <Descriptions.Item label="Email">
+                {textField('email', surveyor.email, surveyor.email)}
+              </Descriptions.Item>
+              <Descriptions.Item label="Work Phone">
+                {textField('phone', surveyor.phone, surveyor.phone)}
+              </Descriptions.Item>
+              <Descriptions.Item label="Personal Phone">
+                {textField('personal_phone', surveyor.personal_phone, surveyor.personal_phone)}
+              </Descriptions.Item>
             </Descriptions>
           </SectionCard>
         </Col>
         <Col xs={24} md={12}>
           <SectionCard title="Firm">
             <Descriptions column={1} size="small" styles={{ label: SECTION_LABEL_STYLE }}>
-              <Descriptions.Item label="Company">{surveyor.company_name || '—'}</Descriptions.Item>
-              <Descriptions.Item label="Firm Type">{FIRM_TYPE_LABELS[surveyor.firm_type] || '—'}</Descriptions.Item>
-              <Descriptions.Item label="No. of Partners">{surveyor.num_partners ?? '—'}</Descriptions.Item>
-              <Descriptions.Item label="PI Expiry"><PiExpiryDate date={surveyor.pi_expiry_date} /></Descriptions.Item>
+              <Descriptions.Item label="Company">
+                {textField('company_name', surveyor.company_name, surveyor.company_name, { placeholder: 'Leave blank if sole trader' })}
+              </Descriptions.Item>
+              <Descriptions.Item label="Firm Type">
+                {selectField(
+                  'firm_type',
+                  FIRM_TYPE_LABELS[surveyor.firm_type] || '—',
+                  surveyor.firm_type,
+                  Object.entries(FIRM_TYPE_LABELS).map(([v, l]) => ({ value: v, label: l }))
+                )}
+              </Descriptions.Item>
+              <Descriptions.Item label="No. of Partners">
+                {textField('num_partners', surveyor.num_partners ?? '—', surveyor.num_partners ?? '', { type: 'number', min: 1, style: { width: 100 } })}
+              </Descriptions.Item>
+              <Descriptions.Item label="PI Expiry">
+                {dateField(
+                  'pi_expiry_date',
+                  <PiExpiryDate date={surveyor.pi_expiry_date} />,
+                  surveyor.pi_expiry_date ? dayjs(surveyor.pi_expiry_date) : null
+                )}
+              </Descriptions.Item>
             </Descriptions>
           </SectionCard>
         </Col>
@@ -455,12 +425,24 @@ export default function SurveyorDetail() {
 
       {/* Office Address */}
       <SectionCard title="Office Address">
-        <Descriptions column={1} size="small" styles={{ label: SECTION_LABEL_STYLE }}>
-          <Descriptions.Item label="Address">
-            {addressParts.length > 0 ? <Text>{addressParts.join(', ')}</Text> : <Text type="secondary">—</Text>}
+        <Descriptions column={2} size="small" styles={{ label: SECTION_LABEL_STYLE }}>
+          <Descriptions.Item label="Address Line 1">
+            {textField('office_address_line_1', surveyor.office_address_line_1, surveyor.office_address_line_1)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Address Line 2">
+            {textField('office_address_line_2', surveyor.office_address_line_2, surveyor.office_address_line_2)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Town">
+            {textField('office_town', surveyor.office_town, surveyor.office_town)}
+          </Descriptions.Item>
+          <Descriptions.Item label="County">
+            {textField('office_county', surveyor.office_county, surveyor.office_county)}
+          </Descriptions.Item>
+          <Descriptions.Item label="Postcode">
+            {textField('office_postcode', surveyor.office_postcode, surveyor.office_postcode, { style: { width: 140, textTransform: 'uppercase' } })}
           </Descriptions.Item>
           <Descriptions.Item label="Base Postcode">
-            {surveyor.base_postcode || <Text type="secondary">—</Text>}
+            {textField('base_postcode', surveyor.base_postcode, surveyor.base_postcode, { style: { width: 140, textTransform: 'uppercase' }, placeholder: 'e.g. EH1 1AB' })}
           </Descriptions.Item>
         </Descriptions>
       </SectionCard>
@@ -469,50 +451,142 @@ export default function SurveyorDetail() {
       <Row gutter={16}>
         <Col xs={24} md={12}>
           <SectionCard title="Work Types">
-            <Space wrap size={4}>
-              {surveyor.work_types
-                ? surveyor.work_types.split(/,\s*/).filter(Boolean).map(w => <Tag key={w}>{w}</Tag>)
-                : <Text type="secondary">None set</Text>}
-            </Space>
+            <Editable
+              field="work_types"
+              editingField={editingField}
+              onStart={() => startEdit('work_types', workTypeList)}
+              display={
+                workTypeList.length > 0
+                  ? <Space wrap size={4}>{workTypeList.map(w => <Tag key={w}>{w}</Tag>)}</Space>
+                  : <Text type="secondary">None set</Text>
+              }
+            >
+              <Select
+                mode="multiple"
+                size="small"
+                autoFocus
+                defaultOpen
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Select work types"
+                value={editingValue}
+                options={surveyTypes.map(st => ({ value: st.name, label: st.name }))}
+                onChange={v => { setEditingValue(v); editingValueRef.current = v }}
+                onDropdownVisibleChange={open => { if (!open) commit('work_types', editingValueRef.current) }}
+              />
+            </Editable>
           </SectionCard>
         </Col>
         <Col xs={24} md={12}>
           <SectionCard title="Fee Category">
-            <Space wrap size={4}>
-              {surveyor.fee_cat
-                ? surveyor.fee_cat.split(',').filter(Boolean).map(f => <Tag key={f}>{f}</Tag>)
-                : <Text type="secondary">None set</Text>}
-            </Space>
+            <Editable
+              field="fee_cat"
+              editingField={editingField}
+              onStart={() => startEdit('fee_cat', feeCats)}
+              display={
+                feeCats.length > 0
+                  ? (
+                    <Space wrap size={4}>
+                      {sortFeeCats(feeCats).map(cat => {
+                        const ft = feeTypes.find(f => f.name === cat)
+                        return <Tag key={cat} color={ft?.colour || undefined}>{cat}</Tag>
+                      })}
+                    </Space>
+                  )
+                  : <Text type="secondary">None set</Text>
+              }
+            >
+              <Select
+                mode="multiple"
+                size="small"
+                autoFocus
+                defaultOpen
+                allowClear
+                style={{ width: '100%' }}
+                placeholder="Select fee types"
+                value={editingValue}
+                options={feeTypes.map(ft => ({ value: ft.name, label: ft.name }))}
+                onChange={v => { setEditingValue(v); editingValueRef.current = v }}
+                onDropdownVisibleChange={open => { if (!open) commit('fee_cat', editingValueRef.current) }}
+              />
+            </Editable>
           </SectionCard>
         </Col>
       </Row>
 
       {/* Coverage */}
       <SectionCard title="Coverage Postcodes">
-        <div style={{ marginBottom: surveyor.coverage.length > 0 ? 8 : 0 }}>
-          <CoverageTags coverage={surveyor.coverage} />
-        </div>
-        {surveyor.coverage.length > 0 && (
-          <div style={{ marginTop: 8, display: 'flex', gap: 16 }}>
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              <span style={{ display: 'inline-block', width: 10, height: 10, background: '#d9d9d9', borderRadius: 2, marginRight: 4 }} />
-              Within 15 miles ({surveyor.coverage.filter(c => c.distance_band !== '25').length})
-            </Text>
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              <span style={{ display: 'inline-block', width: 10, height: 10, background: '#8753A8', borderRadius: 2, marginRight: 4, opacity: 0.4 }} />
-              Within 25 miles ({surveyor.coverage.filter(c => c.distance_band === '25').length})
-            </Text>
+        {coverageEditing ? (
+          <div>
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 15 miles</Text>
+            <Select
+              mode="tags"
+              autoFocus
+              tokenSeparators={[',', ' ']}
+              placeholder="SW1A, E1, B1…"
+              style={{ width: '100%', marginBottom: 12 }}
+              value={coverage15Value}
+              onChange={setCoverage15Value}
+              options={[]}
+              onBlur={saveCoverage}
+            />
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 25 miles (over 15)</Text>
+            <Select
+              mode="tags"
+              tokenSeparators={[',', ' ']}
+              placeholder="SW1A, E1, B1…"
+              style={{ width: '100%' }}
+              value={coverage25Value}
+              onChange={setCoverage25Value}
+              options={[]}
+              onBlur={saveCoverage}
+            />
+          </div>
+        ) : (
+          <div onDoubleClick={() => setCoverageEditing(true)} style={{ cursor: 'default' }} title="Double-click to edit">
+            <div style={{ marginBottom: surveyor.coverage.length > 0 ? 8 : 0 }}>
+              <CoverageTags coverage={surveyor.coverage} />
+            </div>
+            {surveyor.coverage.length > 0 && (
+              <div style={{ marginTop: 8, display: 'flex', gap: 16 }}>
+                <Text type="secondary" style={{ fontSize: 12 }}>
+                  <span style={{ display: 'inline-block', width: 10, height: 10, background: '#d9d9d9', borderRadius: 2, marginRight: 4 }} />
+                  Within 15 miles ({surveyor.coverage.filter(c => c.distance_band !== '25').length})
+                </Text>
+                <Text type="secondary" style={{ fontSize: 12 }}>
+                  <span style={{ display: 'inline-block', width: 10, height: 10, background: '#8753A8', borderRadius: 2, marginRight: 4, opacity: 0.4 }} />
+                  Within 25 miles ({surveyor.coverage.filter(c => c.distance_band === '25').length})
+                </Text>
+              </div>
+            )}
           </div>
         )}
       </SectionCard>
 
       {/* Cannot Work For */}
       <SectionCard title="Cannot Work For">
-        <Space wrap size={4}>
-          {surveyor.excluded_client_names.length > 0
-            ? surveyor.excluded_client_names.map(n => <Tag key={n} color="red">{n}</Tag>)
-            : <Text type="secondary">No exclusions</Text>}
-        </Space>
+        {exclusionsEditing ? (
+          <Select
+            mode="multiple"
+            autoFocus
+            defaultOpen
+            optionFilterProp="label"
+            placeholder="Select clients"
+            style={{ width: '100%' }}
+            value={exclusionsValue}
+            options={clients.map(c => ({ value: c.id, label: c.company_name }))}
+            onChange={setExclusionsValue}
+            onDropdownVisibleChange={open => { if (!open) saveExclusions() }}
+          />
+        ) : (
+          <div onDoubleClick={() => setExclusionsEditing(true)} style={{ cursor: 'default' }} title="Double-click to edit">
+            <Space wrap size={4}>
+              {surveyor.excluded_client_names.length > 0
+                ? surveyor.excluded_client_names.map(n => <Tag key={n} color="red">{n}</Tag>)
+                : <Text type="secondary">No exclusions</Text>}
+            </Space>
+          </div>
+        )}
       </SectionCard>
 
       {/* Notes — inline editable */}

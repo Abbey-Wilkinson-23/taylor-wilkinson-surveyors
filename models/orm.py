@@ -148,11 +148,11 @@ class Surveyor(Base):
 
     id                    = Column(Integer, primary_key=True)
     surveyor_number       = Column(Text, unique=True)
-    first_name            = Column(Text, nullable=False)
-    last_name             = Column(Text, nullable=False)
+    first_name            = Column(Text, nullable=True)
+    last_name             = Column(Text, nullable=True)
     company_name          = Column(Text)
     email                 = Column(Text, nullable=False)
-    phone                 = Column(Text, nullable=False)   # work phone
+    phone                 = Column(Text, nullable=True)   # work phone
     personal_phone        = Column(Text)
     rics_number           = Column(Text)
     pi_cover_amount       = Column(Numeric(12, 2))

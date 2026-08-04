@@ -121,7 +121,7 @@ export default function Surveyors() {
 
   const columns = [
     { title: 'No.', dataIndex: 'surveyor_number', key: 'surveyor_number', width: 60, render: v => v || '—' },
-    { title: 'Name', key: 'name', render: (_, r) => `${r.first_name} ${r.last_name}` },
+    { title: 'Name', key: 'name', render: (_, r) => [r.first_name, r.last_name].filter(Boolean).join(' ') || '—' },
     { title: 'Company', dataIndex: 'company_name', key: 'company_name', render: v => v || '—' },
     { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Work Phone', dataIndex: 'phone', key: 'phone' },
@@ -260,10 +260,10 @@ export default function Surveyors() {
             extra="Your internal reference number for this surveyor">
             <Input />
           </Form.Item>
-          <Form.Item name="first_name" label="First Name" rules={[{ required: true }]}>
+          <Form.Item name="first_name" label="First Name">
             <Input />
           </Form.Item>
-          <Form.Item name="last_name" label="Last Name" rules={[{ required: true }]}>
+          <Form.Item name="last_name" label="Last Name">
             <Input />
           </Form.Item>
           <Form.Item name="company_name" label="Company Name">
@@ -272,7 +272,7 @@ export default function Surveyors() {
           <Form.Item name="email" label="Email" rules={[{ required: true }]}>
             <Input />
           </Form.Item>
-          <Form.Item name="phone" label="Work Phone" rules={[{ required: true }]}>
+          <Form.Item name="phone" label="Work Phone">
             <Input />
           </Form.Item>
         </Form>
