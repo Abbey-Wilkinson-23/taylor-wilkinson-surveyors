@@ -7,6 +7,7 @@ import Instructions from './pages/Instructions'
 import NewInstruction from './pages/NewInstruction'
 import InstructionDetail from './pages/InstructionDetail'
 import Clients from './pages/Clients'
+import ClientDetail from './pages/ClientDetail'
 import Surveyors from './pages/Surveyors'
 import SurveyorDetail from './pages/SurveyorDetail'
 import SurveyTypes from './pages/SurveyTypes'
@@ -54,6 +55,7 @@ function AppRoutes() {
       <Route path="/instructions/new" element={<ProtectedRoute><AppLayout><NewInstruction /></AppLayout></ProtectedRoute>} />
       <Route path="/instructions/:id" element={<ProtectedRoute><AppLayout><InstructionDetail /></AppLayout></ProtectedRoute>} />
       <Route path="/clients" element={<ProtectedRoute><AppLayout><Clients /></AppLayout></ProtectedRoute>} />
+      <Route path="/clients/:id" element={<ProtectedRoute><AppLayout><ClientDetail /></AppLayout></ProtectedRoute>} />
       <Route path="/surveyors" element={<ProtectedRoute><AppLayout><Surveyors /></AppLayout></ProtectedRoute>} />
       <Route path="/surveyors/:id" element={<ProtectedRoute><AppLayout><SurveyorDetail /></AppLayout></ProtectedRoute>} />
       <Route path="/survey-types" element={<ProtectedRoute><AppLayout><SurveyTypes /></AppLayout></ProtectedRoute>} />
