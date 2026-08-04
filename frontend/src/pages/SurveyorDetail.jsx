@@ -2,9 +2,10 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import {
   Card, Descriptions, Tag, Button, Space, Divider, Form,
-  Input, Select, Row, Col, Typography, message, Spin, Popconfirm,
+  Input, Select, DatePicker, Row, Col, Typography, message, Spin, Popconfirm,
 } from 'antd'
 import { ArrowLeftOutlined, EditOutlined, SaveOutlined, CloseOutlined, DeleteOutlined, UndoOutlined } from '@ant-design/icons'
+import dayjs from 'dayjs'
 import {
   getSurveyor, updateSurveyor, deleteSurveyor, restoreSurveyor,
   getSurveyTypes, getClients,
@@ -22,6 +23,20 @@ function formatPiCover(v) {
   if (n >= 1_000 && n % 1_000 === 0) return `£${n / 1_000}K`
   if (n >= 1_000) return `£${(n / 1_000).toFixed(1).replace(/\.0$/, '')}K`
   return `£${n.toFixed(2)}`
+}
+
+function PiExpiryDate({ date }) {
+  if (!date) return <Text type="secondary">—</Text>
+  const d = dayjs(date)
+  const daysLeft = d.diff(dayjs().startOf('day'), 'day')
+  const color = daysLeft < 0 ? '#cf1322' : daysLeft <= 30 ? '#d4780a' : undefined
+  return (
+    <Text style={color ? { color, fontWeight: 600 } : undefined}>
+      {d.format('DD/MM/YYYY')}
+      {daysLeft < 0 && ' (expired)'}
+      {daysLeft >= 0 && daysLeft <= 30 && ` (${daysLeft}d left)`}
+    </Text>
+  )
 }
 
 const FIRM_TYPE_LABELS = {
@@ -109,6 +124,7 @@ export default function SurveyorDetail() {
         personal_phone: data.personal_phone,
         qualification: data.qualification,
         pi_cover_amount: data.pi_cover_amount,
+        pi_expiry_date: data.pi_expiry_date ? dayjs(data.pi_expiry_date) : null,
         office_address_line_1: data.office_address_line_1,
         office_address_line_2: data.office_address_line_2,
         office_town: data.office_town,
@@ -155,6 +171,7 @@ export default function SurveyorDetail() {
         personal_phone: values.personal_phone || null,
         qualification: values.qualification || null,
         pi_cover_amount: values.pi_cover_amount || null,
+        pi_expiry_date: values.pi_expiry_date ? values.pi_expiry_date.format('YYYY-MM-DD') : null,
         office_address_line_1: values.office_address_line_1 || null,
         office_address_line_2: values.office_address_line_2 || null,
         office_town: values.office_town || null,
@@ -286,6 +303,11 @@ export default function SurveyorDetail() {
               <Col span={8}>
                 <Form.Item name="pi_cover_amount" label="PI Cover Amount">
                   <Input type="number" min={0} step="0.01" prefix="£" />
+                </Form.Item>
+              </Col>
+              <Col span={8}>
+                <Form.Item name="pi_expiry_date" label="PI Expiry Date">
+                  <DatePicker format="DD/MM/YYYY" style={{ width: '100%' }} />
                 </Form.Item>
               </Col>
             </Row>
@@ -425,6 +447,7 @@ export default function SurveyorDetail() {
               <Descriptions.Item label="Company">{surveyor.company_name || '—'}</Descriptions.Item>
               <Descriptions.Item label="Firm Type">{FIRM_TYPE_LABELS[surveyor.firm_type] || '—'}</Descriptions.Item>
               <Descriptions.Item label="No. of Partners">{surveyor.num_partners ?? '—'}</Descriptions.Item>
+              <Descriptions.Item label="PI Expiry"><PiExpiryDate date={surveyor.pi_expiry_date} /></Descriptions.Item>
             </Descriptions>
           </SectionCard>
         </Col>

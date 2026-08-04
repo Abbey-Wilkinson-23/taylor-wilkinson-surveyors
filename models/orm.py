@@ -156,6 +156,7 @@ class Surveyor(Base):
     personal_phone        = Column(Text)
     rics_number           = Column(Text)
     pi_cover_amount       = Column(Numeric(12, 2))
+    pi_expiry_date        = Column(Date, nullable=True)
     office_address_line_1 = Column(Text)
     office_address_line_2 = Column(Text)
     office_town           = Column(Text)

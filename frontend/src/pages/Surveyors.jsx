@@ -1,12 +1,23 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, Popconfirm, message, Select, Typography
+  Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, Popconfirm, message, Select, Typography, DatePicker
 } from 'antd'
 import { PlusOutlined, DeleteOutlined, UndoOutlined, SearchOutlined } from '@ant-design/icons'
+import dayjs from 'dayjs'
 import { getSurveyors, createSurveyor, deleteSurveyor, restoreSurveyor } from '../api/client'
 
 const { Text } = Typography
+const { RangePicker } = DatePicker
+
+function PiExpiryTag({ date }) {
+  if (!date) return <Text type="secondary">—</Text>
+  const d = dayjs(date)
+  const daysLeft = d.diff(dayjs().startOf('day'), 'day')
+  if (daysLeft < 0) return <Tag color="red">{d.format('DD/MM/YYYY')} (expired)</Tag>
+  if (daysLeft <= 30) return <Tag color="orange">{d.format('DD/MM/YYYY')} ({daysLeft}d)</Tag>
+  return <span>{d.format('DD/MM/YYYY')}</span>
+}
 
 // Sort outward codes alphabetically by letter prefix, then numerically by
 // the number suffix (so CA2 comes before CA10, not after).
@@ -37,6 +48,7 @@ export default function Surveyors() {
   const [showDeleted, setShowDeleted] = useState(false)
   const [search, setSearch] = useState('')
   const [postcodeFilter, setPostcodeFilter] = useState(null)
+  const [piExpiryRange, setPiExpiryRange] = useState(null)
   const [createModalOpen, setCreateModalOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [pageSize, setPageSize] = useState(20)
@@ -103,6 +115,11 @@ export default function Surveyors() {
 
   const filtered = surveyors.filter(s => {
     if (postcodeFilter && !coverageCodes(s).includes(postcodeFilter)) return false
+    if (piExpiryRange) {
+      if (!s.pi_expiry_date) return false
+      const d = dayjs(s.pi_expiry_date)
+      if (d.isBefore(piExpiryRange[0], 'day') || d.isAfter(piExpiryRange[1], 'day')) return false
+    }
     if (!search) return true
     const q = search.toLowerCase()
     return [
@@ -125,6 +142,17 @@ export default function Surveyors() {
       dataIndex: 'pi_cover_amount',
       key: 'pi_cover_amount',
       render: formatPiCover,
+    },
+    {
+      title: 'PI Expiry',
+      dataIndex: 'pi_expiry_date',
+      key: 'pi_expiry_date',
+      sorter: (a, b) => {
+        if (!a.pi_expiry_date) return 1
+        if (!b.pi_expiry_date) return -1
+        return dayjs(a.pi_expiry_date).unix() - dayjs(b.pi_expiry_date).unix()
+      },
+      render: v => <PiExpiryTag date={v} />,
     },
     {
       title: 'Coverage',
@@ -208,6 +236,17 @@ export default function Surveyors() {
           value={postcodeFilter}
           onChange={v => setPostcodeFilter(v || null)}
           options={allPostcodes.map(c => ({ value: c, label: c }))}
+        />
+        <RangePicker
+          format="DD/MM/YYYY"
+          placeholder={['PI expiring from', 'to']}
+          value={piExpiryRange}
+          onChange={setPiExpiryRange}
+          presets={[
+            { label: 'Next Week', value: [dayjs(), dayjs().add(1, 'week')] },
+            { label: 'Next Month', value: [dayjs(), dayjs().add(1, 'month')] },
+            { label: 'Already Expired', value: [dayjs('1970-01-01'), dayjs().subtract(1, 'day')] },
+          ]}
         />
       </Space>
       <Table

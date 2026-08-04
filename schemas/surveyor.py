@@ -1,3 +1,4 @@
+from datetime import date
 from decimal import Decimal
 from pydantic import BaseModel, Field, model_validator
 
@@ -17,6 +18,7 @@ class SurveyorOut(BaseModel):
     personal_phone:       str | None
     qualification:        str | None = None
     pi_cover_amount:      Decimal | None
+    pi_expiry_date:       date | None = None
     firm_type:            str | None
     is_active:            bool
     coverage:             list[dict] = []
@@ -30,7 +32,7 @@ class SurveyorOut(BaseModel):
             return obj
         data = {f: getattr(obj, f, None) for f in [
             'id', 'surveyor_number', 'first_name', 'last_name', 'company_name',
-            'email', 'phone', 'personal_phone', 'pi_cover_amount', 'firm_type', 'is_active',
+            'email', 'phone', 'personal_phone', 'pi_cover_amount', 'pi_expiry_date', 'firm_type', 'is_active',
         ]}
         data['qualification'] = getattr(obj, 'rics_number', None)
         cov = getattr(obj, 'coverage', None) or []
@@ -53,6 +55,7 @@ class SurveyorDetail(BaseModel):
     personal_phone:       str | None
     qualification:        str | None
     pi_cover_amount:      Decimal | None
+    pi_expiry_date:       date | None
     office_address_line_1: str | None
     office_address_line_2: str | None
     office_town:          str | None
@@ -79,7 +82,7 @@ class SurveyorDetail(BaseModel):
             return obj
         flat_fields = [
             'id', 'surveyor_number', 'first_name', 'last_name', 'company_name',
-            'email', 'phone', 'personal_phone', 'pi_cover_amount',
+            'email', 'phone', 'personal_phone', 'pi_cover_amount', 'pi_expiry_date',
             'office_address_line_1', 'office_address_line_2', 'office_town',
             'office_county', 'office_postcode', 'base_postcode', 'work_types', 'fee_cat', 'firm_type', 'num_partners',
             'notes', 'is_active',
@@ -110,6 +113,7 @@ class SurveyorCreate(BaseModel):
     personal_phone:       str | None = None
     qualification:        str | None = None
     pi_cover_amount:      Decimal | None = None
+    pi_expiry_date:       date | None = None
     office_address_line_1: str | None = None
     office_address_line_2: str | None = None
     office_town:          str | None = None
@@ -133,6 +137,7 @@ class SurveyorUpdate(BaseModel):
     personal_phone:       str | None = None
     qualification:        str | None = None
     pi_cover_amount:      Decimal | None = None
+    pi_expiry_date:       date | None = None
     office_address_line_1: str | None = None
     office_address_line_2: str | None = None
     office_town:          str | None = None
