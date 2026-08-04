@@ -20,6 +20,7 @@ class SurveyorOut(BaseModel):
     pi_cover_amount:      Decimal | None
     pi_expiry_date:       date | None = None
     firm_type:            str | None
+    notes:                str | None = None
     is_active:            bool
     coverage:             list[dict] = []
 
@@ -32,7 +33,7 @@ class SurveyorOut(BaseModel):
             return obj
         data = {f: getattr(obj, f, None) for f in [
             'id', 'surveyor_number', 'first_name', 'last_name', 'company_name',
-            'email', 'phone', 'personal_phone', 'pi_cover_amount', 'pi_expiry_date', 'firm_type', 'is_active',
+            'email', 'phone', 'personal_phone', 'pi_cover_amount', 'pi_expiry_date', 'firm_type', 'notes', 'is_active',
         ]}
         data['qualification'] = getattr(obj, 'rics_number', None)
         cov = getattr(obj, 'coverage', None) or []

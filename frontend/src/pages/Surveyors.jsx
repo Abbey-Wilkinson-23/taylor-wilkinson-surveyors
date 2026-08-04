@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, Popconfirm, message, Select, Typography, DatePicker
+  Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, message, Select, Typography, DatePicker
 } from 'antd'
-import { PlusOutlined, DeleteOutlined, UndoOutlined, SearchOutlined } from '@ant-design/icons'
+import { PlusOutlined, UndoOutlined, SearchOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
-import { getSurveyors, createSurveyor, deleteSurveyor, restoreSurveyor } from '../api/client'
+import { getSurveyors, createSurveyor, restoreSurveyor } from '../api/client'
 
 const { Text } = Typography
 const { RangePicker } = DatePicker
@@ -83,17 +83,6 @@ export default function Surveyors() {
       message.error('Failed to add surveyor')
     } finally {
       setSubmitting(false)
-    }
-  }
-
-  const handleDelete = async (e, id) => {
-    e.stopPropagation()
-    try {
-      await deleteSurveyor(id)
-      message.success('Surveyor deleted')
-      fetchData()
-    } catch {
-      message.error('Failed to delete surveyor')
     }
   }
 
@@ -178,27 +167,17 @@ export default function Surveyors() {
       },
     },
     {
-      title: 'Status',
-      dataIndex: 'is_active',
-      key: 'is_active',
-      render: (v) => v ? <Tag color="green">Active</Tag> : <Tag color="red">Deleted</Tag>,
+      title: 'Notes',
+      dataIndex: 'notes',
+      key: 'notes',
+      render: v => v ? <Text ellipsis={{ tooltip: v }} style={{ maxWidth: 220, display: 'inline-block' }}>{v}</Text> : <Text type="secondary">—</Text>,
     },
     {
       title: '',
       key: 'actions',
       render: (_, record) => (
         <Space onClick={e => e.stopPropagation()}>
-          {record.is_active ? (
-            <Popconfirm
-              title="Delete this surveyor?"
-              description="They won't appear in the system unless you filter by deleted."
-              onConfirm={(e) => handleDelete(e || { stopPropagation: () => {} }, record.id)}
-              okText="Delete"
-              okButtonProps={{ danger: true }}
-            >
-              <Button size="small" danger icon={<DeleteOutlined />} onClick={e => e.stopPropagation()}>Delete</Button>
-            </Popconfirm>
-          ) : (
+          {!record.is_active && (
             <Button size="small" icon={<UndoOutlined />} onClick={(e) => handleRestore(e, record.id)}>
               Restore
             </Button>
