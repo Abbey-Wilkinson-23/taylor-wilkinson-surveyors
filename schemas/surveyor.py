@@ -73,6 +73,7 @@ class SurveyorDetail(BaseModel):
     coverage:             list[dict]
     excluded_client_ids:         list[int]
     excluded_client_names:       list[str]
+    alternative_postcodes:       list[dict]
 
     model_config = {"from_attributes": True}
 
@@ -92,10 +93,14 @@ class SurveyorDetail(BaseModel):
         data['qualification'] = getattr(obj, 'rics_number', None)
         cov = getattr(obj, 'coverage', None) or []
         excls = getattr(obj, 'client_exclusions', None) or []
+        alt_pcs = getattr(obj, 'alternative_postcodes', None) or []
         data['coverage'] = [{'code': c.outward_code, 'distance_band': c.distance_band} for c in cov]
         data['excluded_client_ids'] = [e.client_id for e in excls]
         data['excluded_client_names'] = [
             e.client.company_name for e in excls if e.client
+        ]
+        data['alternative_postcodes'] = [
+            {'id': p.id, 'postcode': p.postcode, 'type': p.type} for p in alt_pcs
         ]
         return data
 
@@ -150,6 +155,15 @@ class SurveyorUpdate(BaseModel):
     firm_type:            str | None = None
     num_partners:         int | None = None
     notes:                str | None = None
+
+
+class AlternativePostcodeEntry(BaseModel):
+    postcode: str
+    type:     str | None = None   # 'home' | 'work'
+
+
+class AlternativePostcodesPayload(BaseModel):
+    postcodes: list[AlternativePostcodeEntry]
 
 
 # ---------------------------------------------------------------------------

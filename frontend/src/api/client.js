@@ -44,6 +44,7 @@ export const deleteSurveyor = (id) => api.delete(`/surveyors/${id}`)
 export const restoreSurveyor = (id) => api.post(`/surveyors/${id}/restore`).then(r => r.data)
 export const setSurveyorCoverage = (id, coverage) => api.put(`/surveyors/${id}/coverage`, { coverage }).then(r => r.data)
 export const setSurveyorClientExclusions = (id, client_ids) => api.put(`/surveyors/${id}/client-exclusions`, { client_ids }).then(r => r.data)
+export const setSurveyorAlternativePostcodes = (id, postcodes) => api.put(`/surveyors/${id}/alternative-postcodes`, { postcodes }).then(r => r.data)
 
 // --- Survey Types ---
 export const getSurveyTypes = (activeOnly = true) => api.get('/survey-types/', { params: { active_only: activeOnly } }).then(r => r.data)

@@ -5,14 +5,20 @@ from sqlalchemy import select, text
 from sqlalchemy.orm import selectinload
 
 from core.database import get_db
-from models.orm import Client, PostcodeSurveyor, Surveyor, SurveyorClientExclusion, SurveyorCoverage
-from schemas.surveyor import SurveyorCreate, SurveyorDetail, SurveyorOut, SurveyorUpdate
+from models.orm import (
+    Client, PostcodeSurveyor, Surveyor, SurveyorAlternativePostcode,
+    SurveyorClientExclusion, SurveyorCoverage,
+)
+from schemas.surveyor import (
+    AlternativePostcodesPayload, SurveyorCreate, SurveyorDetail, SurveyorOut, SurveyorUpdate,
+)
 
 router = APIRouter(prefix="/surveyors", tags=["surveyors"])
 
 DETAIL_OPTS = [
     selectinload(Surveyor.coverage),
     selectinload(Surveyor.client_exclusions).selectinload(SurveyorClientExclusion.client),
+    selectinload(Surveyor.alternative_postcodes),
 ]
 
 
@@ -158,5 +164,19 @@ async def set_client_exclusions(id: int, payload: ClientExclusionsPayload, db: A
     await db.flush()
     for client_id in set(payload.client_ids):
         db.add(SurveyorClientExclusion(surveyor_id=id, client_id=client_id))
+    await db.commit()
+    return await get_surveyor_or_404(id, db)
+
+
+@router.put("/{id}/alternative-postcodes", response_model=SurveyorDetail)
+async def set_alternative_postcodes(id: int, payload: AlternativePostcodesPayload, db: AsyncSession = Depends(get_db)):
+    surveyor = await get_surveyor_or_404(id, db)
+    for p in list(surveyor.alternative_postcodes):
+        await db.delete(p)
+    await db.flush()
+    for entry in payload.postcodes:
+        postcode = entry.postcode.strip().upper()
+        if postcode:
+            db.add(SurveyorAlternativePostcode(surveyor_id=id, postcode=postcode, type=entry.type or None))
     await db.commit()
     return await get_surveyor_or_404(id, db)

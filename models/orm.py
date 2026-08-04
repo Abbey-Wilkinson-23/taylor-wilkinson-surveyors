@@ -171,8 +171,20 @@ class Surveyor(Base):
     is_active             = Column(Boolean, nullable=False, default=True)
     created_at            = Column(TIMESTAMP(timezone=True), server_default=func.now())
 
-    coverage          = relationship("SurveyorCoverage", back_populates="surveyor", cascade="all, delete-orphan")
-    client_exclusions = relationship("SurveyorClientExclusion", back_populates="surveyor", cascade="all, delete-orphan")
+    coverage              = relationship("SurveyorCoverage", back_populates="surveyor", cascade="all, delete-orphan")
+    client_exclusions     = relationship("SurveyorClientExclusion", back_populates="surveyor", cascade="all, delete-orphan")
+    alternative_postcodes = relationship("SurveyorAlternativePostcode", back_populates="surveyor", cascade="all, delete-orphan")
+
+
+class SurveyorAlternativePostcode(Base):
+    __tablename__ = "surveyor_alternative_postcodes"
+
+    id          = Column(Integer, primary_key=True)
+    surveyor_id = Column(Integer, ForeignKey("surveyors.id"), nullable=False)
+    postcode    = Column(Text, nullable=False)
+    type        = Column(Text, nullable=True)   # 'home' | 'work'
+
+    surveyor    = relationship("Surveyor", back_populates="alternative_postcodes")
 
 
 class SurveyorCoverage(Base):

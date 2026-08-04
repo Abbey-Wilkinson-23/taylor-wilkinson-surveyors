@@ -4,14 +4,25 @@ import {
   Card, Descriptions, Tag, Button, Space,
   Input, Select, DatePicker, Row, Col, Typography, message, Spin, Popconfirm,
 } from 'antd'
-import { ArrowLeftOutlined, DeleteOutlined, UndoOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, DeleteOutlined, PlusOutlined, UndoOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
 import {
   getSurveyor, updateSurveyor, deleteSurveyor, restoreSurveyor,
   getSurveyTypes, getClients,
-  setSurveyorCoverage, setSurveyorClientExclusions,
+  setSurveyorCoverage, setSurveyorClientExclusions, setSurveyorAlternativePostcodes,
   getPostcodeFeeTypes,
 } from '../api/client'
+
+// Save/exit only once focus leaves the whole container, not when moving
+// between fields inside it (e.g. two boxes, or a row's inputs).
+function onContainerBlur(saveFn) {
+  return (e) => {
+    const container = e.currentTarget
+    setTimeout(() => {
+      if (!container.contains(document.activeElement)) saveFn()
+    }, 0)
+  }
+}
 
 const { Text, Title } = Typography
 
@@ -146,6 +157,10 @@ export default function SurveyorDetail() {
   const [exclusionsEditing, setExclusionsEditing] = useState(false)
   const [exclusionsValue, setExclusionsValue] = useState([])
 
+  // Alternative base postcodes
+  const [altPostcodesEditing, setAltPostcodesEditing] = useState(false)
+  const [altPostcodesValue, setAltPostcodesValue] = useState([])
+
   const load = async () => {
     setLoading(true)
     try {
@@ -165,6 +180,11 @@ export default function SurveyorDetail() {
           .map(c => c.code)
       )
       setExclusionsValue(data.excluded_client_ids)
+      setAltPostcodesValue(
+        data.alternative_postcodes.length > 0
+          ? data.alternative_postcodes.map(p => ({ postcode: p.postcode, type: p.type || undefined }))
+          : [{ postcode: '', type: undefined }]
+      )
     } finally {
       setLoading(false)
     }
@@ -249,6 +269,29 @@ export default function SurveyorDetail() {
     try {
       const updated = await setSurveyorClientExclusions(id, exclusionsValue || [])
       setSurveyor(updated)
+    } catch {
+      message.error('Failed to save')
+    }
+  }
+
+  const addAltPostcodeRow = () => setAltPostcodesValue(prev => [...prev, { postcode: '', type: undefined }])
+  const updateAltPostcodeRow = (idx, field, value) =>
+    setAltPostcodesValue(prev => prev.map((p, i) => i === idx ? { ...p, [field]: value } : p))
+  const removeAltPostcodeRow = (idx) => setAltPostcodesValue(prev => prev.filter((_, i) => i !== idx))
+
+  const saveAltPostcodes = async () => {
+    setAltPostcodesEditing(false)
+    try {
+      const postcodes = altPostcodesValue
+        .filter(p => p.postcode && p.postcode.trim())
+        .map(p => ({ postcode: p.postcode.trim().toUpperCase(), type: p.type || null }))
+      const updated = await setSurveyorAlternativePostcodes(id, postcodes)
+      setSurveyor(updated)
+      setAltPostcodesValue(
+        updated.alternative_postcodes.length > 0
+          ? updated.alternative_postcodes.map(p => ({ postcode: p.postcode, type: p.type || undefined }))
+          : [{ postcode: '', type: undefined }]
+      )
     } catch {
       message.error('Failed to save')
     }
@@ -445,6 +488,53 @@ export default function SurveyorDetail() {
             {textField('base_postcode', surveyor.base_postcode, surveyor.base_postcode, { style: { width: 140, textTransform: 'uppercase' }, placeholder: 'e.g. EH1 1AB' })}
           </Descriptions.Item>
         </Descriptions>
+
+        <div style={{ marginTop: 12 }}>
+          <Text type="secondary" style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.05em', display: 'block', marginBottom: 6 }}>
+            Alternative Base Postcodes
+          </Text>
+          {altPostcodesEditing ? (
+            <div onBlur={onContainerBlur(saveAltPostcodes)}>
+              {altPostcodesValue.map((p, idx) => (
+                <Space key={idx} align="baseline" style={{ display: 'flex', marginBottom: 8 }}>
+                  <Input
+                    size="small"
+                    autoFocus={idx === 0}
+                    placeholder="e.g. EH1 1AB"
+                    style={{ width: 140, textTransform: 'uppercase' }}
+                    value={p.postcode}
+                    onChange={e => updateAltPostcodeRow(idx, 'postcode', e.target.value)}
+                  />
+                  <Select
+                    size="small"
+                    allowClear
+                    placeholder="Home / Work"
+                    style={{ width: 110 }}
+                    value={p.type}
+                    onChange={v => updateAltPostcodeRow(idx, 'type', v)}
+                    options={[{ value: 'home', label: 'Home' }, { value: 'work', label: 'Work' }]}
+                  />
+                  {altPostcodesValue.length > 1 && (
+                    <Button type="text" size="small" danger icon={<DeleteOutlined />} onClick={() => removeAltPostcodeRow(idx)} />
+                  )}
+                </Space>
+              ))}
+              <Button type="dashed" size="small" icon={<PlusOutlined />} onClick={addAltPostcodeRow}>
+                Add Postcode
+              </Button>
+            </div>
+          ) : (
+            <div onDoubleClick={() => setAltPostcodesEditing(true)} style={{ cursor: 'default' }} title="Double-click to edit">
+              <Space wrap size={4}>
+                {surveyor.alternative_postcodes.length > 0
+                  ? surveyor.alternative_postcodes.map(p => (
+                    <Tag key={p.id}>{p.postcode}{p.type ? ` (${p.type === 'home' ? 'Home' : 'Work'})` : ''}</Tag>
+                  ))
+                  : <Text type="secondary">None set</Text>}
+              </Space>
+            </div>
+          )}
+        </div>
       </SectionCard>
 
       {/* Work Types + Fee Category */}
@@ -517,18 +607,7 @@ export default function SurveyorDetail() {
       {/* Coverage */}
       <SectionCard title="Coverage Postcodes">
         {coverageEditing ? (
-          <div
-            onBlur={e => {
-              // Only save/exit once focus leaves both boxes — not when moving
-              // from the 15-mile box into the 25-mile box, or clicking a tag's
-              // remove icon (relatedTarget is unreliable there, so check after
-              // the browser settles focus instead).
-              const container = e.currentTarget
-              setTimeout(() => {
-                if (!container.contains(document.activeElement)) saveCoverage()
-              }, 0)
-            }}
-          >
+          <div onBlur={onContainerBlur(saveCoverage)}>
             <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 15 miles</Text>
             <Select
               mode="tags"
