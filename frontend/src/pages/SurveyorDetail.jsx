@@ -517,7 +517,18 @@ export default function SurveyorDetail() {
       {/* Coverage */}
       <SectionCard title="Coverage Postcodes">
         {coverageEditing ? (
-          <div>
+          <div
+            onBlur={e => {
+              // Only save/exit once focus leaves both boxes — not when moving
+              // from the 15-mile box into the 25-mile box, or clicking a tag's
+              // remove icon (relatedTarget is unreliable there, so check after
+              // the browser settles focus instead).
+              const container = e.currentTarget
+              setTimeout(() => {
+                if (!container.contains(document.activeElement)) saveCoverage()
+              }, 0)
+            }}
+          >
             <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 15 miles</Text>
             <Select
               mode="tags"
@@ -528,7 +539,6 @@ export default function SurveyorDetail() {
               value={coverage15Value}
               onChange={setCoverage15Value}
               options={[]}
-              onBlur={saveCoverage}
             />
             <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 25 miles (over 15)</Text>
             <Select
@@ -539,7 +549,6 @@ export default function SurveyorDetail() {
               value={coverage25Value}
               onChange={setCoverage25Value}
               options={[]}
-              onBlur={saveCoverage}
             />
           </div>
         ) : (
