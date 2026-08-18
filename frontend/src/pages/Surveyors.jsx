@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
-  Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, message, Select, Typography, DatePicker
+  Table, Button, Modal, Form, Input, Card, Tag, Space, Switch, message, Typography, DatePicker
 } from 'antd'
 import { PlusOutlined, UndoOutlined, SearchOutlined } from '@ant-design/icons'
 import dayjs from 'dayjs'
@@ -29,6 +29,31 @@ function compareOutwardCodes(a, b) {
     return parseInt(pa[2], 10) - parseInt(pb[2], 10)
   }
   return a.localeCompare(b)
+}
+
+// null/undefined = distance unknown (no members-book source), sorts last
+const BAND_ORDER = { '15': 0, '25': 1, '25+': 2 }
+const bandRank = (b) => BAND_ORDER[b] ?? 3
+
+function bandStyle(band) {
+  if (band === '25') return { color: '#8753A8', borderColor: '#8753A8' }
+  if (band === '25+') return { color: '#cf1322', borderColor: '#cf1322' }
+  if (band === '15') return undefined
+  return { color: '#999', borderColor: '#d9d9d9', borderStyle: 'dashed' } // unknown
+}
+
+const ALL_MARKER_RE = /^([A-Z]{1,2}) - ALL \(check distance\)$/
+
+// Does this surveyor cover the given postcode, either directly or via an
+// "AREA - ALL (check distance)" marker for that postcode's area?
+function coversPostcode(surveyor, query) {
+  if (!query) return true
+  const area = query.match(/^[A-Z]{1,2}/)?.[0]
+  return (surveyor.coverage || []).some(c => {
+    if (c.code === query) return true
+    const m = c.code.match(ALL_MARKER_RE)
+    return m ? m[1] === area : false
+  })
 }
 
 function formatPiCover(v) {
@@ -100,10 +125,8 @@ export default function Surveyors() {
   // coverage is [{code, distance_band}]
   const coverageCodes = (s) => (s.coverage || []).map(c => c.code)
 
-  const allPostcodes = [...new Set(surveyors.flatMap(coverageCodes))].sort()
-
   const filtered = surveyors.filter(s => {
-    if (postcodeFilter && !coverageCodes(s).includes(postcodeFilter)) return false
+    if (postcodeFilter && !coversPostcode(s, postcodeFilter)) return false
     if (piExpiryRange) {
       if (!s.pi_expiry_date) return false
       const d = dayjs(s.pi_expiry_date)
@@ -149,7 +172,7 @@ export default function Surveyors() {
       render: (_, r) => {
         const codes = [...(r.coverage || [])].sort((a, b) => {
           if (a.distance_band === b.distance_band) return compareOutwardCodes(a.code, b.code)
-          return (a.distance_band === '25' ? 1 : 0) - (b.distance_band === '25' ? 1 : 0)
+          return bandRank(a.distance_band) - bandRank(b.distance_band)
         })
         if (!codes.length) return <Text type="secondary">—</Text>
         const shown = codes.slice(0, 5)
@@ -157,7 +180,7 @@ export default function Surveyors() {
         return (
           <Space wrap size={2}>
             {shown.map(c => (
-              <Tag key={c.code} style={{ marginBottom: 2, color: c.distance_band === '25' ? '#8753A8' : 'inherit', borderColor: c.distance_band === '25' ? '#8753A8' : undefined }}>
+              <Tag key={c.code} style={{ marginBottom: 2, ...bandStyle(c.distance_band) }}>
                 {c.code}
               </Tag>
             ))}
@@ -207,14 +230,12 @@ export default function Surveyors() {
         </Space>
       </div>
       <Space style={{ marginBottom: 16 }} wrap>
-        <Select
-          placeholder="Filter by postcode"
+        <Input
+          placeholder="Filter by postcode e.g. CA10"
           allowClear
-          showSearch
           style={{ width: 180 }}
-          value={postcodeFilter}
-          onChange={v => setPostcodeFilter(v || null)}
-          options={allPostcodes.map(c => ({ value: c, label: c }))}
+          value={postcodeFilter || ''}
+          onChange={e => setPostcodeFilter(e.target.value.toUpperCase().trim() || null)}
         />
         <RangePicker
           format="DD/MM/YYYY"

@@ -95,19 +95,27 @@ function compareOutwardCodes(a, b) {
   return a.localeCompare(b)
 }
 
+// null/undefined = distance unknown (no members-book source), sorts last
+const BAND_ORDER = { '15': 0, '25': 1, '25+': 2 }
+const bandRank = (b) => BAND_ORDER[b] ?? 3
+
+function bandStyle(band) {
+  if (band === '25') return { color: '#8753A8', borderColor: '#8753A8' }
+  if (band === '25+') return { color: '#cf1322', borderColor: '#cf1322' }
+  if (band === '15') return undefined
+  return { color: '#999', borderColor: '#d9d9d9', borderStyle: 'dashed' } // unknown
+}
+
 function CoverageTags({ coverage }) {
   if (!coverage.length) return <Text type="secondary">None set</Text>
   const sorted = [...coverage].sort((a, b) => {
     if (a.distance_band === b.distance_band) return compareOutwardCodes(a.code, b.code)
-    return (a.distance_band === '25' ? 1 : 0) - (b.distance_band === '25' ? 1 : 0)
+    return bandRank(a.distance_band) - bandRank(b.distance_band)
   })
   return (
     <Space wrap size={4}>
       {sorted.map(c => (
-        <Tag
-          key={c.code}
-          style={c.distance_band === '25' ? { color: '#8753A8', borderColor: '#8753A8' } : undefined}
-        >
+        <Tag key={c.code} style={bandStyle(c.distance_band)}>
           {c.code}
         </Tag>
       ))}
@@ -152,6 +160,8 @@ export default function SurveyorDetail() {
   const [coverageEditing, setCoverageEditing] = useState(false)
   const [coverage15Value, setCoverage15Value] = useState([])
   const [coverage25Value, setCoverage25Value] = useState([])
+  const [coverage25PlusValue, setCoverage25PlusValue] = useState([])
+  const [coverageUnknownValue, setCoverageUnknownValue] = useState([])
 
   // Cannot Work For
   const [exclusionsEditing, setExclusionsEditing] = useState(false)
@@ -167,18 +177,14 @@ export default function SurveyorDetail() {
       const data = await getSurveyor(id)
       setSurveyor(data)
       setNotesValue(data.notes || '')
-      setCoverage15Value(
-        data.coverage
-          .filter(c => c.distance_band === '15' || !c.distance_band)
-          .sort((a, b) => compareOutwardCodes(a.code, b.code))
-          .map(c => c.code)
-      )
-      setCoverage25Value(
-        data.coverage
-          .filter(c => c.distance_band === '25')
-          .sort((a, b) => compareOutwardCodes(a.code, b.code))
-          .map(c => c.code)
-      )
+      const byBand = (band) => data.coverage
+        .filter(c => (band === null ? !c.distance_band : c.distance_band === band))
+        .sort((a, b) => compareOutwardCodes(a.code, b.code))
+        .map(c => c.code)
+      setCoverage15Value(byBand('15'))
+      setCoverage25Value(byBand('25'))
+      setCoverage25PlusValue(byBand('25+'))
+      setCoverageUnknownValue(byBand(null))
       setExclusionsValue(data.excluded_client_ids)
       setAltPostcodesValue(
         data.alternative_postcodes.length > 0
@@ -252,12 +258,20 @@ export default function SurveyorDetail() {
     }
   }
 
+  // "AREA - ALL (check distance)" markers keep their casing; real outward
+  // codes get uppercased.
+  const normalizeCode = (code) => /- ALL \(check distance\)$/i.test(code) ? code : code.toUpperCase()
+
   const saveCoverage = async () => {
     setCoverageEditing(false)
     try {
-      const coverage15 = coverage15Value.map(code => ({ code: code.toUpperCase(), distance_band: '15' }))
-      const coverage25 = coverage25Value.map(code => ({ code: code.toUpperCase(), distance_band: '25' }))
-      const updated = await setSurveyorCoverage(id, [...coverage15, ...coverage25])
+      const grouped = [
+        ...coverage15Value.map(code => ({ code: normalizeCode(code), distance_band: '15' })),
+        ...coverage25Value.map(code => ({ code: normalizeCode(code), distance_band: '25' })),
+        ...coverage25PlusValue.map(code => ({ code: normalizeCode(code), distance_band: '25+' })),
+        ...coverageUnknownValue.map(code => ({ code: normalizeCode(code), distance_band: null })),
+      ]
+      const updated = await setSurveyorCoverage(id, grouped)
       setSurveyor(updated)
     } catch {
       message.error('Failed to save coverage')
@@ -619,14 +633,36 @@ export default function SurveyorDetail() {
               onChange={setCoverage15Value}
               options={[]}
             />
-            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 25 miles (over 15)</Text>
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Within 15-25 miles</Text>
+            <Select
+              mode="tags"
+              tokenSeparators={[',', ' ']}
+              placeholder="SW1A, E1, B1…"
+              style={{ width: '100%', marginBottom: 12 }}
+              value={coverage25Value}
+              onChange={setCoverage25Value}
+              options={[]}
+            />
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>Over 25 miles</Text>
+            <Select
+              mode="tags"
+              tokenSeparators={[',', ' ']}
+              placeholder="SW1A, E1, B1…"
+              style={{ width: '100%', marginBottom: 12 }}
+              value={coverage25PlusValue}
+              onChange={setCoverage25PlusValue}
+              options={[]}
+            />
+            <Text type="secondary" style={{ fontSize: 12, display: 'block', marginBottom: 4 }}>
+              Distance unknown <Text type="secondary" style={{ fontStyle: 'italic' }}>(no source to confirm — move into a band above once known)</Text>
+            </Text>
             <Select
               mode="tags"
               tokenSeparators={[',', ' ']}
               placeholder="SW1A, E1, B1…"
               style={{ width: '100%' }}
-              value={coverage25Value}
-              onChange={setCoverage25Value}
+              value={coverageUnknownValue}
+              onChange={setCoverageUnknownValue}
               options={[]}
             />
           </div>
@@ -636,14 +672,20 @@ export default function SurveyorDetail() {
               <CoverageTags coverage={surveyor.coverage} />
             </div>
             {surveyor.coverage.length > 0 && (
-              <div style={{ marginTop: 8, display: 'flex', gap: 16 }}>
+              <div style={{ marginTop: 8, display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+                {[
+                  ['15', '#d9d9d9', 'Within 15 miles'],
+                  ['25', '#8753A8', 'Within 15-25 miles'],
+                  ['25+', '#cf1322', 'Over 25 miles'],
+                ].map(([band, color, label]) => (
+                  <Text key={band} type="secondary" style={{ fontSize: 12 }}>
+                    <span style={{ display: 'inline-block', width: 10, height: 10, background: color, borderRadius: 2, marginRight: 4 }} />
+                    {label} ({surveyor.coverage.filter(c => c.distance_band === band).length})
+                  </Text>
+                ))}
                 <Text type="secondary" style={{ fontSize: 12 }}>
-                  <span style={{ display: 'inline-block', width: 10, height: 10, background: '#d9d9d9', borderRadius: 2, marginRight: 4 }} />
-                  Within 15 miles ({surveyor.coverage.filter(c => c.distance_band !== '25').length})
-                </Text>
-                <Text type="secondary" style={{ fontSize: 12 }}>
-                  <span style={{ display: 'inline-block', width: 10, height: 10, background: '#8753A8', borderRadius: 2, marginRight: 4, opacity: 0.4 }} />
-                  Within 25 miles ({surveyor.coverage.filter(c => c.distance_band === '25').length})
+                  <span style={{ display: 'inline-block', width: 10, height: 10, background: '#fff', border: '1px dashed #999', borderRadius: 2, marginRight: 4 }} />
+                  Unknown ({surveyor.coverage.filter(c => !c.distance_band).length})
                 </Text>
               </div>
             )}
