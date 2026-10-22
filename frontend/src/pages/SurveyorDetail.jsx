@@ -227,10 +227,15 @@ export default function SurveyorDetail() {
     } else {
       payload[field] = value !== '' && value != null ? value : null
     }
+    // Show the new value straight away rather than waiting on the API,
+    // and roll back if the save fails.
+    const previous = surveyor
+    setSurveyor(prev => ({ ...prev, ...payload }))
     try {
       const updated = await updateSurveyor(id, payload)
       setSurveyor(updated)
     } catch {
+      setSurveyor(previous)
       message.error('Failed to save')
     }
   }
@@ -247,11 +252,14 @@ export default function SurveyorDetail() {
 
   const handleNotesSave = async () => {
     setNotesSaving(true)
+    const previous = surveyor
+    setSurveyor(prev => ({ ...prev, notes: notesValue || null }))
+    setNotesEditing(false)
     try {
       await updateSurveyor(id, { notes: notesValue || null })
-      setSurveyor(prev => ({ ...prev, notes: notesValue || null }))
-      setNotesEditing(false)
     } catch {
+      setSurveyor(previous)
+      setNotesEditing(true)
       message.error('Failed to save notes')
     } finally {
       setNotesSaving(false)
@@ -264,26 +272,37 @@ export default function SurveyorDetail() {
 
   const saveCoverage = async () => {
     setCoverageEditing(false)
+    const grouped = [
+      ...coverage15Value.map(code => ({ code: normalizeCode(code), distance_band: '15' })),
+      ...coverage25Value.map(code => ({ code: normalizeCode(code), distance_band: '25' })),
+      ...coverage25PlusValue.map(code => ({ code: normalizeCode(code), distance_band: '25+' })),
+      ...coverageUnknownValue.map(code => ({ code: normalizeCode(code), distance_band: null })),
+    ]
+    const previous = surveyor
+    setSurveyor(prev => ({ ...prev, coverage: grouped }))
     try {
-      const grouped = [
-        ...coverage15Value.map(code => ({ code: normalizeCode(code), distance_band: '15' })),
-        ...coverage25Value.map(code => ({ code: normalizeCode(code), distance_band: '25' })),
-        ...coverage25PlusValue.map(code => ({ code: normalizeCode(code), distance_band: '25+' })),
-        ...coverageUnknownValue.map(code => ({ code: normalizeCode(code), distance_band: null })),
-      ]
       const updated = await setSurveyorCoverage(id, grouped)
       setSurveyor(updated)
     } catch {
+      setSurveyor(previous)
       message.error('Failed to save coverage')
     }
   }
 
   const saveExclusions = async () => {
     setExclusionsEditing(false)
+    const ids = exclusionsValue || []
+    const previous = surveyor
+    setSurveyor(prev => ({
+      ...prev,
+      excluded_client_ids: ids,
+      excluded_client_names: ids.map(cid => clients.find(c => c.id === cid)?.company_name).filter(Boolean),
+    }))
     try {
-      const updated = await setSurveyorClientExclusions(id, exclusionsValue || [])
+      const updated = await setSurveyorClientExclusions(id, ids)
       setSurveyor(updated)
     } catch {
+      setSurveyor(previous)
       message.error('Failed to save')
     }
   }
@@ -295,10 +314,12 @@ export default function SurveyorDetail() {
 
   const saveAltPostcodes = async () => {
     setAltPostcodesEditing(false)
+    const postcodes = altPostcodesValue
+      .filter(p => p.postcode && p.postcode.trim())
+      .map(p => ({ postcode: p.postcode.trim().toUpperCase(), type: p.type || null }))
+    const previous = surveyor
+    setSurveyor(prev => ({ ...prev, alternative_postcodes: postcodes }))
     try {
-      const postcodes = altPostcodesValue
-        .filter(p => p.postcode && p.postcode.trim())
-        .map(p => ({ postcode: p.postcode.trim().toUpperCase(), type: p.type || null }))
       const updated = await setSurveyorAlternativePostcodes(id, postcodes)
       setSurveyor(updated)
       setAltPostcodesValue(
@@ -307,6 +328,7 @@ export default function SurveyorDetail() {
           : [{ postcode: '', type: undefined }]
       )
     } catch {
+      setSurveyor(previous)
       message.error('Failed to save')
     }
   }
@@ -542,7 +564,7 @@ export default function SurveyorDetail() {
               <Space wrap size={4}>
                 {surveyor.alternative_postcodes.length > 0
                   ? surveyor.alternative_postcodes.map(p => (
-                    <Tag key={p.id}>{p.postcode}{p.type ? ` (${p.type === 'home' ? 'Home' : 'Work'})` : ''}</Tag>
+                    <Tag key={p.id ?? p.postcode}>{p.postcode}{p.type ? ` (${p.type === 'home' ? 'Home' : 'Work'})` : ''}</Tag>
                   ))
                   : <Text type="secondary">None set</Text>}
               </Space>
